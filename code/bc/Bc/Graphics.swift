@@ -28,6 +28,20 @@ func UIImageFromArray(source: [UInt8], height: Int, width:Int)->UIImage{
     return UIImage(cgImage:BitmapContext!.makeImage()!)
 }
 
+func UIImageFromArray(source: [UInt8], height: Int, width:Int, transformation: (Int,Int,UInt8)->UInt8)->UIImage{
+    let cs = CGColorSpaceCreateDeviceGray()
+    let BitmapContext = CGContext.init(data:nil, width:width, height:height, bitsPerComponent:8, bytesPerRow:width, space:cs, bitmapInfo:CGImageAlphaInfo.none.rawValue)
+    let dataPoiner = UnsafeMutablePointer<UInt8>(OpaquePointer(BitmapContext!.data))
+    var actualcoordinate : Int = 0
+    for x in 0..<height {
+        for y in 0..<width{
+            dataPoiner![actualcoordinate] = transformation(x,y,source[actualcoordinate])
+            actualcoordinate += 1
+        }
+    }
+    return UIImage(cgImage:BitmapContext!.makeImage()!)
+}
+
 func ImagePaste( Background: inout [UInt8],BackgroundWidth:Int,BackgroundHeight:Int,Image:[UInt8],Width:Int,Height:Int,Top:Int,Left:Int,Alpha:[Double]){
     for i in 0..<Width {
         if(i+Left >= BackgroundWidth){break}

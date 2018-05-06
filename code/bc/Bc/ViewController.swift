@@ -103,7 +103,7 @@ class ViewController: UIViewController {
         //MainImg.addGestureRecognizer(tap)
         //MainImg.isUserInteractionEnabled = true
         // Do any additional setup after loading the view, typically from a nib.
-        //MainImg.image = Img
+        MainImg.image = Img
         print("Print works")
         NewBackground()
     }
@@ -188,4 +188,4 @@ class ViewController: UIViewController {
 
 
         
-//var Img = UIImage()
+var Img = UIImage()
