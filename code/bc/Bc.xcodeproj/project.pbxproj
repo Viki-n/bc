@@ -13,7 +13,7 @@
 		38DC0A7B20332E2400F56EA6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38DC0A7920332E2400F56EA6 /* Main.storyboard */; };
 		38DC0A7D20332E2400F56EA6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38DC0A7C20332E2400F56EA6 /* Assets.xcassets */; };
 		38DC0A8020332E2400F56EA6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38DC0A7E20332E2400F56EA6 /* LaunchScreen.storyboard */; };
-		38DC0A8B20332E2500F56EA6 /* HelloWorld2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DC0A8A20332E2500F56EA6 /* HelloWorld2Tests.swift */; };
+		38DC0A8B20332E2500F56EA6 /* bcTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DC0A8A20332E2500F56EA6 /* bcTests.swift */; };
 		38F617962099C7120022FBBA /* math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F617952099C7120022FBBA /* math.swift */; };
 		38F61798209A01920022FBBA /* NoiseGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F61797209A01920022FBBA /* NoiseGen.swift */; };
 		38F6179A209A022C0022FBBA /* Graphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F61799209A022C0022FBBA /* Graphics.swift */; };
@@ -25,7 +25,7 @@
 			containerPortal = 38DC0A6A20332E2400F56EA6 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 38DC0A7120332E2400F56EA6;
-			remoteInfo = HelloWorld2;
+			remoteInfo = bc;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -39,7 +39,7 @@
 		38DC0A7F20332E2400F56EA6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		38DC0A8120332E2400F56EA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		38DC0A8620332E2500F56EA6 /* BcTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BcTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		38DC0A8A20332E2500F56EA6 /* HelloWorld2Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelloWorld2Tests.swift; sourceTree = "<group>"; };
+		38DC0A8A20332E2500F56EA6 /* bcTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bcTests.swift; sourceTree = "<group>"; };
 		38DC0A8C20332E2500F56EA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		38F617952099C7120022FBBA /* math.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = math.swift; sourceTree = "<group>"; };
 		38F61797209A01920022FBBA /* NoiseGen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoiseGen.swift; sourceTree = "<group>"; };
@@ -102,7 +102,7 @@
 		38DC0A8920332E2500F56EA6 /* Bc2Tests */ = {
 			isa = PBXGroup;
 			children = (
-				38DC0A8A20332E2500F56EA6 /* HelloWorld2Tests.swift */,
+				38DC0A8A20332E2500F56EA6 /* bcTests.swift */,
 				38DC0A8C20332E2500F56EA6 /* Info.plist */,
 			);
 			path = Bc2Tests;
@@ -124,7 +124,7 @@
 			dependencies = (
 			);
 			name = Bc;
-			productName = HelloWorld2;
+			productName = bc;
 			productReference = 38DC0A7220332E2400F56EA6 /* Bc.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -142,7 +142,7 @@
 				38DC0A8820332E2500F56EA6 /* PBXTargetDependency */,
 			);
 			name = BcTests;
-			productName = HelloWorld2Tests;
+			productName = bcTests;
 			productReference = 38DC0A8620332E2500F56EA6 /* BcTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
@@ -225,7 +225,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				38DC0A8B20332E2500F56EA6 /* HelloWorld2Tests.swift in Sources */,
+				38DC0A8B20332E2500F56EA6 /* bcTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -373,12 +373,12 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MJ5B29WMP3;
-				INFOPLIST_FILE = HelloWorld2/Info.plist;
+				INFOPLIST_FILE = bc/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = cz.idonthaveacompany.HelloWorld2;
+				PRODUCT_BUNDLE_IDENTIFIER = cz.idonthaveacompany.bc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "Bc/HelloWorld2-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Bc/bc-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -392,12 +392,12 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MJ5B29WMP3;
-				INFOPLIST_FILE = HelloWorld2/Info.plist;
+				INFOPLIST_FILE = bc/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = cz.idonthaveacompany.HelloWorld2;
+				PRODUCT_BUNDLE_IDENTIFIER = cz.idonthaveacompany.bc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "Bc/HelloWorld2-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Bc/bc-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -409,9 +409,9 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = HelloWorld2Tests/Info.plist;
+				INFOPLIST_FILE = bcTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = cz.idonthaveacompany.HelloWorld2Tests;
+				PRODUCT_BUNDLE_IDENTIFIER = cz.idonthaveacompany.bcTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -425,9 +425,9 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = HelloWorld2Tests/Info.plist;
+				INFOPLIST_FILE = bcTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = cz.idonthaveacompany.HelloWorld2Tests;
+				PRODUCT_BUNDLE_IDENTIFIER = cz.idonthaveacompany.bcTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

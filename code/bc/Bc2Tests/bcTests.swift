@@ -1,15 +1,15 @@
 //
-//  HelloWorld2Tests.swift
-//  HelloWorld2Tests
+//  bcTests.swift
+//  bcTests
 //
 //  Created by Viki on 13/02/2018.
 //  Copyright © 2018 Viki. All rights reserved.
 //
 
 import XCTest
-@testable import HelloWorld2
+@testable import bc
 
-class HelloWorld2Tests: XCTestCase {
+class bcTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
