@@ -40,6 +40,12 @@ class State{
     public static var darkness = [UInt8](repeating:Constants.covercolor,count:Constants.radius*Constants.radius*4)
     public static var presses = 0
     public static var prevResults = [Int]()
+    public static var showJustForShortTime = true
+    public static var showFor = 200 //ms
+    public static var LastPressX = -1
+    public static var LastPressY = -1
+    public static var BlankStored = false
+    public static var Blank : UIImage? = nil
 }
 
 func getTopText() -> String {
@@ -132,19 +138,23 @@ class ViewController: UIViewController {
                 print(TouchDistanceX," ",TouchDistanceY)
                 let xInPx = Double(position.x)*Double(2*radius)/Double(ViewSize)
                 let yInPx = Double(position.y)*Double(2*radius)/Double(ViewSize)
-                for i in Int(xInPx)-Constants.UncoverRadius..<Int(xInPx)+Constants.UncoverRadius{
-                    if(i<0){continue}
-                    if(i>=Constants.radius*2){continue}
-                    for i1 in Int(yInPx)-Constants.UncoverRadius..<Int(yInPx)+Constants.UncoverRadius{
-                        if(i1<0){continue}
-                        if(i1>=Constants.radius*2){continue}
-                        let indexinarray = i+i1*Constants.radius*2
-                        let distancefromtouch = sqrt(Double(sqr(i-Int(xInPx))+sqr(i1-Int(yInPx))))
-                        if(distancefromtouch>Double(Constants.UncoverRadius)){continue}
-                        if(Constants.MultiplicativeTransparency){
-                            State.showmap[indexinarray] = 1-((1-State.showmap[indexinarray])*(0.5 - 0.5*cos(.pi*distancefromtouch/Double(Constants.UncoverRadius))))
-                        } else {
-                            State.showmap[indexinarray] = max(State.showmap[indexinarray],(0.5 + 0.5*cos(.pi*distancefromtouch/Double(Constants.UncoverRadius))))
+                State.LastPressX = Int(xInPx)
+                State.LastPressY = Int(yInPx)
+                if(!State.showJustForShortTime){
+                    for i in Int(xInPx)-Constants.UncoverRadius..<Int(xInPx)+Constants.UncoverRadius{
+                        if(i<0){continue}
+                        if(i>=Constants.radius*2){continue}
+                        for i1 in Int(yInPx)-Constants.UncoverRadius..<Int(yInPx)+Constants.UncoverRadius{
+                            if(i1<0){continue}
+                            if(i1>=Constants.radius*2){continue}
+                            let indexinarray = i+i1*Constants.radius*2
+                            let distancefromtouch = sqrt(Double(sqr(i-Int(xInPx))+sqr(i1-Int(yInPx))))
+                            if(distancefromtouch>Double(Constants.UncoverRadius)){continue}
+                            if(Constants.MultiplicativeTransparency){
+                                State.showmap[indexinarray] = 1-((1-State.showmap[indexinarray])*(0.5 - 0.5*cos(.pi*distancefromtouch/Double(Constants.UncoverRadius))))
+                            } else {
+                                State.showmap[indexinarray] = max(State.showmap[indexinarray],(0.5 +    0.5*cos(.pi*distancefromtouch/Double(Constants.UncoverRadius))))
+                            }
                         }
                     }
                 }
@@ -162,7 +172,24 @@ class ViewController: UIViewController {
     }
     
     func Redraw() {
+        if (State.showJustForShortTime){
+            if (!State.BlankStored) { //first call
+                State.Blank = UIImageFromArray(source: combine(first: State.Uncovered, second:State.darkness, mask: State.showmap, length: Constants.radius*Constants.radius*4), height: Constants.radius*2, width: Constants.radius*2)
+                MainImg.image! = State.Blank!
+                State.BlankStored = true
+            } else {
+                if(State.LastPressY == -1 && State.LastPressX == -1){ //regenerating empty image
+                    MainImg.image! = State.Blank!
+                } else { //After an actual press
+                    MainImg.image! = UIImageFromArray(source: State.Uncovered, height: Constants.radius*2, width: Constants.radius*2, transformation: SinglePressFilter)
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(State.showFor)/1000, execute: {
+                        self.MainImg.image! = State.Blank!
+                    })
+                }
+            }
+        } else {
         MainImg.image! = UIImageFromArray(source: combine(first: State.Uncovered, second:State.darkness, mask: State.showmap, length: Constants.radius*Constants.radius*4), height: Constants.radius*2, width: Constants.radius*2)
+        }
     }
     
     @objc func NewBackground(){
@@ -179,6 +206,8 @@ class ViewController: UIViewController {
         ImagePaste(Background: &State.Uncovered, BackgroundWidth: Constants.radius*2, BackgroundHeight: Constants.radius*2, Image: gabor, Width: State.GaborSize, Height: State.GaborSize, Top: State.GaborY, Left: State.GaborX, Alpha: mask)
         //Background drawing finished!
         State.showmap = getStartingShowmap()
+        State.LastPressX = -1
+        State.LastPressY = -1
         Redraw()
     }
     

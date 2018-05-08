@@ -17,6 +17,16 @@ func combine(first: [UInt8], second: [UInt8], mask: [Double], length: Int)->[UIn
     return output
 }
 
+func SinglePressFilter(_ x:Int, _ y:Int, _ prevValue:UInt8)->UInt8{
+    if distance(X1: x, Y1: y, X2: Constants.radius, Y2: Constants.radius) > Double(Constants.radius){
+        return prevValue
+    }
+    let dist  = distance(X1: x, Y1: y, X2: State.LastPressX, Y2: State.LastPressY)
+    if dist > Double(Constants.UncoverRadius){
+        return 0
+    }
+    return UInt8(Double(prevValue)*(cos(dist/Double(Constants.UncoverRadius) * .pi) * 0.5 + 0.5))
+}
 
 func UIImageFromArray(source: [UInt8], height: Int, width:Int)->UIImage{
     let cs = CGColorSpaceCreateDeviceGray()
@@ -33,8 +43,8 @@ func UIImageFromArray(source: [UInt8], height: Int, width:Int, transformation: (
     let BitmapContext = CGContext.init(data:nil, width:width, height:height, bitsPerComponent:8, bytesPerRow:width, space:cs, bitmapInfo:CGImageAlphaInfo.none.rawValue)
     let dataPoiner = UnsafeMutablePointer<UInt8>(OpaquePointer(BitmapContext!.data))
     var actualcoordinate : Int = 0
-    for x in 0..<height {
-        for y in 0..<width{
+    for y in 0..<height {
+        for x in 0..<width{
             dataPoiner![actualcoordinate] = transformation(x,y,source[actualcoordinate])
             actualcoordinate += 1
         }
