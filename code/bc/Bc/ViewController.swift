@@ -46,6 +46,10 @@ class State{
     public static var LastPressY = -1
     public static var BlankStored = false
     public static var Blank : UIImage? = nil
+    
+    //Info about user
+    public static var subject = "unknown"
+    public static var trial = 0
 }
 
 func getTopText() -> String {
@@ -58,7 +62,7 @@ func getTopText() -> String {
         }
     }
     return """
-        Presses: \(State.presses) Difficulty: \(State.GaborOpacity)
+        Presses: \(State.presses) Difficulty: \(floor(State.GaborOpacity*1000))
         Previous results: \(s)
         """
 }
