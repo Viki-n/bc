@@ -36,11 +36,19 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XhH-AA-RTP">
-                                <rect key="frame" x="606" y="957" width="76" height="30"/>
+                                <rect key="frame" x="508" y="928" width="174" height="76"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Settings"/>
                                 <connections>
                                     <segue destination="CfE-Hz-Ci1" kind="show" id="eiC-Ip-CMz"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZQC-YQ-gJV">
+                                <rect key="frame" x="56" y="928" width="282" height="76"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Gabor was located"/>
+                                <connections>
+                                    <action selector="LocatedButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fXb-yK-cN5"/>
                                 </connections>
                             </button>
                         </subviews>

@@ -35,6 +35,7 @@ class State{
     public static var GaborY = 0
     public static var GaborSize = 50
     public static var GaborOpacity = 0.7
+    public static var noise = [UInt8]()
     public static var Uncovered = [UInt8]()
     public static var showmap = [Double]()
     public static var darkness = [UInt8](repeating:Constants.covercolor,count:Constants.radius*Constants.radius*4)
@@ -47,10 +48,16 @@ class State{
     public static var BlankStored = false
     public static var Blank : UIImage? = nil
     public static var GenerateBackgroundOnEntry = true
+    public static var GaborLocated = false
+    public static var PreviousAccuracy = 0
+    public static var RedrawOnClick = false
     
     //Info about user
     public static var subject = "unknown"
-    public static var trial = 0
+    public static var TrialNumber = 0
+    public static var currentTrial = trial()
+    public static var log = [trial]()
+    
 }
 
 func getTopText() -> String {
@@ -63,7 +70,7 @@ func getTopText() -> String {
         }
     }
     return """
-        Presses: \(State.presses) Difficulty: \(floor(State.GaborOpacity*1000))
+        Presses: \(State.presses) Difficulty: \(Int(floor(State.GaborOpacity*1000))) Last accuracy: \(State.PreviousAccuracy)
         Previous results: \(s)
         """
 }
@@ -97,52 +104,76 @@ if DebugFlags.executeTests {
     }
 }
 
-
+func getBlank() ->UIImage {
+    if (!State.BlankStored) { //first call
+        State.Blank = UIImageFromArray(source: combine(first: State.Uncovered, second:State.darkness, mask: State.showmap, length: Constants.radius*Constants.radius*4), height: Constants.radius*2, width: Constants.radius*2)
+        State.BlankStored = true
+    }
+    return State.Blank!
+}
 
 
 class ViewController: UIViewController {
     @IBOutlet weak var MainImg: UIImageView!
     @IBOutlet weak var TopText: UILabel!
     
+    @IBAction func LocatedButton(_ sender: Any) {
+        State.GaborLocated = true
+        DrawNoise()
+    }
     
     override func viewDidLoad() {
         tests()
         super.viewDidLoad()
-        TopText.text = ""
-        print("first print")
-        //let tap = UITapGestureRecognizer(target:self,action: #selector(ViewController.ImageTap))
-        //MainImg.addGestureRecognizer(tap)
-        //MainImg.isUserInteractionEnabled = true
-        // Do any additional setup after loading the view, typically from a nib.
+        TopText.text = getTopText()
         MainImg.image = Img
-        print("Print works")
-        NewBackground()
+        
+        if(State.GenerateBackgroundOnEntry){
+            State.GenerateBackgroundOnEntry = false
+            State.GaborLocated = false
+            NewBackground()
+            State.currentTrial = trial()
+        } else if State.GaborLocated {
+            DrawNoise()
+        } else {
+            Redraw(ForcedBlank: true)
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         print("Touches began")
         if let touch = touches.first {
-            let position=touch.location(in: MainImg)
-            if position.y<0{
-                DebugFlags.randomNoise = !(DebugFlags.randomNoise)
+            if State.RedrawOnClick {
+                State.RedrawOnClick = false
+                State.presses = 0
+                NewBackground()
+                return
             }
+            let position=touch.location(in: MainImg)
             let ViewSize = MainImg.bounds.height
             let radius = Constants.radius
             let TouchDistanceX = Double(abs(CGFloat((State.GaborX+State.GaborSize/2)*Int(ViewSize)/(2*radius))-position.x))
             let TouchDistanceY = Double(abs(CGFloat((State.GaborY+State.GaborSize/2)*Int(ViewSize)/(2*radius))-position.y))
             let TouchDistance = distance(Xdiference: TouchDistanceX, Ydiference: TouchDistanceY)
           
-            if TouchDistance < Double(State.GaborSize/2>20 ? State.GaborSize/2 :20) {
+            if State.GaborLocated {
              //   State.GaborSize -= 1
+                State.PreviousAccuracy = Int(TouchDistance)
+                State.GaborLocated = false
                 State.prevResults.append(State.presses)
-                NewBackground()
-                State.presses = 0
-                
+                State.currentTrial.attempts = State.presses
+                State.currentTrial.TargetDistance = Int(TouchDistance)
+                State.TrialNumber += 1
+                State.log.append(State.currentTrial)
+                State.currentTrial = trial()
+                DrawUncovered()
+                State.RedrawOnClick = true
             } else {
                 State.presses += 1
                 print(TouchDistanceX," ",TouchDistanceY)
                 let xInPx = Double(position.x)*Double(2*radius)/Double(ViewSize)
                 let yInPx = Double(position.y)*Double(2*radius)/Double(ViewSize)
+                State.currentTrial.fixations.append(point(Int(xInPx),Int(yInPx)))
                 State.LastPressX = Int(xInPx)
                 State.LastPressY = Int(yInPx)
                 if(!State.showJustForShortTime){
@@ -163,7 +194,7 @@ class ViewController: UIViewController {
                         }
                     }
                 }
-                Redraw()
+                Redraw(ForcedBlank: false)
                 Constants.AudioPlayer.play(Float32(440*pow(2, Double(TouchDistance)/200)), modulatorFrequency: 600, modulatorAmplitude: 0, duration: 0.8)
             }
         }
@@ -176,30 +207,34 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func Redraw() {
+    func Redraw(ForcedBlank:Bool) {
         if (State.showJustForShortTime){
-            if (!State.BlankStored) { //first call
-                State.Blank = UIImageFromArray(source: combine(first: State.Uncovered, second:State.darkness, mask: State.showmap, length: Constants.radius*Constants.radius*4), height: Constants.radius*2, width: Constants.radius*2)
-                MainImg.image! = State.Blank!
-                State.BlankStored = true
-            } else {
-                if(State.LastPressY == -1 && State.LastPressX == -1){ //regenerating empty image
-                    MainImg.image! = State.Blank!
-                } else { //After an actual press
+            if(ForcedBlank || (State.LastPressY == -1 && State.LastPressX == -1 )){ //regenerating empty image
+                    MainImg.image! = getBlank()
+                } else {
                     MainImg.image! = UIImageFromArray(source: State.Uncovered, height: Constants.radius*2, width: Constants.radius*2, transformation: SinglePressFilter)
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(State.showFor)/1000, execute: {
-                        self.MainImg.image! = State.Blank!
-                    })
-                }
+                    self.MainImg.image! = getBlank()
+                })
             }
+            
         } else {
         MainImg.image! = UIImageFromArray(source: combine(first: State.Uncovered, second:State.darkness, mask: State.showmap, length: Constants.radius*Constants.radius*4), height: Constants.radius*2, width: Constants.radius*2)
         }
     }
     
+    func DrawNoise(){
+        MainImg.image! = UIImageFromArray(source: State.noise, height: Constants.radius*2, width: Constants.radius*2)
+    }
+    
+    func DrawUncovered(){
+        MainImg.image! = UIImageFromArray(source: State.Uncovered, height: Constants.radius*2, width: Constants.radius*2)
+    }
+    
     @objc func NewBackground(){
         print("Touches: ",State.presses)
         State.Uncovered = GeneratePinkNoise()
+        State.noise = State.Uncovered
         let gabor = MakeGabor(Size: State.GaborSize, rotation: 45, Contrast: 1, Period: State.GaborSize/3)
         let mask = MakeGaborMask(Size: State.GaborSize, peak: State.GaborOpacity)
         State.GaborX=Int(arc4random_uniform(UInt32(Constants.radius*2)))
@@ -213,7 +248,7 @@ class ViewController: UIViewController {
         State.showmap = getStartingShowmap()
         State.LastPressX = -1
         State.LastPressY = -1
-        Redraw()
+        Redraw(ForcedBlank: false)
     }
     
     
