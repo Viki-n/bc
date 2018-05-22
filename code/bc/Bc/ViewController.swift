@@ -16,7 +16,7 @@ class Constants {
     public static let FFTsetup = vDSP_create_fftsetupD(vDSP_Length(Int(LogRadius)+Int(1)),FFTradix)!
     public static let backgroundcolor = 128
     public static let covercolor:UInt8 = 0
-    public static let UncoverRadius = 300
+    public static var UncoverRadius = 300
     public static let BuffersUntilFullVolume = 4
     public static let AudioPlayer = FMSynthesizer.sharedSynth()
     public static let MultiplicativeTransparency = false //Sets the way transparency of fog adds up when windows overlap. False: maiximalistic, true:multiplicative
@@ -46,6 +46,7 @@ class State{
     public static var LastPressY = -1
     public static var BlankStored = false
     public static var Blank : UIImage? = nil
+    public static var GenerateBackgroundOnEntry = true
     
     //Info about user
     public static var subject = "unknown"

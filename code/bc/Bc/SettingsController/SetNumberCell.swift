@@ -10,7 +10,13 @@ import UIKit
 
 class SetNumberCell: UITableViewCell {
     @IBAction func OnEdit(_ sender: Any) {
-        action(Int(TextField.text!)!)
+        let num = Int(TextField.text!)
+        if num == nil {
+            TextField.text = "0"
+            action(0)
+        } else {
+            action(num!)
+        }
     }
     public var action : (Int)->() = {_ in}
     @IBOutlet weak var TextField: UITextField!

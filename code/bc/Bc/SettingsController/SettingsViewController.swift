@@ -56,7 +56,15 @@ class SettingsViewController: UITableViewController {
     
     func FillCellInfo() {
         items.append(cellInfo(text: "Subject", get: {return State.subject}, set:{ value in State.subject = value }))
+        items.append(cellInfo(text: "Difficulty (0 = impossible, 1000 = easiest)", get: {return Int(State.GaborOpacity*1000)}, set: {v in State.GaborOpacity = Double(min(1000,max(0,v)))/1000}))
+        items.append(cellInfo(text: "Gabor patch diameter", get: {return State.GaborSize}, set:{v in State.GaborSize = v}))
+        items.append(cellInfo(text: "Radius of uncovered area", get: {return Constants.UncoverRadius}, set: {v in Constants.UncoverRadius = v}))
+        items.append(cellInfo(text: "Area uncovered for (ms)", get: {return State.showFor}, set: {v in State.showFor = v}))
+        items.append(cellInfo(text: "Area uncovered for brief period only", get: {return State.showJustForShortTime}, set:{v in State.showJustForShortTime = v}))
+        items.append(cellInfo(text: "Generate noise", get: {DebugFlags.randomNoise},set: {v in DebugFlags.randomNoise = v}))
         items.append(cellInfo(text: "Preview", press: {self.performSegue(withIdentifier: "ShowPreview", sender: nil)} ))
+        items.append(cellInfo(text: "Back", press: {self.performSegue(withIdentifier: "BackToMain", sender: nil)}))
+        
     }
     
     
