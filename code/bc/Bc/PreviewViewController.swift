@@ -46,8 +46,8 @@ class PreviewViewController: UIViewController {
             let gabor = MakeGabor(Size: State.GaborSize, rotation: 45, Contrast: 1, Period: State.GaborSize/3)
             let mask = MakeGaborMask(Size: State.GaborSize, peak: State.GaborOpacity)
             ImagePaste(Background: &noise, BackgroundWidth: Constants.radius*2, BackgroundHeight: Constants.radius*2, Image: gabor, Width: State.GaborSize, Height: State.GaborSize, Top: Constants.radius-(State.GaborSize/2), Left: Constants.radius-(State.GaborSize/2), Alpha: mask)
-            let img = UIImageFromArray(source: noise, height: Constants.radius*2, width: Constants.radius*2)
-            self.Image.image = img
+            let myimg = UIImageFromArray(source: noise, height: Constants.radius*2, width: Constants.radius*2)
+            self.Image.image = myimg
             Label.text = "In the middle, there is a gabor patch."
         case 2:
             self.Image.image = getBlank()
@@ -73,6 +73,15 @@ class PreviewViewController: UIViewController {
         case 6:
             Image.image = img
             Label.text = "When you think you saw the gabor, press the button in bottom left corner. The noise will be uncovered (without the gabor). Try to press as close to the gabor location as possible."
+        case 7:
+            Label.text = "The gabor can't appear anywhere. These are all \(State.PossibleLocations.count) possible locations:"
+            let gabor = MakeGabor(Size: State.GaborSize, rotation: 45, Contrast: 1, Period: State.GaborSize/3)
+            let mask = MakeGaborMask(Size: State.GaborSize, peak: State.GaborOpacity)
+            for p in State.PossibleLocations{
+            ImagePaste(Background: &noise, BackgroundWidth: Constants.radius*2, BackgroundHeight: Constants.radius*2, Image: gabor, Width: State.GaborSize, Height: State.GaborSize, Top: p.y-(State.GaborSize/2), Left: p.x-(State.GaborSize/2), Alpha: mask)
+            }
+            let myimg = UIImageFromArray(source: noise, height: Constants.radius*2, width: Constants.radius*2)
+            self.Image.image = myimg
         default:
             performSegue(withIdentifier: "BackToSettings", sender: nil)
         }

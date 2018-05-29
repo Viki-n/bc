@@ -38,7 +38,10 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XhH-AA-RTP">
                                 <rect key="frame" x="508" y="928" width="174" height="76"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Settings"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="Settings">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
                                     <segue destination="CfE-Hz-Ci1" kind="show" id="eiC-Ip-CMz"/>
                                 </connections>
@@ -46,7 +49,10 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZQC-YQ-gJV">
                                 <rect key="frame" x="56" y="928" width="282" height="76"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Gabor was located"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="Gabor was located">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
                                     <action selector="LocatedButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fXb-yK-cN5"/>
                                 </connections>
@@ -90,7 +96,7 @@
                                 <rect key="frame" x="0.0" y="72" width="768" height="114"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bpA-9v-IMl" id="cZV-Vx-whb">
-                                    <rect key="frame" x="0.0" y="0.0" width="768" height="113.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="768" height="114"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JCD-JC-VRa">
@@ -133,7 +139,7 @@
                                 <rect key="frame" x="0.0" y="186" width="768" height="107"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="37U-Uc-G4J" id="xlz-kj-l1X">
-                                    <rect key="frame" x="0.0" y="0.0" width="768" height="106.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="768" height="107"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wNc-Pz-ZfG">
@@ -173,7 +179,7 @@
                                 <rect key="frame" x="0.0" y="293" width="768" height="108"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="YMR-xo-hnF" id="wKl-Wy-aUt">
-                                    <rect key="frame" x="0.0" y="0.0" width="768" height="107.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="768" height="108"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PEx-GO-u2e">
@@ -216,7 +222,7 @@
                                 <rect key="frame" x="0.0" y="401" width="768" height="108"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nvR-Vn-uvh" id="xbD-Qz-3vI">
-                                    <rect key="frame" x="0.0" y="0.0" width="768" height="107.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="768" height="108"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="THB-QE-68N">
@@ -237,6 +243,32 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="Button" destination="THB-QE-68N" id="EL5-y4-HWI"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TitleCell" rowHeight="108" id="IHT-Jt-yJP" customClass="TitleCell" customModule="Bc" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="509" width="768" height="108"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IHT-Jt-yJP" id="wU4-F7-2Ob">
+                                    <rect key="frame" x="0.0" y="0.0" width="768" height="108"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uih-sD-ccF">
+                                            <rect key="frame" x="20" y="11" width="728" height="86"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Uih-sD-ccF" firstAttribute="bottom" secondItem="wU4-F7-2Ob" secondAttribute="bottomMargin" id="Z2Q-e1-Th0"/>
+                                        <constraint firstItem="Uih-sD-ccF" firstAttribute="trailing" secondItem="wU4-F7-2Ob" secondAttribute="trailingMargin" id="auU-Mi-88I"/>
+                                        <constraint firstItem="Uih-sD-ccF" firstAttribute="leading" secondItem="wU4-F7-2Ob" secondAttribute="leadingMargin" id="eQn-dQ-hNe"/>
+                                        <constraint firstItem="Uih-sD-ccF" firstAttribute="top" secondItem="wU4-F7-2Ob" secondAttribute="topMargin" id="nOO-WU-36u"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="Label" destination="Uih-sD-ccF" id="JKM-Oj-QfP"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -294,7 +326,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="dou-46-6MU"/>
-        <segue reference="Qjp-F4-vno"/>
+        <segue reference="eiC-Ip-CMz"/>
     </inferredMetricsTieBreakers>
 </document>

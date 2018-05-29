@@ -33,7 +33,7 @@ class DebugFlags{
 class State{
     public static var GaborX = 0
     public static var GaborY = 0
-    public static var GaborSize = 50
+    public static var GaborSize = 30
     public static var GaborOpacity = 0.7
     public static var noise = [UInt8]()
     public static var Uncovered = [UInt8]()
@@ -57,6 +57,40 @@ class State{
     public static var TrialNumber = 0
     public static var currentTrial = trial()
     public static var log = [trial]()
+    
+    public static var PossibleLocations = [point]()
+    public static var PossibleLocationsDistance = 100
+    
+}
+
+func CalculatePossibleLocations(d: Int){
+    State.PossibleLocations = [point]()
+    func add(_ x: point, _ y: point)->point{
+        return point(x.x+y.x, x.y+y.y)
+    }
+    let root = Int(Double(d)*sqrt(3)/2)
+    let directions = [point(d,0), point(-d,0), point(d/2,root), point(-d/2,root), point(d/2,-root), point(-d/2,-root)]
+    let center = point(Constants.radius, Constants.radius)
+    var queue = [center]
+    var i=0
+    while(i<queue.count){
+        if distance(center, queue[i])<Double(Constants.radius - State.GaborSize/2){
+            var isOK = true
+            for p in State.PossibleLocations{
+                if distance(p,queue[i]) < Double(d/2){
+                    isOK = false
+                    break
+                }
+            }
+            if isOK{
+                State.PossibleLocations.append(queue[i])
+                for p in directions{
+                    queue.append(add(p,queue[i]))
+                }
+            }
+        }
+        i += 1
+    }
     
 }
 
@@ -127,7 +161,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         TopText.text = getTopText()
         MainImg.image = Img
-        
+        CalculatePossibleLocations(d: State.PossibleLocationsDistance)
         if(State.GenerateBackgroundOnEntry){
             State.GenerateBackgroundOnEntry = false
             State.GaborLocated = false
@@ -237,12 +271,9 @@ class ViewController: UIViewController {
         State.noise = State.Uncovered
         let gabor = MakeGabor(Size: State.GaborSize, rotation: 45, Contrast: 1, Period: State.GaborSize/3)
         let mask = MakeGaborMask(Size: State.GaborSize, peak: State.GaborOpacity)
-        State.GaborX=Int(arc4random_uniform(UInt32(Constants.radius*2)))
-        State.GaborY=Int(arc4random_uniform(UInt32(Constants.radius*2)))
-        while (sqr(State.GaborX+State.GaborSize/2-Constants.radius)+sqr(State.GaborY-Constants.radius+State.GaborSize/2)>sqr(Constants.radius-State.GaborSize)){
-            State.GaborX=Int(arc4random_uniform(UInt32(Constants.radius*2)))
-            State.GaborY=Int(arc4random_uniform(UInt32(Constants.radius*2)))
-        }
+        let p = State.PossibleLocations[Int(arc4random_uniform(UInt32(State.PossibleLocations.count)))]
+        State.GaborX=p.x-State.GaborSize/2
+        State.GaborY=p.y-State.GaborSize/2
         ImagePaste(Background: &State.Uncovered, BackgroundWidth: Constants.radius*2, BackgroundHeight: Constants.radius*2, Image: gabor, Width: State.GaborSize, Height: State.GaborSize, Top: State.GaborY, Left: State.GaborX, Alpha: mask)
         //Background drawing finished!
         State.showmap = getStartingShowmap()

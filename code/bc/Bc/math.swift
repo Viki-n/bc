@@ -35,3 +35,7 @@ func distance(X1: Int, Y1:Int,X2:Int,Y2:Int)->Double{
 func distance(X1: Double, Y1:Double,X2:Double,Y2:Double)->Double{
     return sqrt(Double((X1-X2)*(X1-X2) + (Y1-Y2)*(Y1-Y2)))
 }
+
+func distance(_ x: point, _ y: point) -> Double {
+    return sqrt(Double((x.x-y.x)*(x.x-y.x)+(x.y-y.y)*(x.y-y.y)))
+}

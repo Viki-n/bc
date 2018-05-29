@@ -13,6 +13,7 @@ enum cellType {
     case number
     case string
     case button
+    case title
 }
 
 class cellInfo {
@@ -49,6 +50,10 @@ class cellInfo {
         label = text
         action = press
     }
+    init(text:String) {
+        type = cellType.title
+        label = text
+    }
 }
 
 class SettingsViewController: UITableViewController {
@@ -63,6 +68,10 @@ class SettingsViewController: UITableViewController {
         items.append(cellInfo(text: "Radius of uncovered area", get: {return Constants.UncoverRadius}, set: {v in Constants.UncoverRadius = v}))
         items.append(cellInfo(text: "Area uncovered for (ms)", get: {return State.showFor}, set: {v in State.showFor = v}))
         items.append(cellInfo(text: "Area uncovered for brief period only", get: {return State.showJustForShortTime}, set:{v in State.showJustForShortTime = v}))
+        items.append(cellInfo(text: "Possible location distance", get: {return State.PossibleLocationsDistance}, set: {v in
+            State.PossibleLocationsDistance = v
+            CalculatePossibleLocations(d: v)
+        }))
         items.append(cellInfo(text: "Generate noise", get: {DebugFlags.randomNoise},set: {v in DebugFlags.randomNoise = v}))
         items.append(cellInfo(text: "Regenerate noise", get:{return State.GenerateBackgroundOnEntry}, set:{v in State.GenerateBackgroundOnEntry = v}))
         items.append(cellInfo(text: "Preview", press: {self.performSegue(withIdentifier: "ShowPreview", sender: nil)} ))
@@ -125,6 +134,10 @@ class SettingsViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "ButtonCell", for: indexPath) as! ButtonCell
             cell.action = info.action
             cell.Button.setTitle(info.label, for: UIControlState.normal)
+            c = cell
+        case .title:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TitleCell", for: indexPath) as! TitleCell
+            cell.Label.text = info.label
             c = cell
         }
         
