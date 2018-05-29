@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.3.16)  15 MAY 2018 12:42
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.3.16)  29 MAY 2018 03:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2346,19 +2346,22 @@ Package hyperref Info: Option `pageanchor' set `true' on input line 55.
  (./kap01.tex
 Kapitola 1.
 
-Package natbib Warning: Citation `náhodná citace' on page 3 undefined on input 
-line 8.
+Overfull \hbox (65.83418pt too wide) in paragraph at lines 39--45
+\T1/lmr/m/n/12 ale tzv. rai-sed co-sine. Ve vzorci vý²e se nám tedy z prv-ního 
+£i-ni-tele stane $[]\OT1/lmr/m/n/12 (\OML/lmm/m/it/12 ^^Y[]=r\OT1/lmr/m/n/12 )\
+OML/lmm/m/it/12 =\OT1/lmr/m/n/12 2 +|
+ []
 
 ) [3
 
 
 
-]
+] [4]
 \openout2 = `kap02.aux'.
 
  (./kap02.tex
 Kapitola 2.
-) [4
+) [5
 
 
 
@@ -2367,7 +2370,7 @@ Kapitola 2.
 
  (./kap03.tex
 Kapitola 3.
-) [5
+) [6
 
 
 
@@ -2376,14 +2379,14 @@ Kapitola 3.
 
  (./kap04.tex
 Kapitola 4.
-) [6
+) [7
 
 
 
 ]
 \openout2 = `zaver.aux'.
 
- (./zaver.tex) [7
+ (./zaver.tex) [8
 
 
 
@@ -2394,39 +2397,42 @@ Kapitola 4.
 No file prace.bbl.
 )
 P\v {r}\'{\i }loha A.
-[8
+[9
 
 
 
 
 ]
-
-Package natbib Warning: There were undefined citations.
-
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 173.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 173.
-(./prace.aux (./titulka.aux) (./uvod.aux) (./kap01.aux) (./kap02.aux)
+ (./prace.aux (./titulka.aux) (./uvod.aux) (./kap01.aux) (./kap02.aux)
 (./kap03.aux) (./kap04.aux) (./zaver.aux) (./literatura.aux))
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 173.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 173.
 Package rerunfilecheck Info: File `prace.out' has not changed.
-(rerunfilecheck)             Checksum: DB1424C48E7621C9DB70C619CAE92BFA;1443.
+(rerunfilecheck)             Checksum: 24D58976E25D1B3BBCFFFD0EEFABD462;1396.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 173.
  ) 
 Here is how much of TeX's memory you used:
  15281 strings out of 494896
- 206901 string characters out of 6178632
- 266103 words of memory out of 5000000
- 18237 multiletter control sequences out of 15000+600000
+ 206891 string characters out of 6178632
+ 269103 words of memory out of 5000000
+ 18236 multiletter control sequences out of 15000+600000
  51800 words of font info for 49 fonts, out of 8000000 for 9000
  24 hyphenation exceptions out of 8191
  38i,6n,35p,490b,2256s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}</usr/share/texmf/fonts/type1/
-public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/sh
-are/texmf/fonts/type1/public/lm/lmr17.pfb>
-Output written on prace.pdf (12 pages, 416330 bytes).
+{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/en
+c/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/s
+hare/texmf/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/share/texmf/fonts/enc/dvips/l
+m/lm-ec.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texm
+f/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi
+12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/font
+s/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr17.pfb><
+/usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/p
+ublic/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb>
+Output written on prace.pdf (13 pages, 470019 bytes).
 PDF statistics:
- 161 PDF objects out of 1000 (max. 8388607)
- 26 named destinations out of 1000 (max. 500000)
+ 203 PDF objects out of 1000 (max. 8388607)
+ 27 named destinations out of 1000 (max. 500000)
  122 words of extra memory for PDF output out of 10000 (max. 10000000)
 
