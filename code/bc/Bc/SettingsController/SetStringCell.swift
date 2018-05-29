@@ -11,10 +11,10 @@ import UIKit
 class SetStringCell: UITableViewCell {
     @IBOutlet weak var Label: UILabel!
     @IBOutlet weak var TextField: UITextField!
-    public var action : (String)->() = {_ in}
+    public var action : (String)->String = {_ in return ""}
     
     @IBAction func OnEdit(_ sender: Any) {
-        action(TextField.text!)
+        TextField.text = action(TextField.text!)
     }
     override func awakeFromNib() {
         super.awakeFromNib()

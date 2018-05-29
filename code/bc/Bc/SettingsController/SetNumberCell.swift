@@ -12,13 +12,12 @@ class SetNumberCell: UITableViewCell {
     @IBAction func OnEdit(_ sender: Any) {
         let num = Int(TextField.text!)
         if num == nil {
-            TextField.text = "0"
-            action(0)
+            TextField.text = String(action(0))
         } else {
-            action(num!)
+            TextField.text = String(action(num!))
         }
     }
-    public var action : (Int)->() = {_ in}
+    public var action : (Int)->Int = {_ in return 0}
     @IBOutlet weak var TextField: UITextField!
     override func awakeFromNib() {
         super.awakeFromNib()
