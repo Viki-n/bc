@@ -26,6 +26,7 @@
 		38F617962099C7120022FBBA /* math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F617952099C7120022FBBA /* math.swift */; };
 		38F61798209A01920022FBBA /* NoiseGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F61797209A01920022FBBA /* NoiseGen.swift */; };
 		38F6179A209A022C0022FBBA /* Graphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F61799209A022C0022FBBA /* Graphics.swift */; };
+		38F807EF20BEFAF7009D3E72 /* Misc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F807EE20BEFAF7009D3E72 /* Misc.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,7 @@
 		38F617952099C7120022FBBA /* math.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = math.swift; sourceTree = "<group>"; };
 		38F61797209A01920022FBBA /* NoiseGen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoiseGen.swift; sourceTree = "<group>"; };
 		38F61799209A022C0022FBBA /* Graphics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Graphics.swift; sourceTree = "<group>"; };
+		38F807EE20BEFAF7009D3E72 /* Misc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Misc.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 			children = (
 				38F61799209A022C0022FBBA /* Graphics.swift */,
 				38DC0A7520332E2400F56EA6 /* AppDelegate.swift */,
+				38F807EE20BEFAF7009D3E72 /* Misc.swift */,
 				3853654820BCEF9F0087A439 /* MainMenuViewController.swift */,
 				38DC0A7720332E2400F56EA6 /* ViewController.swift */,
 				384BBBCE20B3C26600D1381F /* log.swift */,
@@ -248,6 +251,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				38F6179A209A022C0022FBBA /* Graphics.swift in Sources */,
+				38F807EF20BEFAF7009D3E72 /* Misc.swift in Sources */,
 				3805814620B32D6D004A9720 /* SetStringCell.swift in Sources */,
 				38DC0A7820332E2400F56EA6 /* ViewController.swift in Sources */,
 				3805814220B318B8004A9720 /* SettingsViewController.swift in Sources */,

@@ -18,6 +18,7 @@ class MainMenuViewController: UIViewController {
         super.viewDidLoad()
         TextField.text = State.subject
         SetScreen(screen: "Menu")
+        InitApp()
         // Do any additional setup after loading the view.
     }
 

@@ -26,12 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bc/Graphics.swift"
-            timestampString = "548659114.454528"
+            timestampString = "549387717.88581"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "21"
-            endingLineNumber = "21"
-            landmarkName = "SinglePressFilter(_:_:_:)"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
+            landmarkName = "combine(first:second:mask:length:)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
@@ -42,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bc/SettingsController/SettingsViewController.swift"
-            timestampString = "549377311.63292"
+            timestampString = "549387717.887944"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "90"
@@ -58,13 +58,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bc/ViewController.swift"
-            timestampString = "549377311.633736"
+            timestampString = "549387717.888624"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "198"
+            endingLineNumber = "198"
+            landmarkName = "ViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

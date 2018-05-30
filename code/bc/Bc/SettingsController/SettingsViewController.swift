@@ -90,6 +90,7 @@ class SettingsViewController: UITableViewController {
             FillCellInfo()
         }
         SetScreen(screen:"Settings")
+        InitApp()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 

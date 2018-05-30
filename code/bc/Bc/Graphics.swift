@@ -9,6 +9,13 @@
 import Foundation
 import UIKit
 
+func getBlank() ->UIImage {
+    if (!State.BlankStored) { //first call
+        State.Blank = UIImageFromArray(source: combine(first: State.Uncovered, second:State.darkness, mask: getStartingShowmap(), length: Constants.radius*Constants.radius*4), height: Constants.radius*2, width: Constants.radius*2)
+        State.BlankStored = true
+    }
+    return State.Blank!
+}
 func combine(first: [UInt8], second: [UInt8], mask: [Double], length: Int)->[UInt8]{
     var output = [UInt8]()
     for i in 0..<length{

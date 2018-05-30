@@ -19,6 +19,7 @@ class PreviewViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        InitApp()
         state = 0
         SetScreen(screen: "Preview")
         Redraw()
