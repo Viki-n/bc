@@ -36,7 +36,7 @@ class State{
     public static var GaborSize = 30
     public static var GaborOpacity = 0.7
     public static var noise = [UInt8]()
-    public static var Uncovered = [UInt8]()
+    public static var Uncovered = [UInt8](repeating: UInt8(Constants.backgroundcolor),count:Constants.radius*Constants.radius * 4)
     public static var showmap = [Double]()
     public static var darkness = [UInt8](repeating:Constants.covercolor,count:Constants.radius*Constants.radius*4)
     public static var presses = 0
@@ -51,7 +51,9 @@ class State{
     public static var GaborLocated = false
     public static var PreviousAccuracy = 0
     public static var RedrawOnClick = false
-    
+    public static var Screen = ""
+    public static var PreviousScreen = ""
+    public static var appInitialized = InitApp()
     //Info about user
     public static var subject = "unknown"
     public static var TrialNumber = 0
@@ -61,6 +63,11 @@ class State{
     public static var PossibleLocations = [point]()
     public static var PossibleLocationsDistance = 100
     
+}
+
+func SetScreen(screen: String){
+    State.PreviousScreen = State.Screen
+    State.Screen = screen
 }
 
 func CalculatePossibleLocations(d: Int){
@@ -140,7 +147,7 @@ if DebugFlags.executeTests {
 
 func getBlank() ->UIImage {
     if (!State.BlankStored) { //first call
-        State.Blank = UIImageFromArray(source: combine(first: State.Uncovered, second:State.darkness, mask: State.showmap, length: Constants.radius*Constants.radius*4), height: Constants.radius*2, width: Constants.radius*2)
+        State.Blank = UIImageFromArray(source: combine(first: State.Uncovered, second:State.darkness, mask: getStartingShowmap(), length: Constants.radius*Constants.radius*4), height: Constants.radius*2, width: Constants.radius*2)
         State.BlankStored = true
     }
     return State.Blank!
@@ -172,6 +179,7 @@ class ViewController: UIViewController {
         } else {
             Redraw(ForcedBlank: true)
         }
+        SetScreen(screen: "Game")
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -289,3 +297,7 @@ class ViewController: UIViewController {
 
         
 var Img = UIImage()
+func  InitApp()->Bool{
+    CalculatePossibleLocations(d:State.PossibleLocationsDistance)
+    return true
+}

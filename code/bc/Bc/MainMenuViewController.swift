@@ -17,6 +17,7 @@ class MainMenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         TextField.text = State.subject
+        SetScreen(screen: "Menu")
         // Do any additional setup after loading the view.
     }
 

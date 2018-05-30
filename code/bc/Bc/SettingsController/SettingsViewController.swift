@@ -78,7 +78,8 @@ class SettingsViewController: UITableViewController {
         items.append(cellInfo(text: "Generate noise", get: {DebugFlags.randomNoise},set: {v in DebugFlags.randomNoise = v}))
         items.append(cellInfo(text: "Regenerate noise", get:{return State.GenerateBackgroundOnEntry}, set:{v in State.GenerateBackgroundOnEntry = v}))
         items.append(cellInfo(text: "Preview", press: {self.performSegue(withIdentifier: "ShowPreview", sender: nil)} ))
-        items.append(cellInfo(text: "Back", press: {self.performSegue(withIdentifier: "BackToMain", sender: nil)}))
+        items.append(cellInfo(text: "Start game", press: {self.performSegue(withIdentifier: "SettingsToGame", sender: nil)}))
+        items.append(cellInfo(text: "Back to main menu", press:{self.performSegue(withIdentifier: "SettingsToMainMenu", sender: nil)}))
         
     }
     
@@ -88,6 +89,7 @@ class SettingsViewController: UITableViewController {
         if (items.count == 0){
             FillCellInfo()
         }
+        SetScreen(screen:"Settings")
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 

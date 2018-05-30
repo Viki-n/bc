@@ -20,6 +20,7 @@ class PreviewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         state = 0
+        SetScreen(screen: "Preview")
         Redraw()
         // Do any additional setup after loading the view.
     }
@@ -83,7 +84,15 @@ class PreviewViewController: UIViewController {
             let myimg = UIImageFromArray(source: noise, height: Constants.radius*2, width: Constants.radius*2)
             self.Image.image = myimg
         default:
-            performSegue(withIdentifier: "BackToSettings", sender: nil)
+            switch(State.PreviousScreen){
+            case "Settings":
+                performSegue(withIdentifier: "BackToSettings", sender: nil)
+            case "Menu":
+                performSegue(withIdentifier: "BackToMainMenu", sender: nil)
+            default:
+                print("Unexhaustive switch at the end of preview!")
+                performSegue(withIdentifier: "BackToSettings", sender: nil)
+            }
         }
     }
 

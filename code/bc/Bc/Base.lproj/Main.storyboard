@@ -350,7 +350,8 @@
                     </tableView>
                     <connections>
                         <segue destination="ksQ-BQ-sAK" kind="show" identifier="ShowPreview" id="dou-46-6MU"/>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="BackToMain" id="NdC-nf-6V3"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="SettingsToGame" id="NdC-nf-6V3"/>
+                        <segue destination="UHK-k6-lJK" kind="show" identifier="SettingsToMainMenu" id="5rT-Rc-Wly"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bfZ-wk-XOm" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -389,6 +390,7 @@
                         <outlet property="Image" destination="68O-58-eLp" id="qQB-Ly-Adl"/>
                         <outlet property="Label" destination="5CI-xT-eyB" id="GMx-80-hJe"/>
                         <segue destination="CfE-Hz-Ci1" kind="show" identifier="BackToSettings" id="Qjp-F4-vno"/>
+                        <segue destination="UHK-k6-lJK" kind="show" identifier="BackToMainMenu" id="T0d-MF-aiQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a3Z-Gy-ev2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -399,6 +401,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="r66-V2-geY"/>
         <segue reference="sBF-SI-GZN"/>
-        <segue reference="wSJ-Dm-7G9"/>
+        <segue reference="NdC-nf-6V3"/>
+        <segue reference="T0d-MF-aiQ"/>
     </inferredMetricsTieBreakers>
 </document>
