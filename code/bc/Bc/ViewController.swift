@@ -9,56 +9,6 @@
 import UIKit
 import Accelerate
 
-class Constants {
-    public static let radius = 512
-    public static let LogRadius = UInt(9)
-    public static let FFTradix = FFTRadix(kFFTRadix2)
-    public static let FFTsetup = vDSP_create_fftsetupD(vDSP_Length(Int(LogRadius)+Int(1)),FFTradix)!
-    public static let backgroundcolor = 128
-    public static let covercolor:UInt8 = 0
-    public static var UncoverRadius = 300
-    public static let BuffersUntilFullVolume = 4
-    public static let AudioPlayer = FMSynthesizer.sharedSynth()
-    public static let MultiplicativeTransparency = false //Sets the way transparency of fog adds up when windows overlap. False: maiximalistic, true:multiplicative
-}
-
-class DebugFlags{
-    public static var randomNoise = true
-    public static let crop = true
-    public static let executeTests = false
-    public static let actualGabor = true
-    public static let cover = true
-}
-
-class State{
-    public static var GaborX = 0
-    public static var GaborY = 0
-    public static var GaborSize = 50
-    public static var GaborOpacity = 0.7
-    public static var noise = [UInt8]()
-    public static var Uncovered = [UInt8]()
-    public static var showmap = [Double]()
-    public static var darkness = [UInt8](repeating:Constants.covercolor,count:Constants.radius*Constants.radius*4)
-    public static var presses = 0
-    public static var prevResults = [Int]()
-    public static var showJustForShortTime = true
-    public static var showFor = 200 //ms
-    public static var LastPressX = -1
-    public static var LastPressY = -1
-    public static var BlankStored = false
-    public static var Blank : UIImage? = nil
-    public static var GenerateBackgroundOnEntry = true
-    public static var GaborLocated = false
-    public static var PreviousAccuracy = 0
-    public static var RedrawOnClick = false
-    
-    //Info about user
-    public static var subject = "unknown"
-    public static var TrialNumber = 0
-    public static var currentTrial = trial()
-    public static var log = [trial]()
-    
-}
 
 func getTopText() -> String {
     var s = ""
@@ -104,13 +54,7 @@ if DebugFlags.executeTests {
     }
 }
 
-func getBlank() ->UIImage {
-    if (!State.BlankStored) { //first call
-        State.Blank = UIImageFromArray(source: combine(first: State.Uncovered, second:State.darkness, mask: State.showmap, length: Constants.radius*Constants.radius*4), height: Constants.radius*2, width: Constants.radius*2)
-        State.BlankStored = true
-    }
-    return State.Blank!
-}
+
 
 
 class ViewController: UIViewController {
@@ -126,8 +70,8 @@ class ViewController: UIViewController {
         tests()
         super.viewDidLoad()
         TopText.text = getTopText()
-        MainImg.image = Img
-        
+        MainImg.image = getBlank()
+        CalculatePossibleLocations(d: State.PossibleLocationsDistance)
         if(State.GenerateBackgroundOnEntry){
             State.GenerateBackgroundOnEntry = false
             State.GaborLocated = false
@@ -138,6 +82,7 @@ class ViewController: UIViewController {
         } else {
             Redraw(ForcedBlank: true)
         }
+        SetScreen(screen: "Game")
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -237,12 +182,9 @@ class ViewController: UIViewController {
         State.noise = State.Uncovered
         let gabor = MakeGabor(Size: State.GaborSize, rotation: 45, Contrast: 1, Period: State.GaborSize/3)
         let mask = MakeGaborMask(Size: State.GaborSize, peak: State.GaborOpacity)
-        State.GaborX=Int(arc4random_uniform(UInt32(Constants.radius*2)))
-        State.GaborY=Int(arc4random_uniform(UInt32(Constants.radius*2)))
-        while (sqr(State.GaborX+State.GaborSize/2-Constants.radius)+sqr(State.GaborY-Constants.radius+State.GaborSize/2)>sqr(Constants.radius-State.GaborSize)){
-            State.GaborX=Int(arc4random_uniform(UInt32(Constants.radius*2)))
-            State.GaborY=Int(arc4random_uniform(UInt32(Constants.radius*2)))
-        }
+        let p = State.PossibleLocations[Int(arc4random_uniform(UInt32(State.PossibleLocations.count)))]
+        State.GaborX=p.x-State.GaborSize/2
+        State.GaborY=p.y-State.GaborSize/2
         ImagePaste(Background: &State.Uncovered, BackgroundWidth: Constants.radius*2, BackgroundHeight: Constants.radius*2, Image: gabor, Width: State.GaborSize, Height: State.GaborSize, Top: State.GaborY, Left: State.GaborX, Alpha: mask)
         //Background drawing finished!
         State.showmap = getStartingShowmap()
@@ -254,7 +196,3 @@ class ViewController: UIViewController {
     
 
 }
-
-
-        
-var Img = UIImage()

@@ -13,6 +13,7 @@ enum cellType {
     case number
     case string
     case button
+    case title
 }
 
 class cellInfo {
@@ -21,12 +22,12 @@ class cellInfo {
     public var getStringValue : () -> String = {return ""}
     public var getBoolValue : () -> Bool = {return false}
     public var getNumericValue : () -> Int = {return 0}
-    public var setStringValue : (String) -> () = {_ in }
+    public var setStringValue : (String) -> String = {_ in return ""}
     public var setBoolValue : (Bool) -> () = {_ in }
-    public var setNumericValue : (Int) -> () = {_ in }
+    public var setNumericValue : (Int) ->Int = {_ in return 0}
     public var action : () -> () = {}
     
-    init(text:String,get:@escaping ()->String,set:@escaping (String)->()){
+    init(text:String,get:@escaping ()->String,set:@escaping (String)->String){
         type = cellType.string
         label = text
         getStringValue = get
@@ -38,7 +39,7 @@ class cellInfo {
         getBoolValue = get
         setBoolValue = set
     }
-    init(text:String,get:@escaping ()->Int,set:@escaping (Int)->()){
+    init(text:String,get:@escaping ()->Int,set:@escaping (Int)->Int){
         type = cellType.number
         label = text
         getNumericValue = get
@@ -49,6 +50,10 @@ class cellInfo {
         label = text
         action = press
     }
+    init(text:String) {
+        type = cellType.title
+        label = text
+    }
 }
 
 class SettingsViewController: UITableViewController {
@@ -57,16 +62,24 @@ class SettingsViewController: UITableViewController {
     func FillCellInfo() {
         items.append(cellInfo(text: "Subject", get: {return State.subject}, set:{ value in State.subject = value
             State.TrialNumber = 1 + findLastTrial(log: State.log, subject: value)
+            return value
         }))
-        items.append(cellInfo(text: "Difficulty (0 = impossible, 1000 = easiest)", get: {return Int(State.GaborOpacity*1000)}, set: {v in State.GaborOpacity = Double(min(1000,max(0,v)))/1000}))
-        items.append(cellInfo(text: "Gabor patch diameter", get: {return State.GaborSize}, set:{v in State.GaborSize = v}))
-        items.append(cellInfo(text: "Radius of uncovered area", get: {return Constants.UncoverRadius}, set: {v in Constants.UncoverRadius = v}))
-        items.append(cellInfo(text: "Area uncovered for (ms)", get: {return State.showFor}, set: {v in State.showFor = v}))
+        items.append(cellInfo(text: "Difficulty (0 = impossible, 1000 = easiest)", get: {return Int(State.GaborOpacity*1000)}, set: {v in let x = Double(min(1000,max(0,v)))/1000; State.GaborOpacity = x; return Int(x*1000)}))
+        items.append(cellInfo(text: "Gabor patch diameter", get: {return State.GaborSize}, set:{v in State.GaborSize = max(1,v); return max(1,v)}))
+        items.append(cellInfo(text: "Radius of uncovered area", get: {return Constants.UncoverRadius}, set: {v in Constants.UncoverRadius = max(1,v); return max(1,v)}))
+        items.append(cellInfo(text: "Area uncovered for (ms)", get: {return State.showFor}, set: {v in State.showFor = max(1,v); return max(1,v)}))
         items.append(cellInfo(text: "Area uncovered for brief period only", get: {return State.showJustForShortTime}, set:{v in State.showJustForShortTime = v}))
+        items.append(cellInfo(text: "Possible location distance", get: {return State.PossibleLocationsDistance}, set: {v in
+            let h = max(v,60)
+            State.PossibleLocationsDistance = h
+            CalculatePossibleLocations(d: h)
+            return h
+        }))
         items.append(cellInfo(text: "Generate noise", get: {DebugFlags.randomNoise},set: {v in DebugFlags.randomNoise = v}))
         items.append(cellInfo(text: "Regenerate noise", get:{return State.GenerateBackgroundOnEntry}, set:{v in State.GenerateBackgroundOnEntry = v}))
         items.append(cellInfo(text: "Preview", press: {self.performSegue(withIdentifier: "ShowPreview", sender: nil)} ))
-        items.append(cellInfo(text: "Back", press: {self.performSegue(withIdentifier: "BackToMain", sender: nil)}))
+        items.append(cellInfo(text: "Start game", press: {self.performSegue(withIdentifier: "SettingsToGame", sender: nil)}))
+        items.append(cellInfo(text: "Back to main menu", press:{self.performSegue(withIdentifier: "SettingsToMainMenu", sender: nil)}))
         
     }
     
@@ -76,6 +89,8 @@ class SettingsViewController: UITableViewController {
         if (items.count == 0){
             FillCellInfo()
         }
+        SetScreen(screen:"Settings")
+        InitApp()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -125,6 +140,10 @@ class SettingsViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "ButtonCell", for: indexPath) as! ButtonCell
             cell.action = info.action
             cell.Button.setTitle(info.label, for: UIControlState.normal)
+            c = cell
+        case .title:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TitleCell", for: indexPath) as! TitleCell
+            cell.Label.text = info.label
             c = cell
         }
         

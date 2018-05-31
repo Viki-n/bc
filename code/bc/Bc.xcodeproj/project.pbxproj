@@ -14,6 +14,8 @@
 		384BBBCB20B346FC00D1381F /* ButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384BBBCA20B346FC00D1381F /* ButtonCell.swift */; };
 		384BBBCD20B34EC400D1381F /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384BBBCC20B34EC400D1381F /* PreviewViewController.swift */; };
 		384BBBCF20B3C26600D1381F /* log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384BBBCE20B3C26600D1381F /* log.swift */; };
+		384BBBD120B444E400D1381F /* TitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384BBBD020B444E400D1381F /* TitleCell.swift */; };
+		3853654920BCEF9F0087A439 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3853654820BCEF9F0087A439 /* MainMenuViewController.swift */; };
 		38CE558D2097EC2900C8F879 /* sound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CE558C2097EC2900C8F879 /* sound.swift */; };
 		38DC0A7620332E2400F56EA6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DC0A7520332E2400F56EA6 /* AppDelegate.swift */; };
 		38DC0A7820332E2400F56EA6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DC0A7720332E2400F56EA6 /* ViewController.swift */; };
@@ -24,6 +26,7 @@
 		38F617962099C7120022FBBA /* math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F617952099C7120022FBBA /* math.swift */; };
 		38F61798209A01920022FBBA /* NoiseGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F61797209A01920022FBBA /* NoiseGen.swift */; };
 		38F6179A209A022C0022FBBA /* Graphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F61799209A022C0022FBBA /* Graphics.swift */; };
+		38F807EF20BEFAF7009D3E72 /* Misc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F807EE20BEFAF7009D3E72 /* Misc.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +47,8 @@
 		384BBBCA20B346FC00D1381F /* ButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCell.swift; sourceTree = "<group>"; };
 		384BBBCC20B34EC400D1381F /* PreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
 		384BBBCE20B3C26600D1381F /* log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = log.swift; sourceTree = "<group>"; };
+		384BBBD020B444E400D1381F /* TitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleCell.swift; sourceTree = "<group>"; };
+		3853654820BCEF9F0087A439 /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
 		38CE558C2097EC2900C8F879 /* sound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sound.swift; sourceTree = "<group>"; };
 		38DC0A7220332E2400F56EA6 /* Bc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		38DC0A7520332E2400F56EA6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -58,6 +63,7 @@
 		38F617952099C7120022FBBA /* math.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = math.swift; sourceTree = "<group>"; };
 		38F61797209A01920022FBBA /* NoiseGen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoiseGen.swift; sourceTree = "<group>"; };
 		38F61799209A022C0022FBBA /* Graphics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Graphics.swift; sourceTree = "<group>"; };
+		38F807EE20BEFAF7009D3E72 /* Misc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Misc.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +91,7 @@
 				384BBBC820B3380C00D1381F /* SetNumberCell.swift */,
 				3805814520B32D6D004A9720 /* SetStringCell.swift */,
 				3805814320B32D3D004A9720 /* SetBoolCell.swift */,
+				384BBBD020B444E400D1381F /* TitleCell.swift */,
 				384BBBCA20B346FC00D1381F /* ButtonCell.swift */,
 			);
 			path = SettingsController;
@@ -113,6 +120,8 @@
 			children = (
 				38F61799209A022C0022FBBA /* Graphics.swift */,
 				38DC0A7520332E2400F56EA6 /* AppDelegate.swift */,
+				38F807EE20BEFAF7009D3E72 /* Misc.swift */,
+				3853654820BCEF9F0087A439 /* MainMenuViewController.swift */,
 				38DC0A7720332E2400F56EA6 /* ViewController.swift */,
 				384BBBCE20B3C26600D1381F /* log.swift */,
 				384BBBCC20B34EC400D1381F /* PreviewViewController.swift */,
@@ -242,13 +251,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				38F6179A209A022C0022FBBA /* Graphics.swift in Sources */,
+				38F807EF20BEFAF7009D3E72 /* Misc.swift in Sources */,
 				3805814620B32D6D004A9720 /* SetStringCell.swift in Sources */,
 				38DC0A7820332E2400F56EA6 /* ViewController.swift in Sources */,
 				3805814220B318B8004A9720 /* SettingsViewController.swift in Sources */,
 				38DC0A7620332E2400F56EA6 /* AppDelegate.swift in Sources */,
 				3805814420B32D3D004A9720 /* SetBoolCell.swift in Sources */,
+				3853654920BCEF9F0087A439 /* MainMenuViewController.swift in Sources */,
 				38F61798209A01920022FBBA /* NoiseGen.swift in Sources */,
 				38CE558D2097EC2900C8F879 /* sound.swift in Sources */,
+				384BBBD120B444E400D1381F /* TitleCell.swift in Sources */,
 				384BBBCB20B346FC00D1381F /* ButtonCell.swift in Sources */,
 				38F617962099C7120022FBBA /* math.swift in Sources */,
 				384BBBC920B3380C00D1381F /* SetNumberCell.swift in Sources */,
