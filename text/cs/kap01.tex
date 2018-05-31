@@ -12,42 +12,67 @@ Zeptat se Fíďy, je to fakt formálně pink noise?
 Gabor filter (v českých textech někdy označovaný jako Gaborova vlnka) je
 lineární filtr používaný ve zpracování obrazu, chceme-li detekovat signál
 mající danou frekvenci a směr, který se vyskytuje kolem daného bodu.
-Chceme-li detekovat signál ve vizuálním šumu, jenoduše spočítáme hodnotu filtru
-pro každý bod obrazu a vynásobíme ho s hodnotou šumu. Poté spočítáme součet
-všech takto získaných hodnot. Je-li součet blízko nuly, signál v daném místě
+
+\subsection{Definice}
+
+Hodnotu filtru v daném bodě spočítáme jako součin dvou funkcí. První z nich je
+vždy sinus či cosinus (někdy uváděné v podobě komplexní exponenciály, pokud
+potřebujeme i reálnou, i imaginární složku). Jeho parametry určují, jaké
+vlastnosti má mít signál, který chceme detekovat. Druhé funkci říkáme obálka, a
+určuje, na jakém okolí daného bodu signál zkoumáme.
+
+Funkce tedy vypadá jako $$g(x,y) =
+\sin\left(2\pi\frac{x'}{\lambda}+\phi\right)*\operatorname{obálka}(x',y'),$$
+kde vektor $(x',y')^T$ je vektor $(x,y)^T$ otočený o úhel, který svírá osa $x$
+se směrem, podél nějž chceme měřit signál (tento úhel budeme značit $\Theta$),
+a posunutý do bodu, v němž chceme měřit signál, $\lambda$ je frekvence signálu,
+který hledáme, a $\phi$ je fázový posun.
+
+Jako obálka se používá dvojrozměrná Gaussova funkce, raised cosine, nebo prostá lineární funkce vzdálenosti. 
+
+Gaussovu funkci vyjádříme jako $$ \operatorname{obálka}(x,y) =  \exp\left(\frac{x'^2 +
+y'^2}{2\rho}\right),$$ kde $\rho$ je směrodatná odchylka Gaussovy křivky. Její výhodou je, že chování Gabor filtru, jehož obálku tvoří Gaussova funkce, je nejlépe popsané. Raised cosine vyjádříme jako 
+$$
+\operatorname{obálka}(x,y)=
+\begin{cases}
+ \frac{\cos(\pi\sqrt{x'^2+y'^2}/r)+1}2 &\text{pro $\sqrt{x'^2+y'^2}\leq r$,}\\[1ex]
+ 0 &\text{jinak,}
+\end{cases}
+$$ kde $r$ je poloměr oblasti, v níž chceme signál detekovat. Výhodou raised cosine oproti Gaussově funkci je, že ve vzdálenosti alespoň $r$ od středu filtru jeho hodnota nabývá nuly. Při výpočtech tedy stačí počítat s malou oblastí kolem středu (kdežto při použití Gaussovy funkce je nutné počítat s celým obrazem). Výhodou oproti lineární funkci vzdálenosti je, že raised cosine se pro většinu aplikací chová dostatečně podobně, jako Gaussova funkce.
+
+\subsection{Použití}
+
+Chceme-li detekovat signál ve vizuálním šumu, spočítáme hodnotu $$s=\sum g(x,y)*n[x,y],$$ kde $n$ je šum a sumu bereme přes všechny body $(x,y)$, v nichž jsme naměřili hodnoty šumu. Je-li hodnota $s$  blízko nuly, signál v daném místě
 není přítomen, nebo je přítomen s jinými parametry. Vysoké hodnoty značí, že
 signál pravděpodobně přítomen je, hluboce záporné značí, že signál je přítomen,
 ovšem s fází posunutou $\pi$.
 
-Hodnotu filtru v daném bodě spočítáme jako součin dvou funkcí, a to sinu (někdy
-uváděného ve formě komplexní exponenciály, pokud potřebujeme i komplexní, i
-reálnou složku), který slouží jako vlastní signál, a obálky, funkce, která
-utlumí signál mimo daný bod. Jako obálka se typicky používá dvojrozměrná
-Gaussova křivka. Funkce tedy vypadá jako $$g(x,y) = \exp\left(\frac{x'^2 +
-y'^2}{2\rho}\right)\cos\left(2\pi\frac{x'}{\lambda}+\phi\right),$$ kde vektor
-$(x',y')^T$ je vektor $(x,y)^T$ otočený o úhel, který svírá osa $x$ se směrem,
-podél nějž chceme měřit signál a posunutý do bodu, v němž chceme měřit signál,
-$\rho$ je směrodatná odchylka použité Gaussovy křivky (určuje tedy, jak široké
-okolí daného bodu nás zajímá), $\lambda$ je frekvence signálu, který hledáme, a
-$\phi$ je fázový posun.
-   
 Gabor filter ale můžeme používat i k samotné tvorbě signálu. Chceme-li vytvořit
-v nějakém bodě signál, můžeme spočítat Gabor filter, jako bychom ho tam chtěli
-detekovat, a potom ho sečíst se šumem. Takto vytvořenému signálu budeme říkat
+v nějakém bodě signál, můžeme spočítat Gabor filter, jako bychom chtěli
+detekovat signál s právě takovými parametry, jaké má mít tvořený signál, a potom ho sečíst se šumem. Takto vytvořenému signálu budeme říkat
 Gabor patch.
 
-V této práci se však od nejčastěji používaného Gabor patche
-odchýlíme ve dvou bodech. Nebudeme jako obálku používat dvojrozměrnou Gaussovu
-funkci, ale tzv. raised cosine. Ve vzorci výše se nám tedy z prvního činitele
-stane $\cos(\pi\sqrt{x'^2+y'^2}/r)/2+1$ pro $\sqrt{x'^2+y'^2}\leq r$, jinak 0,
-kde $r$ je poloměr signálu. Tuto změnu činíme z implementačních důvodů.
-Gaussova křivka totiž nikde nedosáhne nuly, kdežto raised cosine ano. S použitím raised cosine proto stačí při přidávání signálu modifikovat malou část šumu. Vliv na vzhled gabor patche má však tato změna minimální.
+\begin{figure}[h!]
+\begin{subfigure}{0.25\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{img/gabor1}
+\end{subfigure}% 
+\begin{subfigure}{0.25\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{img/gabor2}
+\end{subfigure}% 
+\begin{subfigure}{0.25\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{img/gabor3}
+\end{subfigure}% 
+\begin{subfigure}{0.25\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{img/gabor4}
+\end{subfigure}% 
+\caption{Ukázky několika Gabor patchů. Všechny gabor patche jsou 100 pixelů široké i vysoké. Levý patch má $\Theta = 1/4\pi$, ostatní mají $\Theta = -1/4\pi$, levý má jako obálku Gaussovu funkci, prostřední dva raised cosine, pravý lineární funkci vzdálenosti, první, druhý a čtvrtý mají frekvenci (v cyklech na pixel) $0.1$, třetí $0.02$.} 
+\label{obr:gabor:example} 
+ 
+\end{figure}
 
-Druhý bod, v němž se odchýlíme, bude, že nebudeme činitele násobit a signál
-přičítat k šumu, ale budeme se chovat, jako kdybychom kreslili signál na šum a
-obálku použijeme jako alfa kanál. Tuto úpravu provedeme proto, že náš šum
-musíme nakonec upravit tak, aby všechny jeho hodnoty byly mezi 0 a 255.
-Takovýmto ořezáváním bychom mohli, kdybychom přičítali, přijít až o půlku
-signálu. 
 
 \section{Ideální bayesovský pozorovatel}
