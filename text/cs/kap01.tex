@@ -2,11 +2,48 @@
 
 \section{Šum}
 
-Zeptat se Fíďy, je to fakt formálně pink noise?
+V teorii detekce signálu šumem nazýváme jakoukoli nechtěnou (a typicky neznámou) modifikaci signálu.
 
+\subsection{Barva šumu}
 
+U aditivního šumu můžeme měřit intenzitu šumu na různých frekvencích. Šumu se
+říká bílý šum, pokud by světlo, které by mělo stejnou distribuci intenzity
+napříč frekvencemi, jako daný šum (který ale vůbec nemusí být světelný), bylo
+bílé. Podobně známe například ještě růžový, hnědý či modrý šum.
 
+Intenzita $p$ všech zmíněných šumů na v na dané frekvenci lze vyjádřit jako $p=1/f^\beta$, kde hodnota $\beta$ je $-1$ pro modrý šum, $0$ pro bílý, $1$ pro růžový a $2$ pro hnědý. Proto se růžový šum někdy též označuje $1/f$ šum. Pro ostatní barvy šumu není podobné označení běžné. 
 
+V této práci se budeme zabývat vizuálním šumem, tedy šumem, kde místo obvykle
+používané časové souřadnice použijeme dvě souřadnice prostorové, a měřenou
+hodnotou bude jas. 
+
+\begin{figure}[h!]
+\begin{tabular}{cc}
+\begin{subfigure}{0.45\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{img/blue_noise}
+  \caption{Modrý šum} 
+\end{subfigure}&
+\begin{subfigure}{0.45\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{img/white_noise}
+  \caption{Bílý šum} 
+\end{subfigure}\\
+\begin{subfigure}{0.45\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{img/pink_noise}
+  \caption{Růžový šum} 
+\end{subfigure}&
+\begin{subfigure}{0.45\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{img/brown_noise}
+  \caption{Hnědý, někdy též červený nebo Brownův šum} 
+\end{subfigure}%
+\end{tabular} 
+\caption{Ukázky různých šumů.} 
+\label{obr:noise:example} 
+ 
+\end{figure}
 \section{Gabor patch}
 
 Gabor filter (v českých textech někdy označovaný jako Gaborova vlnka) je
