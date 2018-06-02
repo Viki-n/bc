@@ -64,7 +64,7 @@
                                     <segue destination="CfE-Hz-Ci1" kind="show" id="sBF-SI-GZN"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Pořád nevím, jak se to vlastně má jmenovat, ale až na to přijdu, bude to tady." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zPn-I0-7Uf">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Visual search testing game" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zPn-I0-7Uf">
                                 <rect key="frame" x="68" y="208" width="632" height="133"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="34"/>
@@ -99,7 +99,7 @@
                                     <constraint firstAttribute="width" constant="768" id="mD3-ml-obF"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="characterWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IeR-1q-hdI">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IeR-1q-hdI">
                                 <rect key="frame" x="56" y="20" width="657" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -352,11 +352,59 @@
                         <segue destination="ksQ-BQ-sAK" kind="show" identifier="ShowPreview" id="dou-46-6MU"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="SettingsToGame" id="NdC-nf-6V3"/>
                         <segue destination="UHK-k6-lJK" kind="show" identifier="SettingsToMainMenu" id="5rT-Rc-Wly"/>
+                        <segue destination="EHw-D4-qrN" kind="show" identifier="SettingsToLog" id="AhZ-zB-F0v"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bfZ-wk-XOm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="804.6875" y="116.60156249999999"/>
+        </scene>
+        <!--Display Log View Controller-->
+        <scene sceneID="1Gp-Iw-RJp">
+            <objects>
+                <viewController id="EHw-D4-qrN" customClass="DisplayLogViewController" customModule="Bc" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="q4U-yf-21Q">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="skF-pj-yVq">
+                                <rect key="frame" x="20" y="20" width="728" height="852"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uX5-0S-rdb">
+                                <rect key="frame" x="20" y="927" width="728" height="77"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="77" id="7cW-5k-O44"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="34"/>
+                                <state key="normal" title="Back"/>
+                                <connections>
+                                    <segue destination="CfE-Hz-Ci1" kind="show" id="Jlo-Lu-taZ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="uX5-0S-rdb" firstAttribute="leading" secondItem="q4U-yf-21Q" secondAttribute="leadingMargin" id="F5x-Qt-0Fg"/>
+                            <constraint firstItem="skF-pj-yVq" firstAttribute="trailing" secondItem="uX5-0S-rdb" secondAttribute="trailing" id="KxX-B2-uPE"/>
+                            <constraint firstAttribute="bottom" secondItem="uX5-0S-rdb" secondAttribute="bottom" constant="20" symbolic="YES" id="Mun-zc-U2b"/>
+                            <constraint firstItem="uX5-0S-rdb" firstAttribute="top" secondItem="skF-pj-yVq" secondAttribute="bottom" constant="55" id="Q3m-m4-UAh"/>
+                            <constraint firstItem="skF-pj-yVq" firstAttribute="top" secondItem="sMi-8q-xjf" secondAttribute="top" id="tJs-55-iiJ"/>
+                            <constraint firstItem="skF-pj-yVq" firstAttribute="leading" secondItem="uX5-0S-rdb" secondAttribute="leading" id="tTW-zH-MnI"/>
+                            <constraint firstItem="uX5-0S-rdb" firstAttribute="trailing" secondItem="q4U-yf-21Q" secondAttribute="trailingMargin" id="vY0-cT-PNB"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="sMi-8q-xjf"/>
+                    </view>
+                    <connections>
+                        <outlet property="TextView" destination="skF-pj-yVq" id="mg3-NT-6rZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="A1H-Fo-vEl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="804.6875" y="839.6484375"/>
         </scene>
         <!--Preview View Controller-->
         <scene sceneID="Bd8-eV-v4B">
@@ -399,9 +447,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="r66-V2-geY"/>
-        <segue reference="sBF-SI-GZN"/>
+        <segue reference="dou-46-6MU"/>
+        <segue reference="Jlo-Lu-taZ"/>
         <segue reference="NdC-nf-6V3"/>
-        <segue reference="T0d-MF-aiQ"/>
+        <segue reference="5rT-Rc-Wly"/>
     </inferredMetricsTieBreakers>
 </document>

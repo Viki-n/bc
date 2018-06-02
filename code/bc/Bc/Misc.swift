@@ -34,7 +34,7 @@ class DebugFlags{
 class State{
     public static var GaborX = 0
     public static var GaborY = 0
-    public static var GaborSize = 30
+    public static var GaborSize = 50
     public static var GaborOpacity = 0.7
     public static var noise = [UInt8]()
     public static var Uncovered = [UInt8](repeating: UInt8(Constants.backgroundcolor),count:Constants.radius*Constants.radius * 4)
@@ -57,12 +57,13 @@ class State{
     public static var appInitialized = false
     //Info about user
     public static var subject = "unknown"
-    public static var TrialNumber = 0
     public static var currentTrial = trial()
     public static var log = [trial]()
     
     public static var PossibleLocations = [point]()
     public static var PossibleLocationsDistance = 100
+    
+    public static var DataDeletionEnabled = false
     
 }
 
@@ -104,7 +105,8 @@ func CalculatePossibleLocations(d: Int){
 
 func  InitApp(){
     if(!State.appInitialized){
-    CalculatePossibleLocations(d:State.PossibleLocationsDistance)
-    State.appInitialized = true
+        logger.LoadLog()
+        CalculatePossibleLocations(d:State.PossibleLocationsDistance)
+        State.appInitialized = true
     }
 }

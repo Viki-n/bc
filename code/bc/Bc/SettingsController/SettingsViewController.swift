@@ -61,7 +61,8 @@ class SettingsViewController: UITableViewController {
     
     func FillCellInfo() {
         items.append(cellInfo(text: "Subject", get: {return State.subject}, set:{ value in State.subject = value
-            State.TrialNumber = 1 + findLastTrial(log: State.log, subject: value)
+            State.currentTrial.subject = value
+            State.currentTrial.TrialNumber = 1 + findLastTrial(log: State.log, subject: value)
             return value
         }))
         items.append(cellInfo(text: "Difficulty (0 = impossible, 1000 = easiest)", get: {return Int(State.GaborOpacity*1000)}, set: {v in let x = Double(min(1000,max(0,v)))/1000; State.GaborOpacity = x; return Int(x*1000)}))
@@ -80,6 +81,22 @@ class SettingsViewController: UITableViewController {
         items.append(cellInfo(text: "Preview", press: {self.performSegue(withIdentifier: "ShowPreview", sender: nil)} ))
         items.append(cellInfo(text: "Start game", press: {self.performSegue(withIdentifier: "SettingsToGame", sender: nil)}))
         items.append(cellInfo(text: "Back to main menu", press:{self.performSegue(withIdentifier: "SettingsToMainMenu", sender: nil)}))
+        items.append(cellInfo.init(text: "Logging"))
+        items.append(cellInfo.init(text: "See log", press: {self.performSegue(withIdentifier: "SettingsToLog", sender: nil)}))
+        items.append(cellInfo.init(text: "Data deletion enabled", get: {State.DataDeletionEnabled = false; return false}, set: {v in State.DataDeletionEnabled = v}))
+        items.append(cellInfo(text: "Delete all data", press: {
+            if State.DataDeletionEnabled{
+                State.log = [trial]()
+                logger.SaveLog()
+                let ac = UIAlertController(title: "Deleted!", message: "All your data was succesfully deleted!", preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "OK", style: .default))
+                self.present(ac, animated: true)
+            } else {
+                let ac = UIAlertController(title: "Error!", message: "You have to enable data deletion first!", preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "OK", style: .default))
+                self.present(ac, animated: true)
+            }
+        }))
         
     }
     
