@@ -6,7 +6,13 @@ V teorii detekce signálu šumem nazýváme jakoukoli nechtěnou (a typicky nezn
 
 \subsection{Barva šumu}
 
-U aditivního šumu můžeme měřit intenzitu šumu na různých frekvencích. Šumu se
+U aditivního\footnote{Šumu říkáme aditivní, pokud se jeho hodnoty přičítají k
+hodnotě signálu. Dále existuje například ještě šum multiplikativní či fázový
+(šum, který se projevuje krátkodobým fázovám posunem signálu).} šumu můžeme
+měřit intenzitu šumu na různých frekvencích. Tu změříme tak, že na šum aplikujeme
+Fourierovu transformaci
+
+ Šumu se
 říká bílý šum, pokud by světlo, které by mělo stejnou distribuci intenzity
 napříč frekvencemi, jako daný šum (který ale vůbec nemusí být světelný), bylo
 bílé. Podobně známe například ještě růžový, červený či modrý šum.
@@ -14,7 +20,12 @@ bílé. Podobně známe například ještě růžový, červený či modrý šum
 Intenzita $p$ všech zmíněných šumů na v na dané frekvenci lze vyjádřit jako
 $p=1/f^\beta$, kde hodnota $\beta$ je $-1$ pro modrý šum, $0$ pro bílý, $1$ pro
 růžový a $2$ pro hnědý. Proto se růžový šum někdy též označuje jako $1/f$ šum. Pro
-ostatní barvy šumu není podobné označení běžné. 
+ostatní barvy šumu není podobné označení běžné.
+
+Pravděpodobnostní rozdělení jednotlivých složek Fourierovy transformace ale
+není definicí barvy šumu dáno. Pokud je rozdělení normální\footnote{Nezáleží na
+tom, zda má normální rozdělení šum sám nebo jeho Fourierův obraz -- tyto dvě
+vlastnosti jsou ekvivalentní.}, řekneme, že se jedná o Gaussovský šum. 
 
 V této práci se budeme zabývat vizuálním šumem, tedy šumem, kde místo obvykle
 používané časové souřadnice použijeme dvě souřadnice prostorové, a měřenou
@@ -78,19 +89,27 @@ $$
  \frac{\cos(\pi\sqrt{x'^2+y'^2}/r)+1}2 &\text{pro $\sqrt{x'^2+y'^2}\leq r$,}\\[1ex]
  0 &\text{jinak,}
 \end{cases}
-$$ kde $r$ je poloměr oblasti, v níž chceme signál detekovat. Výhodou raised cosine oproti Gaussově funkci je, že ve vzdálenosti alespoň $r$ od středu filtru jeho hodnota nabývá nuly. Při výpočtech tedy stačí počítat s malou oblastí kolem středu (kdežto při použití Gaussovy funkce je nutné počítat s celým obrazem). Výhodou oproti lineární funkci vzdálenosti je, že raised cosine se pro většinu aplikací chová dostatečně podobně, jako Gaussova funkce.
+$$ kde $r$ je poloměr oblasti, v níž chceme signál detekovat. Výhodou raised
+cosine oproti Gaussově funkci je, že ve vzdálenosti alespoň $r$ od středu
+filtru jeho hodnota nabývá nuly. Při výpočtech tedy stačí počítat s malou
+oblastí kolem středu (kdežto při použití Gaussovy funkce je nutné počítat s
+celým obrazem). Výhodou oproti lineární funkci vzdálenosti je, že raised cosine
+se pro většinu aplikací chová dostatečně podobně, jako Gaussova funkce.
 
 \subsection{Použití}
 
-Chceme-li detekovat signál ve vizuálním šumu, spočítáme hodnotu $$s=\sum g(x,y)*n[x,y],$$ kde $n$ je šum a sumu bereme přes všechny body $(x,y)$, v nichž jsme naměřili hodnoty šumu. Je-li hodnota $s$  blízko nuly, signál v daném místě
-není přítomen, nebo je přítomen s jinými parametry. Vysoké hodnoty značí, že
+Chceme-li detekovat signál ve vizuálním šumu, spočítáme hodnotu $$s=\sum
+g(x,y)*n[x,y],$$ kde $n$ je šum a sumu bereme přes všechny body $(x,y)$, v
+nichž jsme naměřili hodnoty šumu. Je-li hodnota $s$  blízko nuly, signál v
+daném místě není přítomen, nebo je přítomen s jinými parametry. Vysoké hodnoty
+značí, že
 signál pravděpodobně přítomen je, hluboce záporné značí, že signál je přítomen,
 ovšem s fází posunutou $\pi$.
 
 Gabor filter ale můžeme používat i k samotné tvorbě signálu. Chceme-li vytvořit
 v nějakém bodě signál, můžeme spočítat Gabor filter, jako bychom chtěli
-detekovat signál s právě takovými parametry, jaké má mít tvořený signál, a potom ho sečíst se šumem. Takto vytvořenému signálu budeme říkat
-Gabor patch.
+detekovat signál s právě takovými parametry, jaké má mít tvořený signál, a
+potom ho sečíst se šumem. Takto vytvořenému signálu budeme říkat Gabor patch.
 
 \begin{figure}[h!]
 \begin{subfigure}{0.25\textwidth}
@@ -109,10 +128,129 @@ Gabor patch.
   \centering
   \includegraphics[width=.8\linewidth]{img/gabor4}
 \end{subfigure}% 
-\caption{Ukázky několika Gabor patchů. Všechny gabor patche jsou 100 pixelů široké i vysoké. Levý patch má $\Theta = 1/4\pi$, ostatní mají $\Theta = -1/4\pi$, levý má jako obálku Gaussovu funkci, prostřední dva raised cosine, pravý lineární funkci vzdálenosti, první, druhý a čtvrtý mají frekvenci (v cyklech na pixel) $0.1$, třetí $0.02$.} 
+
+\caption{Ukázky několika Gabor patchů. Všechny gabor patche jsou 100 pixelů
+široké i vysoké. Levý patch má $\Theta = 1/4\pi$, ostatní mají $\Theta =
+-1/4\pi$, levý má jako obálku Gaussovu funkci, prostřední dva raised cosine,
+pravý lineární funkci vzdálenosti, první, druhý a čtvrtý mají frekvenci (v
+cyklech na pixel) $0.1$, třetí $0.02$.} 
+
 \label{obr:gabor:example} 
  
 \end{figure}
 
+\section{Úvod do teorie detekce signálu}
 
-\section{Ideální bayesovský pozorovatel}
+Teorie detekce signálu řeší problém rozlišení dvou signálů, případně signálu a
+šumu. V této práci se budem zabývat problémem, kdy je potřeba rozhodnout, zda
+se v dané ploše nachází signál, či ne. Této úloze budeme říkat A/N problem,
+nebo pouze A/N.
+
+V kontextu této úlohy můžou po odpovědi pozorovatele nastat čtyři možné situace:
+
+\begin{itemize}
+\item {\it Hit} -- Signál byl přítomen a pozorovatel ohlásil, že signál je přítomen.
+\item {\it Miss} -- Signál byl přítomen ale pozorovatel odpověděl, že signál přítomen není.
+\item {\it Correct rejection} -- Signál nebyl přítomen a pozorovatel odpověděl, že signál není přítomen.
+\item {\it False alarm} -- Signál nebyl přítomen, ale pozorovatel ohlásil, že přítomen je.
+\end{itemize} 
+
+ V této úloze se pozorovatel chová tak,
+že si zvolí kritérium (někdy též práh odpovědi), které udává, jaká musí být
+pravděpodobnost, že signál je přítomen, aby pozorovatel odpověděl kladně.
+
+\def\P#1{\operatorname{P}\left[#1\right]}
+\def\tP#1{\P{\text{#1}}}
+
+Poté pozorovatel provede pozorování, z nějž získá informaci $s$. Poté spočítá
+hodnotu rozhodovací proměnné, tedy spočítá, jaká je pravděpodobnost, že je
+signál přítomen. Tato pravděpodobnost se z Bayesovy věty spočítá jako 
+%\begin{equation}
+\begin{multline*}
+\tP{Signál je přítomen| Pozorování dalo informaci $s$} = \\ 
+=\frac{\tP{Pozorování dalo informaci $s$
+| Signál je přítomen}*\tP{Signál je přítomen}}{\tP{Pozorování dalo informaci
+$s$}}\\ \end{multline*}
+%\end{equation}
+Poté porovná tuto rozhodovací proměnnou s kritériem a podle výsledku tohoto porovnání odpoví.
+
+Odsud je zřejmé, že zvyšováním kritéria zvedáme pravděprodobnost, že nastane miss, ale snižujeme pravděpodobnost false alarmu.
+
+\section{Entropie}
+
+Entropií (nazývanou též Shannonova entropie, aby nedošlo k záměně s entropií
+tak, jak jí chápe termodynamika) náhodné veličiny se v teorii informace rozumí
+střední hodnota informace, kterou nám hodnota této veličiny přinese. Například
+mějme náhodné veličiny $X$ a $Y$. $X$ nechť nabývá hodnoty 0 s pravděpodobností
+$1/2$ a hodnoty 1 s toutéž pravděpodobností. $Y$ nechť nabývá hodnoty 1 s
+pravděpodobností 1 a hodnoty 0 s pravděpodobností 0. Je vidět, že pokud se
+dozvíme, jaké hodnoty nabývá veličina $X$, získáme více informace, než když
+zjistíme, jaké hodnoty nabývá $Y$.
+
+Hodnotu informace, kterou nám přineslo zjištění, že náhodná veličina $A$ nabývá
+hodoty $a$, spočítáme jako $$I(A=a)=\log_b\left(\frac1{\P{A=a}}\right).$$ Jako
+základ logaritmu $b$ se běžně používá 2 (což budeme dělat i v této práci), $e$
+nebo 10. Všimneme si, že toto vyjádření množství informace je konzistentní s
+intuitivní představou, že zjištění, že $A$ nabývá nějaké nepravděpodobné
+hodnoty, je cennější, než zjištění, že nabývá nějaké pravděpodobné. Odsud tedy
+entropii $H(A)$ lze vyjádřit jako $$H(A)=\mathbb{E}[I(A)]=\displaystyle\sum_{a
+\in \Omega}\P{A=a}\log_2\frac1{\P{A=a}},$$ kde $\Omega = \{a|\P{A=a} > 0\}$.
+Všimneme si, že podle tohoto vzorce je entropie veličiny $X$, tak jak byla
+nadefinována v předchozím odstavci, rovna jedné, kdežto  entropie veličiny $Y$
+je rovna nule. To je konzistentní s jednou vlastností entropie, totiž s tím, že
+říká, že pokud označíme $A^n$ řetězec prvků $\Omega$ s pravděpodobnostním
+rozdělením náhodné veličiny $A$, a $\operatorname K$ ideální kompresní
+algoritmus (tedy funkce z $\Omega^*$ do ${0,1}^*$), pak
+$$\operatorname{lim}_{n\rightarrow\infty} \frac{\mathbb{E}[|K(A^n)|]}{n} =
+H(A).$$ Neformálně řečeno nám tedy entropie říká, kolik bitů v průměru
+potřebujeme na uložení hodnoty náhodné veličiny $A$.  
+
+\section{Ideální Bayesovský pozorovatel}
+
+V této práci se budeme zabývat úlohou, kdy pozorovatel hledá gabor patch v
+kruhovém poli, v němž se nachází růžový šum. Předchozí výzkum ukázal, že lidští
+pozorovatelé v této úloze využívají krátkých pohledů a rychlých pohybů očí.
+Jednomu takovému krátkému pohledu budeme říkat {\it fixace}. Oční pohyb mezi
+fixacemi nemá v české literatuře zaužívané pojmenování, v anglické se používá
+termín {\it saccade}, v této práci mu tedy budeme říkat {\it sakáda}. Pojem
+sakáda přirozeně aplikujeme i na simulované (tj. ne liské) pozorovatele, kde ho budeme chápat
+jako vektor v $\mathbb{R}^2$ mezi středy dvou po sobě jdoucích fixací. Jednotlivé fixace trvají
+přibližně $200$--$300 \operatorname{ms}$.
+
+Abychom ale mohli hodnotit fixace lidského pozorovatele, potřebujeme mít nějaký
+model, který nám bude říkat, jak se chová optimální pozorovatel. Nejprve ale stručnou odbočku:
+
+\subsection{$d'$ mapa}
+
+Ještě předtím, než začneme zjišťovat, podle jakého modelu se chová lidský
+pozorovatel, je nutné zjistit, kolik informace člověk jednou fixací získá. Je
+například zjevné, že kdyby jedním pohledem bez ohledu na to, kam se dívá,
+získal stejné množství informace o všech možných polohách cíle, jsou všechny
+modely ekvivalentní. Proto je potřeba najít tzv. $d'$ mapu, funkci, která
+nám pro každé dva body $x$, $y$ řekne, jaká je pravděpodobnost, že bychom zaznamenali
+cíl na pozici $y$, pokud se podíváme na pozici $x$. U pozadí s uniformními nebo téměř uniformními
+lokálními kontrasty lze tuto funkci zjednodušit, stačí, když budeme pro každý bod $x$ vědět,
+jakou s jakou pravděpodobností bychom objevili cíl, kdyby se nacházel v bodě $x$, pokud zafixujeme střed.
+
+Předchozí výzkum ukázal, že u běžného člověka je $d'$ mapa poměrně
+nepravidelná, ale dá se s přijatelnou přesností aproximovat mapou, kde křivky
+spojující body se stejnou hodnotou $d'$ jsou tvořeny čtyřmi čtvrtelipsami
+(jednou v každém kvadrantu) se středem v počátku. Takovou $d'$, s
+excentricitami a velikostí poloos danou hodnotou $d'$ a individuálními vlastnostmi pozorovatele a cíle. 
+
+Ke kompletnímu vyjádření aproximace funkce $d'$ potřebujeme celkem 6 hodnot, které závisí na konkrétním pozorovateli a cíli. Jedná se o hodnotu $d'_0 = d'(0,0)$, hodnot $e_L$, $e_R$, $e_U$ a $e_D$, které určují vzdálenost ve čyřech základních směrech takovou, že v nich je hodnota $d'$ poloviční oproti počátku, a hodnotu $\beta$ popisující sklon této funkce. Funkci $d'$ pak vyjádříme jako 
+$$
+d'(x,y) = \frac{d'_0}{1+\left(\frac{x^2}{e_H^2}+\frac{y^2}{e_V^2} \right)^\beta},
+$$
+kde $e_H$ je rovno $e_L$ pro záporná $x$ a $e_R$ pro kladná, a $e_V$ je rovno $e_D$ pro záporná $y$ a $e_N$ pro kladná.
+
+
+\subsection{Modely chování lidského pozorovatele}
+
+Všechny modely, které zde budeme zkoumat, vypadají tak, že mají tzv. {\it Mapu posteriorních pravděpododbností}. V této mapě je pro každou lokaci, kde by signál (též cíl) mohl být, uvedeno, jaká je pravděpodobnost, že se na ní cíl nachází vzhledem k informaci, kterou již o dané lokaci pozorovatel získal. Ve chvíli, kdy na nějaké lokaci pravděpodobnost přesáhne kritérium, pozorovatel ukončí hledání a ohlásí nalezení cíle na této lokaci.
+
+V rámci předchozího výzkumu bylo otestováno mnoho modelů, jako napříkl
+
+ 
+
+Ideální Bayesovský pozorovatel (dále IBO) je  
