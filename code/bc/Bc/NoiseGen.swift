@@ -8,6 +8,7 @@
 
 import Foundation
 import Accelerate
+import GameplayKit
 
 func GenerateWhiteNoise(radius: Int) -> [UInt8]{
     var out = [UInt8]()
@@ -21,40 +22,30 @@ func GenerateWhiteNoise(radius: Int) -> [UInt8]{
 
 func GeneratePinkNoise() -> [UInt8]{
     let radius = Constants.radius
-    var rand = [Double]()
-    if !DebugFlags.randomNoise{
-        rand = [Double](repeating:0,count:radius*radius*4)
-    }else{
-        for _ in 0..<2*radius{
-            for _ in 0..<2*radius{
-                rand.append(((Double)(arc4random_uniform(UInt32.max)))/Double(UINT32_MAX)-0.5)
-            }
-        }
-    }
-    var zeroes = [Double](repeating:0, count:radius*radius*4)
-    var FFTinput = DSPDoubleSplitComplex(realp:&rand,imagp:&zeroes)
-    vDSP_fft2d_zipD(Constants.FFTsetup, &FFTinput, 1, 0, Constants.LogRadius+UInt(1), Constants.LogRadius+1, FFTDirection(FFT_FORWARD))
-    
+    var real = [Double](repeating:0, count:radius*radius*4)
+    var imag = [Double](repeating:0, count:radius*radius*4)
+    let RandomSource = GKRandomSource()
+    let random = GKGaussianDistribution(randomSource: RandomSource, lowestValue: 0, highestValue: 1)
+    var FFTinput = DSPDoubleSplitComplex(realp:&real,imagp:&imag)
     for i in 0..<2*radius{
         for i1 in 0..<2*radius
         {
             let index = (i+radius)%(2*radius) + ((i1+radius)%(2*radius))*2*radius
             let XCenterDistance = abs(Double(i-radius))
             let YCenterDistance = abs(Double(i1-radius))
-            let scale = 1.0/Double(radius)
-            var quocient = sqrt(XCenterDistance*XCenterDistance*scale*scale+YCenterDistance*YCenterDistance*scale*scale)//sum of squares of coordinates scaled to (-0.5,0.5), except first coordinate shifted by half
-            //if quocient<scale*scale*10 {quocient = scale*scale*10}
-            if(quocient != 0){FFTinput.realp[index] *= 1.0/(quocient/16)} else {FFTinput.realp[index]=0}
-            if(quocient != 0){FFTinput.imagp[index] *= 1.0/(quocient/16)} else {FFTinput.imagp[index]=0}
+            let quocient = sqrt(XCenterDistance*XCenterDistance+YCenterDistance*YCenterDistance)//sum of squares of coordinates, except coordinates shifted by half
+            let dist = Double(random.nextUniform())/(quocient==0 ? 0.1 : quocient)
+            let deg = 2 * .pi * Double(arc4random())/Double(UINT32_MAX)
+            FFTinput.realp[index] = dist*sin(deg)
+            FFTinput.imagp[index] = dist*cos(deg)
         }
     }
-    
     vDSP_fft2d_zipD(Constants.FFTsetup, &FFTinput, 1, 0, Constants.LogRadius+UInt(1), Constants.LogRadius+1, FFTDirection(FFT_INVERSE))
-    let FFTout = FFTinput.realp
+   
     var sum = 0.0
     var squaresum = 0.0
     for i in 0..<radius*radius*4  {
-        let x = FFTout[i]
+        let x = FFTinput.realp[i]
         sum += x
         squaresum += x*x
     }
@@ -66,9 +57,9 @@ func GeneratePinkNoise() -> [UInt8]{
     for i1 in 0..<radius*2{
         for i2 in 0..<radius*2{
             let i = i1+2*radius*i2
-            if (FFTout[i]>upper_bound){FFTout[i]=upper_bound}//clipping 2 std devs above and below mean
-            if (FFTout[i]<lower_bound){FFTout[i]=lower_bound}
-            var scaled_value = (upper_bound-lower_bound == 0) ? 128 : ((FFTout[i]-lower_bound)/(upper_bound-lower_bound)*253 + 1)
+            if (FFTinput.realp[i]>upper_bound){FFTinput.realp[i]=upper_bound}//clipping 2 std devs above and below mean
+            if (FFTinput.realp[i]<lower_bound){FFTinput.realp[i]=lower_bound}
+            var scaled_value = (upper_bound-lower_bound == 0) ? 128 : ((FFTinput.realp[i]-lower_bound)/(upper_bound-lower_bound)*253 + 1)
             if DebugFlags.crop{
                 if ((i1-radius)*(i1-radius)+(i2-radius)*(i2-radius)>radius*radius){scaled_value=Double(Constants.backgroundcolor)} //clipping square noise to circular area
             }
