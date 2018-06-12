@@ -168,7 +168,7 @@ class ViewController: UIViewController {
             if(ForcedBlank || (State.LastPressY == -1 && State.LastPressX == -1 )){ //regenerating empty image
                     MainImg.image! = getBlank()
                 } else {
-                    MainImg.image! = UIImageFromArray(source: State.Uncovered, height: Constants.radius*2, width: Constants.radius*2, transformation: SinglePressFilter)
+                    MainImg.image! = UIImageFromArray(source: State.Uncovered, height: Constants.radius*2, width: Constants.radius*2, transformation: State.MaskFunc)
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(State.showFor)/1000, execute: {
                     self.MainImg.image! = getBlank()
                 })

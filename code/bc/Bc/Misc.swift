@@ -43,7 +43,7 @@ class State{
     public static var presses = 0
     public static var prevResults = [Int]()
     public static var showJustForShortTime = true
-    public static var showFor = 200 //ms
+    public static var showFor = 300 //ms
     public static var LastPressX = -1
     public static var LastPressY = -1
     public static var BlankStored = false
@@ -55,6 +55,20 @@ class State{
     public static var Screen = ""
     public static var PreviousScreen = ""
     public static var appInitialized = false
+    
+    public static var MaskFunc = SimpleCircularSinusoidPressFilter//what function do I need to use as mask when a a portion of noise is to be revealed briefly
+    
+    //DPrime map. Constants measured on subject FD
+    public static var dMap = [Double]()
+    public static var dMapBeingUsed = false
+    public static var dMapActual = false
+    private static let pixelsperdegree = Double(Constants.radius)/15
+    public static var eRight = 6.54 * pixelsperdegree
+    public static var eLeft = 6.54 * pixelsperdegree
+    public static var eUpwards = 4.74 * pixelsperdegree
+    public static var eDownwards = 4.82 * pixelsperdegree
+    public static var FunctionSteepnes = 2.64
+    
     //Info about user
     public static var subject = "unknown"
     public static var currentTrial = trial()
@@ -108,5 +122,6 @@ func  InitApp(){
         logger.LoadLog()
         CalculatePossibleLocations(d:State.PossibleLocationsDistance)
         State.appInitialized = true
+        MakeDMap()
     }
 }
