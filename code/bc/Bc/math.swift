@@ -39,3 +39,11 @@ func distance(X1: Double, Y1:Double,X2:Double,Y2:Double)->Double{
 func distance(_ x: point, _ y: point) -> Double {
     return sqrt(Double((x.x-y.x)*(x.x-y.x)+(x.y-y.y)*(x.y-y.y)))
 }
+
+func dprime(fixated: point, measuring:point) -> Double {
+    let x = -fixated.x + measuring.x
+    let y = -fixated.y + measuring.y
+    let ev = y>0 ? State.eDownwards : State.eUpwards
+    let eh = x>0 ? State.eRight : State.eLeft
+    return State.dPrimeZero/(1+pow((Double(x*x)/(eh*eh))+(Double(y*y)/(ev*ev)),State.FunctionSteepnes))
+}
