@@ -151,16 +151,20 @@ nebo pouze A/N.
 
 V kontextu této úlohy můžou po odpovědi pozorovatele nastat čtyři možné situace:
 
-\begin{itemize}
-\item {\it Hit} -- Signál byl přítomen a pozorovatel ohlásil, že signál je
-přítomen.
-\item {\it Miss} -- Signál byl přítomen ale pozorovatel odpověděl, že signál
-přítomen není.
-\item {\it Correct rejection} -- Signál nebyl přítomen a pozorovatel odpověděl,
-že signál není přítomen.
-\item {\it False alarm} -- Signál nebyl přítomen, ale pozorovatel ohlásil, že
-přítomen je.
-\end{itemize} 
+\bigskip\noindent
+\begin{center}
+\begin{tabular}{|c||c|c|}
+\hline
+& Signál je přítomen & Signál není přítomen \\
+\hline
+\hline
+Pozorovatel odpoví kladně &{\it Hit}&{\it False alarm} \\
+\hline
+Pozorovatel odpoví záporně &{\it Miss}&{\it Correct rejection}\\
+\hline
+\end{tabular}
+\end{center}
+\bigskip
 
  V této úloze se pozorovatel chová tak,
 že si zvolí kritérium (někdy též práh odpovědi), které udává, jaká musí být
@@ -185,6 +189,47 @@ porovnání odpoví.
 
 Odsud je zřejmé, že zvyšováním kritéria zvedáme pravděprodobnost, že nastane
 miss, ale snižujeme pravděpodobnost false alarmu.
+
+\subsection{$d'$}
+
+Jedním s dílčích problémů je též určení, jakou rozlišovací schopnost má daný
+pozorovatel na daný signál. Z předchozího odstavce by mělo být vidět, že
+kvantifikovat citlivost pouze pomocí hit rate (tedy poměru počtu hitů k součtu
+počtů hitů a missů) není vhodné -- napčíklad pozorovatel, který vždy odpoví
+\uv{ano} by měl v tomto případě optimální citlivost, což jistě nechceme. Taktéž
+není vhodné charakterizovat pozorovatele pomocí poměru hitů a false alarmů,
+optimalizace takového parametru by též vedla k scestnému nastavení
+kritéria.\footnote{V typickém případě, který je popsán v následujících třech
+odstavcích, se pro kritérium jdoucí k nekonečnu tento poměr též blíží k
+nekonečnu. Dobrý pozorovatel by tedy téměř vždy odpovídal \uv{ne}, optimální
+pozorovatel by neexistoval.}
+
+Při detekci signálu rozeznáváme dva druhy šumu. Šum vnitřní a šum vnější.
+Vnější šum je zkreslení dat, které se stane ještě mimo pozorovatele. Vnitřní
+šum je naopak šum, který je způsoben přímo algoritmem, který používá
+pozorovatel, aby dekódoval, zda signál je přítomen, či není.
+
+Pro lepší porozumnění případ z praxe. Nechť je pozorovatel člověk, který není
+příliš pozorný a chystá se přejít silnici. Jeho (podvědomým) pozorováním je
+informace, která dorazí ddo jeho mozku z periferií jeho sítnic, a signál, jehož
+přítomnost zkoumá, je, zda přijíždí auto. V takovém případě se v mozku spustí
+algoritmus, který převede pozorování na číslo $X$. Poznamenejme, že v mozku je
+hodnota tohoto čísla dobře kvantifikovaná, i když je mimo záběr této práce
+popisovat, co přesně z fyzikálního hlediska tato hodnota znamená. Pro
+porozumnění stačí představa, že se jedná o frkvenci určitého druhu impulsu,
+které si mezi sebou neurony posílají. Mozek ví, jakou distribuci má náhodná
+veličina $X$ v případě, že se auto blíží, a jakou má v případě, že nikoliv.
+Podle konkrétní hodnoty $X$ kterou naměřil, se rozhodne, jestli auto přítomno
+není, a je tedy bezpečné silnici přejít, nebo zda je pravděpodobnost
+přijíždějícího auta dost vysoká na to, aby mělo smysl zvednout hlavu a podívat
+se příslušným směrem znovu s cílem získat lepší pozorování.
+
+Praxe ukazuje, že v těchto situacích je rozdělení veličiny $X$ dobře
+aproximováno normálním rozdělením, a to jak v případě, že signál přítomen je,
+tak v případě, že přítomen není. Obě tato normální rozdělení navíc mají stejný
+rozptyl a liší se jen svou střední hodnotou.
+
+
 
 \section{Entropie}
 
@@ -242,17 +287,16 @@ pozorovatel, je nutné zjistit, kolik informace člověk jednou fixací získá.
 například zjevné, že kdyby jedním pohledem bez ohledu na to, kam se dívá,
 získal stejné množství informace o všech možných polohách cíle, jsou všechny
 modely ekvivalentní. Proto je potřeba najít tzv. $d'$ mapu, funkci, která nám
-pro každé dva body $x$, $y$ řekne, jaká je pravděpodobnost, že bychom
-zaznamenali cíl na pozici $y$, pokud se podíváme na pozici $x$. U pozadí s
-uniformními nebo téměř uniformními lokálními kontrasty lze tuto funkci
-zjednodušit, stačí, když budeme pro každý bod $x$ vědět, jakou s jakou
-pravděpodobností bychom objevili cíl, kdyby se nacházel v bodě $x$, pokud
-zafixujeme střed.
+pro každé dva body $x$, $y$ řekne, jakou hodnotu $d'$ má lidský pozorovatel,
+pokud hodnotí pozici $y$ a dívá se na pozici $x$. U pozadí s uniformními nebo
+téměř uniformními lokálními kontrasty lze tuto funkci zjednodušit, stačí, když
+budeme pro každý bod $x$ vědět, jaká je hodnota $d'$ pro rozhodování, zda je
+cíl v bodě $x$, pokud zafixujeme střed.
 
 Předchozí výzkum ukázal, že u běžného člověka je $d'$ mapa poměrně
 nepravidelná, ale dá se s přijatelnou přesností aproximovat mapou, kde křivky
 spojující body se stejnou hodnotou $d'$ jsou tvořeny čtyřmi čtvrtelipsami
-(jednou v každém kvadrantu) se středem v počátku. Takovou $d'$, s
+(jednou v každém kvadrantu) se středem v počátku, s
 excentricitami a velikostí poloos danou hodnotou $d'$ a individuálními
 vlastnostmi pozorovatele a cíle. 
 
