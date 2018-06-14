@@ -24,15 +24,36 @@ func combine(first: [UInt8], second: [UInt8], mask: [Double], length: Int)->[UIn
     return output
 }
 
-func SinglePressFilter(_ x:Int, _ y:Int, _ prevValue:UInt8)->UInt8{
-    if distance(X1: x, Y1: y, X2: Constants.radius, Y2: Constants.radius) > Double(Constants.radius){
-        return prevValue
-    }
+func SimpleCircularSinusoidPressFilter(_ x:Int, _ y:Int, _ prevValue:UInt8)->UInt8{
     let dist  = distance(X1: x, Y1: y, X2: State.LastPressX, Y2: State.LastPressY)
     if dist > Double(Constants.UncoverRadius){
         return 0
     }
     return UInt8(Double(prevValue)*(cos(dist/Double(Constants.UncoverRadius) * .pi) * 0.5 + 0.5))
+}
+
+func DPrimePressFilter(_ x:Int, _ y:Int, _ prevValue:UInt8)->UInt8{
+    let XDif = x - State.LastPressX + Constants.radius*2
+    let YDif = y - State.LastPressY + Constants.radius*2
+    let Relevantvalue = State.dMap[XDif + YDif*(Constants.radius*4+1)]
+    
+    return UInt8(Double(prevValue)*Relevantvalue)
+}
+
+func MakeDMap(){
+    if(State.dMapActual){
+        return
+    }
+    State.dMap = [Double]()
+    for y in (-Constants.radius*2)..<Constants.radius*2+1{
+        for x in (-Constants.radius*2)..<Constants.radius*2+1{
+            let ev = y>0 ? State.eDownwards : State.eUpwards
+            let eh = x>0 ? State.eRight : State.eLeft
+            State.dMap.append(1/(1+pow((Double(x*x)/(eh*eh))+(Double(y*y)/(ev*ev)),State.FunctionSteepnes)))
+        }
+    }
+    State.dMapActual = true
+    
 }
 
 func UIImageFromArray(source: [UInt8], height: Int, width:Int)->UIImage{
@@ -48,11 +69,15 @@ func UIImageFromArray(source: [UInt8], height: Int, width:Int)->UIImage{
 func UIImageFromArray(source: [UInt8], height: Int, width:Int, transformation: (Int,Int,UInt8)->UInt8)->UIImage{
     let cs = CGColorSpaceCreateDeviceGray()
     let BitmapContext = CGContext.init(data:nil, width:width, height:height, bitsPerComponent:8, bytesPerRow:width, space:cs, bitmapInfo:CGImageAlphaInfo.none.rawValue)
-    let dataPoiner = UnsafeMutablePointer<UInt8>(OpaquePointer(BitmapContext!.data))
+    let dataPointer = UnsafeMutablePointer<UInt8>(OpaquePointer(BitmapContext!.data))
     var actualcoordinate : Int = 0
     for y in 0..<height {
         for x in 0..<width{
-            dataPoiner![actualcoordinate] = transformation(x,y,source[actualcoordinate])
+            if(distance(X1: x, Y1: y, X2: Constants.radius, Y2: Constants.radius)>Double(Constants.radius)){
+                dataPointer![actualcoordinate] = source[actualcoordinate]
+            } else {
+                dataPointer![actualcoordinate] = transformation(x,y,source[actualcoordinate])
+            }
             actualcoordinate += 1
         }
     }

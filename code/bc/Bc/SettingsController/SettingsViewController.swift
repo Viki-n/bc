@@ -60,6 +60,7 @@ class SettingsViewController: UITableViewController {
     var items = [cellInfo]()
     
     func FillCellInfo() {
+        items.append(cellInfo(text: "General settings"))
         items.append(cellInfo(text: "Subject", get: {return State.subject}, set:{ value in State.subject = value
             State.currentTrial.subject = value
             State.currentTrial.TrialNumber = 1 + findLastTrial(log: State.log, subject: value)
@@ -81,6 +82,67 @@ class SettingsViewController: UITableViewController {
         items.append(cellInfo(text: "Preview", press: {self.performSegue(withIdentifier: "ShowPreview", sender: nil)} ))
         items.append(cellInfo(text: "Start game", press: {self.performSegue(withIdentifier: "SettingsToGame", sender: nil)}))
         items.append(cellInfo(text: "Back to main menu", press:{self.performSegue(withIdentifier: "SettingsToMainMenu", sender: nil)}))
+        
+        items.append(cellInfo(text: "d’ map constants setting"))
+        items.append(cellInfo(text: "Left side visibility", get: {return Int(State.eLeft)}, set: {v in
+            var param = v
+            if (param<1){
+                param = 1
+            }
+            State.eLeft = Double(param)
+            State.dMapActual = false
+            return param
+        }))
+        items.append(cellInfo(text: "Right side visibility", get: {return Int(State.eRight)}, set: {v in
+            var param = v
+            if (param<1){
+                param = 1
+            }
+            State.eRight = Double(param)
+            State.dMapActual = false
+            return param
+        }))
+        items.append(cellInfo(text: "Upper visibility", get: {return Int(State.eUpwards)}, set: {v in
+            var param = v
+            if (param<1){
+                param = 1
+            }
+            State.eUpwards = Double(param)
+            State.dMapActual = false
+            return param
+        }))
+        items.append(cellInfo(text: "Lower visibility", get: {return Int(State.eDownwards)}, set: {v in
+            var param = v
+            if (param<1){
+                param = 1
+            }
+            State.eDownwards = Double(param)
+            State.dMapActual = false
+            return param
+        }))
+        items.append(cellInfo(text: "Function steepnes (exponent times 100)", get: {return Int(State.FunctionSteepnes*100)}, set: {v in
+            var param = v
+            if (param<100){
+                param = 100
+            }
+            State.FunctionSteepnes = Double(param)/100
+            State.dMapActual = false
+            return param
+        }))
+        items.append(cellInfo(text: "Recalculate d’ map", press: {MakeDMap()
+            let ac = UIAlertController(title: "Done!", message: "d’ map was succesfully calculated!", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            self.present(ac, animated: true)        }))
+        items.append(cellInfo(text: "Use d’ map", get: {return State.dMapBeingUsed}, set:{v in
+            State.dMapBeingUsed = v
+            if v{
+                State.MaskFunc = DPrimePressFilter
+            } else {
+                State.MaskFunc = SimpleCircularSinusoidPressFilter
+            }
+        }))
+        
+        
         items.append(cellInfo.init(text: "Logging"))
         items.append(cellInfo.init(text: "See log", press: {self.performSegue(withIdentifier: "SettingsToLog", sender: nil)}))
         items.append(cellInfo.init(text: "Data deletion enabled", get: {State.DataDeletionEnabled = false; return false}, set: {v in State.DataDeletionEnabled = v}))
@@ -207,14 +269,16 @@ class SettingsViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+     if(State.dMapBeingUsed && !State.dMapActual){
+     let ac = UIAlertController(title: "Warning!", message: "d’ map was not recalculated after editing its parameters. Do not leave settings before having it recalculated.", preferredStyle: .alert)
+     ac.addAction(UIAlertAction(title: "OK", style: .default))
+     self.present(ac, animated: true)}
+     }
+    
 
 }

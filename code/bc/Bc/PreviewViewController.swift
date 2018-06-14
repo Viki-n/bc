@@ -57,7 +57,7 @@ class PreviewViewController: UIViewController {
         case 3:
             State.LastPressX = Constants.radius
             State.LastPressY = Constants.radius
-            self.uncoveredCenter = UIImageFromArray(source: noise, height: diameter, width: diameter, transformation: SinglePressFilter)
+            self.uncoveredCenter = UIImageFromArray(source: noise, height: diameter, width: diameter, transformation: State.MaskFunc)
             self.Image.image = uncoveredCenter
             Label.text = "You will only see small portion of the picture at a time."
             State.LastPressX = -1
