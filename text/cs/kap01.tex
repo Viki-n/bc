@@ -190,12 +190,17 @@ porovnání odpoví.
 Odsud je zřejmé, že zvyšováním kritéria zvedáme pravděprodobnost, že nastane
 miss, ale snižujeme pravděpodobnost false alarmu.
 
-\subsection{$d'$}
+V souvislosti s A/N úlohou je ale ještě nutné zavést následující pojmy:
+
+\begin{definice}\label{hitrate}
+Mějme pozorovatele $p$ v úloze A/N. Potom jeho \emph{hit rate\/} $H_p$ definujeme jako $$\P{\text{hit}|\text{Signál je přítomen}}$$ a jeho \emph{False alarm rate\/} $F_p$ jako $$\P{\text{False alarm}|\text{Signál není přítomen}}.$$
+\end{definice}
+
+\subsection{Senzitivita}
 
 Jedním s dílčích problémů je též určení, jakou rozlišovací schopnost má daný
 pozorovatel na daný signál. Z předchozího odstavce by mělo být vidět, že
-kvantifikovat citlivost pouze pomocí hit rate (tedy poměru počtu hitů k součtu
-počtů hitů a missů) není vhodné -- napčíklad pozorovatel, který vždy odpoví
+kvantifikovat citlivost pouze pomocí hit rate není vhodné -- například pozorovatel, který vždy odpoví
 \uv{ano} by měl v tomto případě optimální citlivost, což jistě nechceme. Taktéž
 není vhodné charakterizovat pozorovatele pomocí poměru hitů a false alarmů,
 optimalizace takového parametru by též vedla k scestnému nastavení
@@ -224,12 +229,36 @@ není, a je tedy bezpečné silnici přejít, nebo zda je pravděpodobnost
 přijíždějícího auta dost vysoká na to, aby mělo smysl zvednout hlavu a podívat
 se příslušným směrem znovu s cílem získat lepší pozorování.
 
-Praxe ukazuje, že v těchto situacích je rozdělení veličiny $X$ dobře
+Praxe ukazuje, že v těchto situacích je rozdělení veličiny $X$ často dobře
 aproximováno normálním rozdělením, a to jak v případě, že signál přítomen je,
-tak v případě, že přítomen není. Obě tato normální rozdělení navíc mají stejný
-rozptyl a liší se jen svou střední hodnotou.
+tak v případě, že přítomen není. Obě tato normální rozdělení navíc mají v tomto
+typickém případě stejný rozptyl a liší se jen svou střední hodnotou. Potom je
+přirozená otázka ptát se, jaký je rozdíl mezi jejich středními hodnotami (či lépe
+rozdíl mezi jejich středními hodnotami vydělený směrodatnou odchylkou).
+
+Právě tuto hodnotu označíma jako hodnotu $d'$. Protože ale ne vždy je rozdělení
+normální, musíme nadefinovat hodnotu $d'$ způsobem, která nebude závislá na rozdělení
+veličiny $X$.
+
+\begin{definice}\label{dprime}
+Nechť má pozorovatel $p$ hit rate $H_p$ a false alarm rate $F_p$ obě ostře mezi jedničkou a nulou. Potom budeme jeho \emph{senzitivitu}
+značit $d'$ a spočítáme jí jako $d' = \Phi^{-1}(H_p) - \Phi^{-1}(F_p),$ kde $\Phi^{-1}$ je inverzní distribuční funkce normovaného normálního rozdělení.
+\end{definice}
+
+\begin{figure}[h!]
+  \includegraphics[width=.8\linewidth]{graphs/ROC.pdf}
+  \centering
+\caption{Závislost hit rate a false alarm rate pro různé hodnoty $d'$.} 
+\label{obr:dprime} 
+\end{figure}
 
 
+Nahlédneme, že senzitivita má následující vlastnosti:
+\begin{itemize}
+\item Pokud $d' = 0$, tak jsou indikátorové náhodné veličiny \uv{Pozorovatel odpověděl kladně} a \uv{Signál je přítomen} nezávislé.
+\item Pokud $d' > 0$, tak mají tyto dvě veličiny kladnou korelaci.
+\item Pokud skutečně má náhodná veličina $X$ jak v případě, že signál přítomen je, tak v případě, že signál přítomen není, normální rozdělení lišící se pouze střední hodnotou, pak hodnota $d'$ nezáleží na nastavení kritéria (samozřejmě krom případů, kdy kritérium nastavíme na plus nebo mínus nekonečno, pak hodnota $d'$ není dobře definovaná).
+\end{itemize}
 
 \section{Entropie}
 
@@ -269,12 +298,11 @@ podmíněnou entropii $\H(A| B)$
 V této práci se budeme zabývat úlohou, kdy pozorovatel hledá gabor patch v
 kruhovém poli, v němž se nachází růžový šum. Předchozí výzkum ukázal, že lidští
 pozorovatelé v této úloze využívají krátkých pohledů a rychlých pohybů očí.
-Jednomu takovému krátkému pohledu budeme říkat {\it fixace}. Oční pohyb mezi
-fixacemi nemá v české literatuře zaužívané pojmenování, v anglické se používá
-termín {\it saccade}, v této práci mu tedy budeme říkat {\it sakáda}. Pojem
-sakáda přirozeně aplikujeme i na simulované (tj. ne liské) pozorovatele, kde ho
-budeme chápat jako vektor v $\mathbb{R}^2$ mezi středy dvou po sobě jdoucích
-fixací. Jednotlivé fixace trvají přibližně $200$--$300 \operatorname{ms}$.
+Jednomu takovému krátkému pohledu budeme říkat \emph{fixace}. Očnímu pohybu
+budeme říkat \emph{sakáda}. Pojem sakáda přirozeně aplikujeme i na simulované
+(tj. ne liské) pozorovatele, kde ho budeme chápat jako vektor v $\mathbb{R}^2$
+mezi středy dvou po sobě jdoucích fixací. Jednotlivé fixace trvají přibližně
+$200$--$300 \operatorname{ms}$.
 
 Abychom ale mohli hodnotit fixace lidského pozorovatele, potřebujeme mít nějaký
 model, který nám bude říkat, jak se chová optimální pozorovatel. Nejprve ale
