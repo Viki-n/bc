@@ -60,6 +60,9 @@
 \usepackage{subcaption}
 %%% Údaje o práci
 
+\def\problemy{{\noindent\bf Problémy}\par\bigskip}
+\def\TODO#1{{\bf\color{red}#1}\expandafter\expandafter\expandafter\def\expandafter\expandafter\expandafter\problemy\expandafter\expandafter\expandafter{\expandafter\problemy\thepage: #1\par}}
+
 % Název práce v jazyce práce (přesně podle zadání)
 \def\NazevPrace{Percepční učení a Ideální Bayesovský\jednoumezera pozorovatel při zrakovém vyhledávání}
 \def\jednoumezera{\linebreak\par\vglue -14pt\noindent\global\def\jednoumezera{\ }}
@@ -143,6 +146,7 @@ Abstract.
 %%% Seznam použité literatury
 \include{literatura}
 
+\problemy
 %%% Obrázky v bakalářské práci
 %%% (pokud jich je malé množství, obvykle není třeba seznam uvádět)
 %\listoffigures

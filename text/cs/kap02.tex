@@ -1,6 +1,65 @@
 \chapter{Metody}
 
+\TODO{Nemělo by být napřed formálně posáno, co to vlastně zkoumáme, než začneme popisovat metody?}
 
+K experimentu byla použita aplikace, která je součástí této práce. Každý subjekt
+podstoupil napřed měření kontrastu, který musí gabor patch mít, aby
+pravděpodobnost, že bud detekován na středu zorného pole byla přibližně 90
+\%\TODO{Budeme to měřit na všech?}. Následně každý subjekt prošel sadou 3
+\TODO{nebo 4?}testů. V každém testu mu bylo postupně prezentováno 50 úkolů, kde
+v každém z nich měl najít Gabor patch v růžovém šumu. Úkol byl považován za
+úspěšný, pokud byl cíl nalezen během pěti či méně fixací. Při prvním i
+posledním testu nedostával subjekt od hry žádnou zpětnou vazbu (krom toho, že
+sám věděl, kolikátou fixací cíl našel). Při prostředních testech dostávaly
+subjekty, které byly ve skupině se zpětnou vazbou, po každé fixaci zvukovou
+odpověď, která značila, kolik informace mohli od této fixace očekávat (tedy
+jestli bylo z pohledu IBO/ELM moudré udělat právě tuto fixaci). Tato odpověď
+byla ve formě tónu, jehož frekvence byla dána vzorcem
+$$\text{\TODO{Vymyslet}},$$ kde $\Delta$ je maximální dosažitelné očekávané
+snížení entropie a $\delta$ minimální v případě, že by byla zafixována některá
+z možných lokací cíle.\footnote{To znamená, že je potenciálně možná dosáhnout
+výsledku lepšího než $\Delta$, resp. horšího, než $\delta$. Rozdíl by však
+neměl být důležitý. Meze jsou do vzorce přidány, abychom zabránili absurdním
+hodnotám v případě, kdy by si hodoty $\Delta$ a $\delta$ byly téměř rovny, ale
+nějaký bod, který není možnou lokací, by měl očekávané snížení entropie o
+trochu vyšší či nižší.}   Pokaždé, když byl subjekt třikrát po sobě úspěšný,
+byla zvýšena obtížnost snížením kontrastu cíle \TODO{O kolik?}, pokud byl
+třikrát po sobě neúspěšný, byla obtížnost opět snížena.
+
+Jednotlivé úkoly spočívaly v tom, že byl vždy vygenerován růžový šum v kruhu o
+průměru 1024 pixelů.\footnote{Všude, kde není zřejmý opak, se pixelem myslí
+pixel obrázku, nikoliv pixel displeje.} Tento průměr byl zvolen proto, že je
+to nejbližší mocnina dvojky ke kratšímu rozměr displeje iPadu v pixelech.
+Mocnina dvojky byla zvolena kvůli použití rychlé Fourierova transformace při
+generování růžového šumu. Do něj byl umístěn Gabor patch. Nebyl však přičten k
+šumu, ale vložen do něj, jako kdybychom kreslili Gabor patch přes šum a obálka
+zastupovala alfa kanál.  Zvolené parametry Gabor patche byly:
+
+\begin{itemize}
+\item Obálka: Raised cosine
+\item Průměr: 50 pixelů
+\item Frekvence: $1/16$ cyklů na pixel
+\item Fázový posun: 0
+\item Úhel $\Theta$: $135^\circ$ 
+\end{itemize}
+
+Šum byl překryt černou barvou. Subjekt se vždy dotkl displeje v místě, které se
+rozhodl zafixovat. Na tomto místě byl poté šum odkryt na $300
+\operatorname{ms}$. Výpočet tvaru a míry odkrytí oblasti bylo provedeno vynásobením s $d'$ mapou
+posunutou do bodu fixace, s parametrem $d'_0$ nasteveným na 1 a ostatními
+parametry naměřenými na Filipu Děchtěrenkovi ($e_R=223$, $e_L=223$, $e_U =
+161$, $e_D = 164$, $\beta=2.46$, všechny veličiny, u nichž má smysl uvádět
+jednotku, jsou v pixelech).
+
+Ve chvíli, kdy si subjekt myslel, že objevil cíl, tak zmáčkl tlačítko. Gabor
+patch byl považován za objevený. Poté mu byla ukázána celá odkrytá scéna, ovšem
+bez cíle. Potom měl subjekt zmáčknout na místo, kde si myslel, že se cíl
+nacházel. Cíl byl považován za nalezený, pokud byla vzdálenost vybraného místa
+a středu skutečné lokace cíle menší než 50 pixelů. 
+
+Jako zobrazovací zařícení byl použit iPad air s displejem o rozlišení
+$2048\times1536$ a o úhlopříčce $9.7$ palců, což odpovídá rozměrům displeje asi
+$19.7 \times 14.8$ centimetrů. Hustota pixelů je 264 pixelů na palec. 
 
 \section{Limitace}
 
@@ -19,7 +78,49 @@ naměřená $d'$ mapa odpovídá situaci, kdy je scéna se šumem umístěna tak
 od pozorovatele, aby ji viděl pod zorným úhlem $15^\circ$. To při velikosti
 scény v našem případě odpovídá vzdálenosti pozorovatele a zařízení přibližně
 $65 \operatorname{cm}$. V našich experimentech nebyla vzdálenost pozorovatele od
-scény hlídána.
+scény hlídána. a určitě byla nižší, než řečených $65 \operatorname{cm}$
+(dodržení této vzdálenosti by odpovídalo situaci, kdy by subjěkty držely iPad
+před sebou zhruba na délku natažené paže). 
 
-\item Okraj
+\item I pokud odhlédneme od nepřesností zmíněných v předchozím bodě a dovolíme
+si na chvíli (evidentně scestný) předpoklad, že subjekty měly vlastní $d'$ mapu
+konstatntní, narazíme na další problém. Okraj oblasti, která byla odkrývána,
+byl ztmavován lineárně se snižující se hodnotou $d'$ v použité $d'$ mapě.
+Závislost $d'$ na kontrastu ale není dobře prozkoumána \TODO{nebo je?}\ a téměř jistě
+není lineární.
+
+\item S tím souvisí ještě jeden problém: Subjekty samozřejmě nemají svou $d'$
+mapu konstatntní. Tato mapa se tedy nějak skládá s $d'$ mapou, pomocí které
+bylo určeno odhalování šumu. V práci jsme toto skládání ignorovali (tedy
+předpokládali jsme, že $d'$ na kontrastu závisí lineárně a $d'$ mapa subjektů
+je konstatntní.) Nabízela by se otázka, proč tedy bylo zatemňování šumu vůbec
+prováděno. To se dělo z několika důvodů:
+
+\begin{itemize}
+
+\item Zatemňování šumu zavádí potřebu klikat na místa, která chce pozorovat v
+dalším kroku prozkoumat. Nutí tedy pozorovatele, aby tato rozhodnutí dělal
+vědomě a nikoli podvědomě, což byl jeden z efektů, které jsme chtěli zkoumat.
+
+\item Celý proces jedné fixace tímto způsobem také trvá mnohem déle (nižší
+jednotky vteřin místo nižších desetin vteřiny) a poskytuje nám tedy mnoho času
+na update mapy posteriorních pravděpodobností a výpočet množství informace,
+kterou lze získat následující fixací.
+
+\item Takto navržený experiment též umožňuje zjišťovat, které lokace subjekt
+fixuje bez použití eyetrackeru nebo jiných technologií.
+
 \end{itemize}
+
+\item Je možné, že u lidí, kteří nikdy dříve Gabor patch hledat nezkoušeli, se
+během testů mění jejich sensitivita na Gabor patch (mění se hodnota $d'(0,0)$).
+
+\item Vzhledem k tomu, že počet reálných pixelů displeje neodpovídal (a ani
+nebyl dělitelný) velikostí scény v pixelech, je možné, že byly efekty jako
+například antialiasing změněny lokální kontrasty scény.
+
+\end{itemize}
+
+Neočekává se však, že by tyto nepřesnosti výrazně ovlivnily závěr, neboť
+pravděpodobně ovlivňují všechny subjekty přibižně stejně.
+

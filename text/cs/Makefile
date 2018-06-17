@@ -5,7 +5,7 @@ usual: prace.pdf tidy
 all: prace.pdf
 
 # LaTeX je potreba spustit nekolikrat, aby spravne spocital odkazy
-prace.pdf: prace.tex $(wildcard *.tex) literatura.bib prace.xmpdata
+prace.pdf: prace.tex $(wildcard *.tex) literatura.bib prace.xmpdata $(wildcard */*.pdf) $(wildcard */*.png)
 	pdflatex $<
 	: bibtex prace
 	pdflatex $<
