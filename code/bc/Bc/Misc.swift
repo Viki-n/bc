@@ -71,7 +71,7 @@ class State{
     public static var FunctionSteepnes = 2.64
     
     //Info about user
-    public static var subject = "unknown"
+    public static var SubjectName = "unknown"
     public static var currentTrial = trial()
     public static var log = [trial]()
     
@@ -79,6 +79,10 @@ class State{
     public static var PossibleLocationsDistance = 100
     
     public static var DataDeletionEnabled = false
+    
+    public static var SubjectDatatbase = [subjectData]()
+    public static var CurrentSubject = subjectData()
+    
     
 }
 

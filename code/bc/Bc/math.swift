@@ -40,6 +40,17 @@ func distance(_ x: point, _ y: point) -> Double {
     return sqrt(Double((x.x-y.x)*(x.x-y.x)+(x.y-y.y)*(x.y-y.y)))
 }
 
+///Cumulative distribution function of normalized normal distribution
+func Phi(_ x: Double)->Double{
+    return erf(-x/sqrt(2))/2
+}
+
+///Returns d' value based on hitrate and false alarm rate
+func dprime(HitRate:Double, FalseAlarmRate:Double) -> Double{
+    return (-erf(-FalseAlarmRate/sqrt(2))+erf(-HitRate/sqrt(2)))/2
+}
+
+///Returns dprime on a point based on constants in State
 func dprime(fixated: point, measuring:point) -> Double {
     let x = -fixated.x + measuring.x
     let y = -fixated.y + measuring.y

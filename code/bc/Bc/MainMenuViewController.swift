@@ -11,12 +11,13 @@ import UIKit
 class MainMenuViewController: UIViewController {
     @IBOutlet weak var TextField: UITextField!
     @IBAction func NameSet(_ sender: Any) {
-        State.subject = TextField.text!
+        State.SubjectName = TextField.text!
+        State.CurrentSubject = GetSubject(name: TextField.text!)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        TextField.text = State.subject
+        TextField.text = State.SubjectName
         SetScreen(screen: "Menu")
         InitApp()
         // Do any additional setup after loading the view.
