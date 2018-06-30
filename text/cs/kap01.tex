@@ -25,7 +25,7 @@ ostatní barvy šumu není podobné označení běžné.
 Pravděpodobnostní rozdělení jednotlivých složek Fourierovy transformace ale
 není definicí barvy šumu dáno. Pokud je rozdělení normální\footnote{Nezáleží na
 tom, zda má normální rozdělení šum sám nebo jeho Fourierův obraz -- tyto dvě
-vlastnosti jsou ekvivalentní.}, řekneme, že se jedná o Gaussovský šum. 
+vlastnosti jsou ekvivalentní.}, řekneme, že se jedná o Gaussovský šum. \TODO{Tyhle obecný kecy moc nikde na jednom místě krom Wikipedie nejsou -- něco málo je tady http://www.atis.org/glossary/ -- Nějaká americká telekomunikační norma.} 
 
 V této práci se budeme zabývat vizuálním šumem, tedy šumem, kde místo obvykle
 používané časové souřadnice použijeme dvě souřadnice prostorové, a měřenou
@@ -77,7 +77,7 @@ Funkce tedy vypadá jako $$g(x,y) =
 kde vektor $(x',y')^T$ je vektor $(x,y)^T$ otočený o úhel, který svírá osa $x$
 se směrem, podél nějž chceme měřit signál (tento úhel budeme značit $\Theta$),
 a posunutý do bodu, v němž chceme měřit signál, $\lambda$ je frekvence signálu,
-který hledáme, a $\phi$ je fázový posun.
+který hledáme, a $\phi$ je fázový posun \citep{GaborPatch}. 
 
 Jako obálka se používá dvojrozměrná Gaussova funkce, raised cosine, nebo prostá
 lineární funkce vzdálenosti. 
@@ -153,14 +153,14 @@ V kontextu této úlohy můžou po odpovědi pozorovatele nastat čtyři možné
 
 \bigskip\noindent
 \begin{center}
-\begin{tabular}{|c||c|c|}
+\begin{tabular}{ccc}
+\hline
 \hline
 & Signál je přítomen & Signál není přítomen \\
 \hline
-\hline
 Pozorovatel odpoví kladně &{\it Hit}&{\it False alarm} \\
-\hline
 Pozorovatel odpoví záporně &{\it Miss}&{\it Correct rejection}\\
+\hline
 \hline
 \end{tabular}
 \end{center}
@@ -209,7 +209,7 @@ odstavcích, se pro kritérium jdoucí k nekonečnu tento poměr též blíží 
 nekonečnu. Dobrý pozorovatel by tedy téměř vždy odpovídal \uv{ne}, optimální
 pozorovatel by neexistoval.}
 
-Při detekci signálu rozeznáváme dva druhy šumu. Šum vnitřní a šum vnější.
+Při detekci signálu rozeznáváme dva druhy šumu. Šum vnitřní a šum vnější \citep{DavidSDT}.
 Vnější šum je zkreslení dat, které se stane ještě mimo pozorovatele. Vnitřní
 šum je naopak šum, který je způsoben přímo algoritmem, který používá
 pozorovatel, aby dekódoval, zda signál je přítomen, či není.
@@ -299,7 +299,7 @@ V této práci se budeme zabývat úlohou, kdy pozorovatel hledá gabor patch v
 kruhovém poli, v němž se nachází růžový šum. Předchozí výzkum ukázal, že lidští
 pozorovatelé v této úloze využívají krátkých pohledů a rychlých pohybů očí.
 Jednomu takovému krátkému pohledu budeme říkat \emph{fixace}. Očnímu pohybu
-budeme říkat \emph{sakáda}. Pojem sakáda přirozeně aplikujeme i na simulované
+se říká \emph{sakáda} \citep{sakady}. Pojem sakáda přirozeně aplikujeme i na simulované
 (tj. ne liské) pozorovatele, kde ho budeme chápat jako vektor v $\mathbb{R}^2$
 mezi středy dvou po sobě jdoucích fixací. Jednotlivé fixace trvají přibližně
 $200$--$300 \operatorname{ms}$.
