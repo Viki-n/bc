@@ -7,14 +7,14 @@
 //
 
 import UIKit
-import Accelerate
+//import Accelerate
 
 
 func getTopText() -> String {
     if State.GaborLocated{
         return "Click at the location where you think you saw the Gabor."
     } else if State.RedrawOnClick{
-        return "Gabor was located with an error of \(State.PreviousAccuracy) px. Now you can see where exactly was it. Click again anywhere within the noise to start a new game."
+        return "Gabor was located with an error of \(State.PreviousAccuracy) px. Now you can see where exactly was it. Click again anywhere within the noise or at the button in the bottom left to start a new game."
     } else {
         var s = ""
         for i in State.prevResults {
@@ -66,11 +66,19 @@ if DebugFlags.executeTests {
 class ViewController: UIViewController {
     @IBOutlet weak var MainImg: UIImageView!
     @IBOutlet weak var TopText: UILabel!
+    @IBOutlet weak var BottomLeftButton: UIButton!
     
     @IBAction func LocatedButton(_ sender: Any) {
-        State.GaborLocated = true
-        DrawNoise()
-        TopText.text = getTopText()
+        if (!(State.RedrawOnClick||State.GaborLocated||State.presses == 0)){
+            State.GaborLocated = true
+            DrawNoise()
+            TopText.text = getTopText()
+        } else if (State.RedrawOnClick) {
+            State.RedrawOnClick = false
+            State.presses = 0
+            NewBackground()
+            BottomLeftButton.setTitle("Gabor was located", for: UIControlState.normal)
+        }
     }
     
     override func viewDidLoad() {
@@ -108,8 +116,8 @@ class ViewController: UIViewController {
             if State.RedrawOnClick {
                 State.RedrawOnClick = false
                 State.presses = 0
-                TopText.text = "New background is being generated..."
                 NewBackground()
+                BottomLeftButton.setTitle("Gabor was located", for: UIControlState.normal)
             } else if distance(X1: xInPx, Y1: yInPx, X2: Double(radius), Y2: Double(radius))>Double(radius) {
                 //Do nothing, clicked outside the noise
             } else if State.GaborLocated {
@@ -125,6 +133,7 @@ class ViewController: UIViewController {
                 State.currentTrial = trial()
                 DrawUncovered()
                 State.RedrawOnClick = true
+                BottomLeftButton.setTitle("Next trial", for: UIControlState.normal)
             } else {
                 State.presses += 1
                 print(TouchDistanceX," ",TouchDistanceY)

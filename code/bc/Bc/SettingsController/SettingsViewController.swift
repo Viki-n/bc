@@ -61,11 +61,7 @@ class SettingsViewController: UITableViewController {
     
     func FillCellInfo() {
         items.append(cellInfo(text: "General settings"))
-        items.append(cellInfo(text: "Subject", get: {return State.subject}, set:{ value in State.subject = value
-            State.currentTrial.subject = value
-            State.currentTrial.TrialNumber = 1 + findLastTrial(log: State.log, subject: value)
-            return value
-        }))
+        
         items.append(cellInfo(text: "Difficulty (0 = impossible, 1000 = easiest)", get: {return Int(State.GaborOpacity*1000)}, set: {v in let x = Double(min(1000,max(0,v)))/1000; State.GaborOpacity = x; return Int(x*1000)}))
         items.append(cellInfo(text: "Gabor patch diameter", get: {return State.GaborSize}, set:{v in State.GaborSize = max(1,v); return max(1,v)}))
         items.append(cellInfo(text: "Radius of uncovered area", get: {return Constants.UncoverRadius}, set: {v in Constants.UncoverRadius = max(1,v); return max(1,v)}))
@@ -141,7 +137,33 @@ class SettingsViewController: UITableViewController {
                 State.MaskFunc = SimpleCircularSinusoidPressFilter
             }
         }))
-        
+        items.append(cellInfo(text: "Subject settings"))
+        items.append(cellInfo(text: "Name", get: {return State.SubjectName}, set:{ value in State.SubjectName = value
+            State.currentTrial.subject = value
+            State.currentTrial.TrialNumber = 1 + findLastTrial(log: State.log, subject: value)
+            State.CurrentSubject = GetSubject(name:value)
+            return value
+        }))
+        items.append(cellInfo(text: "Feedback", get: {return State.CurrentSubject.Feedback == FeedbackType.ELM}, set: {v in
+            if v {
+                State.CurrentSubject.Feedback = .ELM
+            } else {
+                State.CurrentSubject.Feedback = .None
+            }
+        }))
+        items.append(cellInfo(text: "Difficulty for 90% detectability", get: {return Int(1000*State.CurrentSubject.ContrastFor90Detectability)}, set: {v in
+            if v<0 {
+                State.CurrentSubject.ContrastFor90Detectability = 0
+                return 0
+            }
+            if v > 1000 {
+                State.CurrentSubject.ContrastFor90Detectability = 1
+                return 1000
+            }
+            State.CurrentSubject.ContrastFor90Detectability = Double(v)/1000
+            return v
+        }))
+        items.append(cellInfo(text: "Measure detectability", press:{self.performSegue(withIdentifier: "SettingsToMeasuring", sender: nil)}))
         
         items.append(cellInfo.init(text: "Logging"))
         items.append(cellInfo.init(text: "See log", press: {self.performSegue(withIdentifier: "SettingsToLog", sender: nil)}))
@@ -159,6 +181,7 @@ class SettingsViewController: UITableViewController {
                 self.present(ac, animated: true)
             }
         }))
+        
         
     }
     

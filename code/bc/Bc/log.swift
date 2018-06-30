@@ -22,16 +22,22 @@ class point{
 class logger{
     
     static func SaveLog(){
-        NSKeyedArchiver.archiveRootObject(State.log, toFile: SavePath.path)
+        NSKeyedArchiver.archiveRootObject(State.log, toFile: LogSavePath.path)
+        NSKeyedArchiver.archiveRootObject(State.SubjectDatatbase, toFile: SubjectSavePath.path)
     }
     
     static func LoadLog(){
-        if let log = NSKeyedUnarchiver.unarchiveObject(withFile: SavePath.path) as? [trial] {
+        if let log = NSKeyedUnarchiver.unarchiveObject(withFile: LogSavePath.path) as? [trial] {
             State.log = log
+        }
+        if let slog = NSKeyedUnarchiver.unarchiveObject(withFile: SubjectSavePath.path) as? [subjectData]{
+            State.SubjectDatatbase = slog
         }
     }
     
-    private static let SavePath = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("log")
+    private static let LogSavePath = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("log")
+    private static let SubjectSavePath = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("subjects")
+    
 }
 
 class trial:NSObject,NSCoding{
@@ -85,8 +91,8 @@ class trial:NSObject,NSCoding{
     }
     
     override init() {
-        subject = State.subject
-        TrialNumber = 1 + findLastTrial(log: State.log, subject: State.subject)
+        subject = State.SubjectName
+        TrialNumber = 1 + findLastTrial(log: State.log, subject: State.SubjectName)
         difficulty = State.GaborOpacity
     }
     
@@ -113,4 +119,49 @@ func findLastTrial(log: [trial], subject: String)->Int{
         }
     }
     return maximum
+}
+
+enum FeedbackType : Int{
+    case None = 0
+    case ELM = 1
+}
+
+class subjectData: NSObject,NSCoding{
+    public var Name = ""
+    public var Feedback = FeedbackType.None
+    public var ContrastFor90Detectability = 0.0
+    
+    struct propertyKey{
+        public static let Name = "Name"
+        public static let Feedback = "Feedback"
+        public static let Contrast = "Contrast"
+    }
+    
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(Name, forKey: propertyKey.Name)
+        aCoder.encode(Feedback.rawValue, forKey: propertyKey.Feedback)
+        aCoder.encode(ContrastFor90Detectability, forKey: propertyKey.Contrast)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        self.Name = aDecoder.decodeObject(forKey: propertyKey.Name) as! String
+        self.Feedback =  FeedbackType(rawValue: aDecoder.decodeInteger(forKey: propertyKey.Feedback))!
+        self.ContrastFor90Detectability = aDecoder.decodeDouble(forKey: propertyKey.Contrast)
+    }
+    
+    override init(){}
+    
+}
+
+func GetSubject(name:String)->subjectData{
+    for i in State.SubjectDatatbase{
+        if i.Name == name {
+            return i
+        }
+    }
+    let s = subjectData()
+    s.Name = name
+    State.SubjectDatatbase.append(s)
+    logger.SaveLog()
+    return s
 }
