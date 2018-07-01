@@ -297,7 +297,7 @@ podmíněnou entropii $\H(A| B)$
 
 V této práci se budeme zabývat úlohou, kdy pozorovatel hledá gabor patch v
 kruhovém poli, v němž se nachází růžový šum. Předchozí výzkum ukázal, že lidští
-pozorovatelé v této úloze využívají krátkých pohledů a rychlých pohybů očí.
+pozorovatelé v této úloze využívají krátkých pohledů a rychlých pohybů očí \citep{Najemnik05}.
 Jednomu takovému krátkému pohledu budeme říkat \emph{fixace}. Očnímu pohybu
 se říká \emph{sakáda} \citep{sakady}. Pojem sakáda přirozeně aplikujeme i na simulované
 (tj. ne liské) pozorovatele, kde ho budeme chápat jako vektor v $\mathbb{R}^2$
@@ -322,7 +322,7 @@ budeme pro každý bod $x$ vědět, jaká je hodnota $d'$ pro rozhodování, zda
 cíl v bodě $x$, pokud zafixujeme střed.
 
 Předchozí výzkum ukázal, že u běžného člověka je $d'$ mapa poměrně
-nepravidelná, ale dá se s přijatelnou přesností aproximovat mapou, kde křivky
+nepravidelná \citep{Najemnik08}, ale dá se s přijatelnou přesností aproximovat mapou, kde křivky
 spojující body se stejnou hodnotou $d'$ jsou tvořeny čtyřmi čtvrtelipsami
 (jednou v každém kvadrantu) se středem v počátku, s
 excentricitami a velikostí poloos danou hodnotou $d'$ a individuálními
@@ -348,8 +348,8 @@ chvíli, kdy na nějaké lokaci pravděpodobnost přesáhne kritérium, pozorova
 ukončí hledání a ohlásí nalezení cíle na této lokaci.
 
 V rámci předchozího výzkumu bylo otestováno mnoho modelů, jako například
-pozorovatel, který volí fixace náhodně nebo pozorovatel, který volí fixace co
-nejdále od míst, která již zafixoval. Všechny tyto modely se ale ukázaly jako
+pozorovatel, který volí fixace náhodně nebo pozorovatel, který volí fixace 
+tak, aby nikdy nezafixoval tutéž lokaci vícekrát. Všechny tyto modely se ale ukázaly jako
 nevhodné, vzhledem k tomu, že v praxi dosahují mnohem horších výsledků (měřeno
 pomocí střední hodnoty počtu fixací před nalezením cíle) než lidský
 pozorovatel.
@@ -389,8 +389,10 @@ opravdu je a byl zafixován bod $k(T+1)$}.
 
 IBO však ale též není příliš pravděpodobný  kandidát na model, podle nějž se
 lidé chovají.  Ač má jeho vyhledávání podobné statistické vlastnosti, jako
-vyhledávání lidského pozorovatele, můžeme si všimnout, že přinejmenším
-přímočaré vyhodnocení výrazu \eqref{IBOnext} je kubické v počtu potenciálních
+vyhledávání lidského pozorovatele, vyžaduje perfektní paměť a ideální integraci
+informace mezi fixacemi. Ani jednu z těchto dovedností ale lidský pozorovatel
+nemá \citep{Najemnik08}. Dále si můžeme všimnout, že přinejmenším přímočaré
+vyhodnocení výrazu \eqref{IBOnext} je kubické v počtu potenciálních
 lokací (výpočet druhého činitele součinu v sumě je lineární, suma sama je přes
 lineárně mnoho členů, a vnější maximum má též lineárně mnoho možných voleb
 $k(T+1)$). Lidský pozorovatel při vyhledávání volí další fixaci přibližně
@@ -403,7 +405,7 @@ ELM\footnote{z anglického \uv{Entropy limit minimization}.} pozorovatel je
 pozorovatel, který při výběru následující fixace minimalizuje střední hodnotu
 entropie náhodné veličiny určující lokaci cíle. Tu spočítáme jako
 \begin{equation}\label{EntropyBasic}\E{\H(T+1)|k(T+1)}=-\E{\displaystyle\sum_{i\in
-L}p_{T+1}(i)\log_2p_{T+1}(i)|k(T+1)}.\end{equation} V ZDROJ09 se však zjistilo,
+L}p_{T+1}(i)\log_2p_{T+1}(i)|k(T+1)}.\end{equation} \citet{Najemnik09} však ukázali,
 že vyjádření hodnoty entropie podle vzorce \eqref{EntropyBasic} je sice
 netriviální, ale lze ho dobře aproximovat případem, kdy pošleme v limitě $|L|$
 do nekonečna. Pak dostáváme výraz $$ \E{\H(T+1)|k(T+1)}= \H(T) -

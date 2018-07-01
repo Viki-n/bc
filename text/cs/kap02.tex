@@ -2,15 +2,48 @@
 
 \TODO{Nemělo by být napřed formálně posáno, co to vlastně zkoumáme, než začneme popisovat metody?}
 
-K experimentu byla použita aplikace, která je součástí této práce. Každý subjekt
-podstoupil napřed měření kontrastu, který musí gabor patch mít, aby
+\section{Účastníci}
+
+\section{Nástroje a stimuly}
+
+K experimentu byla použita aplikace, která je součástí této práce. 
+Jako zobrazovací zařícení byl použit iPad air s displejem o rozlišení
+$2048\times1536$ a o úhlopříčce $9.7$ palců, což odpovídá rozměrům displeje asi
+$19.7 \times 14.8$ centimetrů. Hustota pixelů je 264 pixelů na palec. 
+
+V experimentu použitý růžový šum byl kruhový a jeho průměr byl 1024 pixelů.
+\footnote{Odsud již všude, kde není zřejmý opak, se pixelem myslí
+pixel obrázku, nikoliv pixel displeje.} Tento průměr byl zvolen proto, že je
+to nejbližší mocnina dvojky ke kratšímu rozměr displeje iPadu v pixelech.
+Mocnina dvojky byla zvolena kvůli použití rychlé Fourierova transformace při
+generování růžového šumu.
+
+Jako stimulus byl použit Gabor patch. Nebyl ale přičten k
+šumu, ale vložen do něj, jako kdybychom kreslili Gabor patch přes šum a obálka
+zastupovala alfa kanál.  Zvolené parametry Gabor patche byly:
+
+\begin{itemize}
+\item Obálka: Raised cosine
+\item Průměr: 50 pixelů
+\item Frekvence: $1/16$ cyklu na pixel
+\item Fázový posun: 0
+\item Úhel $\Theta$: $135^\circ$ 
+\end{itemize}
+
+Možných lokací Gabor patche bylo celkem 85, a byly rozmístěny po scéně v
+trojúhelníkové mřížce tak, aby jedna možná lokace byla ve středu. Vzdálenost
+dvou sousedních možných lokací byla 100 pixelů. 
+
+Kontrast cíle byl daný maximem obálky, tedy při snižování kontrastu byl cíl čím dál tím průhlednější. Hodnoty kontrastu se mohly pohybovat mezi nulou a jedničkou.
+
+\section{Procedura}
+
+Každý subjekt podstoupil napřed měření kontrastu, který musí gabor patch mít, aby
 pravděpodobnost, že bud detekován na středu zorného pole byla přibližně 90
 \%\TODO{Budeme to měřit na všech?}. Následně každý subjekt prošel sadou 3
-\TODO{nebo 4?}testů. V každém testu mu bylo postupně prezentováno 50 úkolů, kde
+testů. V prvním testu mu bylo postupně prezentováno 50 úkolů, kde
 v každém z nich měl najít Gabor patch v růžovém šumu. Úkol byl považován za
-úspěšný, pokud byl cíl nalezen během pěti či méně fixací. Při prvním i
-posledním testu nedostával subjekt od hry žádnou zpětnou vazbu (krom toho, že
-sám věděl, kolikátou fixací cíl našel). Při prostředních testech dostávaly
+úspěšný, pokud byl cíl nalezen během pěti či méně fixací. V druhém testu bylo prezentováno 150 obdobných úkolů a ve třetím opět 50. Ve druhém testu dostávaly
 subjekty, které byly ve skupině se zpětnou vazbou, po každé fixaci zvukovou
 odpověď, která značila, kolik informace mohli od této fixace očekávat (tedy
 jestli bylo z pohledu IBO/ELM moudré udělat právě tuto fixaci). Tato odpověď
@@ -22,48 +55,22 @@ výsledku lepšího než $\Delta$, resp. horšího, než $\delta$. Rozdíl by v�
 neměl být důležitý. Meze jsou do vzorce přidány, abychom zabránili absurdním
 hodnotám v případě, kdy by si hodoty $\Delta$ a $\delta$ byly téměř rovny, ale
 nějaký bod, který není možnou lokací, by měl očekávané snížení entropie o
-trochu vyšší či nižší.}   Pokaždé, když byl subjekt třikrát po sobě úspěšný,
+trochu vyšší či nižší.} Pokaždé, když byl subjekt třikrát po sobě úspěšný,
 byla zvýšena obtížnost snížením kontrastu cíle \TODO{O kolik?}, pokud byl
 třikrát po sobě neúspěšný, byla obtížnost opět snížena.
 
-Jednotlivé úkoly spočívaly v tom, že byl vždy vygenerován růžový šum v kruhu o
-průměru 1024 pixelů.\footnote{Všude, kde není zřejmý opak, se pixelem myslí
-pixel obrázku, nikoliv pixel displeje.} Tento průměr byl zvolen proto, že je
-to nejbližší mocnina dvojky ke kratšímu rozměr displeje iPadu v pixelech.
-Mocnina dvojky byla zvolena kvůli použití rychlé Fourierova transformace při
-generování růžového šumu. Do něj byl umístěn Gabor patch. Nebyl však přičten k
-šumu, ale vložen do něj, jako kdybychom kreslili Gabor patch přes šum a obálka
-zastupovala alfa kanál.  Zvolené parametry Gabor patche byly:
-
-\begin{itemize}
-\item Obálka: Raised cosine
-\item Průměr: 50 pixelů
-\item Frekvence: $1/16$ cyklů na pixel
-\item Fázový posun: 0
-\item Úhel $\Theta$: $135^\circ$ 
-\end{itemize}
-
-Možných lokací Gabor patche bylo celkem 85, a byly rozmístěny po scéně v
-trojúhelníkové mřížce tak, aby jedna možná lokace byla ve středu. Vzdálenost
-dvou sousedních možných lokací byla 100 pixelů. 
-
-Šum byl překryt černou barvou. Subjekt se vždy dotkl displeje v místě, které se
+V každém úkolu byl šum překryt černou barvou. Subjekt se měl vždy dotknout displeje v místě, které se
 rozhodl zafixovat. Na tomto místě byl poté šum odkryt na $300
 \operatorname{ms}$. Výpočet tvaru a míry odkrytí oblasti bylo provedeno
 vynásobením s $d'$ mapou posunutou do bodu fixace, s parametrem $d'_0$
-nasteveným na 1 a ostatními parametry naměřenými na Filipu Děchtěrenkovi
+nasteveným na 1 a ostatními parametry naměřenými na pozorovateli FD
 ($e_R=223$, $e_L=223$, $e_U = 161$, $e_D = 164$, $\beta=2.46$, všechny
 veličiny, u nichž má smysl uvádět jednotku, jsou v pixelech).
 
-Ve chvíli, kdy si subjekt myslel, že objevil cíl, tak zmáčkl tlačítko. Gabor
-patch byl považován za objevený. Poté mu byla ukázána celá odkrytá scéna, ovšem
-bez cíle. Potom měl subjekt zmáčknout na místo, kde si myslel, že se cíl
+Ve chvíli, kdy si subjekt myslel, že objevil cíl, zmáčkl tlačítko. Poté mu byl ukázán celý odkrytý šum, ovšem
+bez cíle. Potom se měl subjekt dotknout šumu na místě, kde si myslel, že se cíl
 nacházel. Cíl byl považován za nalezený, pokud byla vzdálenost vybraného místa
 a středu skutečné lokace cíle menší než 50 pixelů. 
-
-Jako zobrazovací zařícení byl použit iPad air s displejem o rozlišení
-$2048\times1536$ a o úhlopříčce $9.7$ palců, což odpovídá rozměrům displeje asi
-$19.7 \times 14.8$ centimetrů. Hustota pixelů je 264 pixelů na palec. 
 
 \section{Limitace}
 
@@ -90,7 +97,7 @@ před sebou zhruba na délku natažené paže).
 si na chvíli (evidentně scestný) předpoklad, že subjekty měly vlastní $d'$ mapu
 konstatntní, narazíme na další problém. Okraj oblasti, která byla odkrývána,
 byl ztmavován lineárně se snižující se hodnotou $d'$ v použité $d'$ mapě.
-Závislost $d'$ na kontrastu ale není dobře prozkoumána \TODO{nebo je?}\ a téměř jistě
+Závislost $d'$ na kontrastu ale téměř jistě
 není lineární.
 
 \item S tím souvisí ještě jeden problém: Subjekty samozřejmě nemají svou $d'$
