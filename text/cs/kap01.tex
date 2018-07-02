@@ -25,7 +25,7 @@ ostatní barvy šumu není podobné označení běžné.
 Pravděpodobnostní rozdělení jednotlivých složek Fourierovy transformace ale
 není definicí barvy šumu dáno. Pokud je rozdělení normální\footnote{Nezáleží na
 tom, zda má normální rozdělení šum sám nebo jeho Fourierův obraz -- tyto dvě
-vlastnosti jsou ekvivalentní.}, řekneme, že se jedná o Gaussovský šum. 
+vlastnosti jsou ekvivalentní.}, řekneme, že se jedná o Gaussovský šum. \TODO{Tyhle obecný kecy moc nikde na jednom místě krom Wikipedie nejsou -- něco málo je tady http://www.atis.org/glossary/ -- Nějaká americká telekomunikační norma.} 
 
 V této práci se budeme zabývat vizuálním šumem, tedy šumem, kde místo obvykle
 používané časové souřadnice použijeme dvě souřadnice prostorové, a měřenou
@@ -77,7 +77,7 @@ Funkce tedy vypadá jako $$g(x,y) =
 kde vektor $(x',y')^T$ je vektor $(x,y)^T$ otočený o úhel, který svírá osa $x$
 se směrem, podél nějž chceme měřit signál (tento úhel budeme značit $\Theta$),
 a posunutý do bodu, v němž chceme měřit signál, $\lambda$ je frekvence signálu,
-který hledáme, a $\phi$ je fázový posun.
+který hledáme, a $\phi$ je fázový posun \citep{GaborPatch}. 
 
 Jako obálka se používá dvojrozměrná Gaussova funkce, raised cosine, nebo prostá
 lineární funkce vzdálenosti. 
@@ -153,14 +153,14 @@ V kontextu této úlohy můžou po odpovědi pozorovatele nastat čtyři možné
 
 \bigskip\noindent
 \begin{center}
-\begin{tabular}{|c||c|c|}
+\begin{tabular}{ccc}
+\hline
 \hline
 & Signál je přítomen & Signál není přítomen \\
 \hline
-\hline
 Pozorovatel odpoví kladně &{\it Hit}&{\it False alarm} \\
-\hline
 Pozorovatel odpoví záporně &{\it Miss}&{\it Correct rejection}\\
+\hline
 \hline
 \end{tabular}
 \end{center}
@@ -209,7 +209,7 @@ odstavcích, se pro kritérium jdoucí k nekonečnu tento poměr též blíží 
 nekonečnu. Dobrý pozorovatel by tedy téměř vždy odpovídal \uv{ne}, optimální
 pozorovatel by neexistoval.}
 
-Při detekci signálu rozeznáváme dva druhy šumu. Šum vnitřní a šum vnější.
+Při detekci signálu rozeznáváme dva druhy šumu. Šum vnitřní a šum vnější \citep{DavidSDT}.
 Vnější šum je zkreslení dat, které se stane ještě mimo pozorovatele. Vnitřní
 šum je naopak šum, který je způsoben přímo algoritmem, který používá
 pozorovatel, aby dekódoval, zda signál je přítomen, či není.
@@ -248,7 +248,7 @@ značit $d'$ a spočítáme jí jako $d' = \Phi^{-1}(H_p) - \Phi^{-1}(F_p),$ kde
 \begin{figure}[h!]
   \includegraphics[width=.8\linewidth]{graphs/ROC.pdf}
   \centering
-\caption{Závislost hit rate a false alarm rate pro různé hodnoty $d'$.} 
+\caption{Závislost hit rate a false alarm rate pro různé hodnoty $d'$. Těmto křivkám se říká ROC křivky z anglického Receiver Operating Characteristic \citep{DavidSDT}.} 
 \label{obr:dprime} 
 \end{figure}
 
@@ -273,22 +273,16 @@ zjistíme, jaké hodnoty nabývá $Y$.
 \def\H{\operatorname{H}}
 
 Hodnotu informace, kterou nám přineslo zjištění, že náhodná veličina $A$ nabývá
-hodoty $a$, spočítáme jako $$I(A=a)=\log_b\left(\frac1{\P{A=a}}\right).$$ Jako
+hodoty $a$, spočítáme jako $$I(A=a)=-\log_b\left({\P{A=a}}\right)=\log_b\left(\frac1{\P{A=a}}\right).$$ Jako
 základ logaritmu $b$ se běžně používá 2 (což budeme dělat i v této práci), $e$
 nebo 10. Všimneme si, že toto vyjádření množství informace je konzistentní s
 intuitivní představou, že zjištění, že $A$ nabývá nějaké nepravděpodobné
 hodnoty, je cennější, než zjištění, že nabývá nějaké pravděpodobné. Odsud tedy
-entropii $\H(A)$ lze vyjádřit jako $$\H(A)=\mathbb{E}[I(A)]=\displaystyle\sum_{a
-\in \Omega}\P{A=a}\log_2\frac1{\P{A=a}},$$ kde $\Omega = \{a|\P{A=a} > 0\}$.
+entropii $\H(A)$ lze vyjádřit jako $$\H(A)=\mathbb{E}[I(A)]=-\displaystyle\sum_{a
+\in \Omega}\P{A=a}\log_2{\P{A=a}},$$ kde $\Omega = \{a|\P{A=a} > 0\}$.
 Všimneme si, že podle tohoto vzorce je entropie veličiny $X$, tak jak byla
 nadefinována v předchozím odstavci, rovna jedné, kdežto  entropie veličiny $Y$
-je rovna nule. To je konzistentní s jednou vlastností entropie, totiž s tím, že
-říká, že pokud označíme $A^n$ řetězec prvků $\Omega$ s pravděpodobnostním
-rozdělením náhodné veličiny $A$, a $\operatorname K$ ideální kompresní
-algoritmus (tedy funkce z $\Omega^*$ do ${0,1}^*$), pak
-$$\operatorname{lim}_{n\rightarrow\infty} \frac{\mathbb{E}[|K(A^n)|]}{n} =
-\H(A).$$ Neformálně řečeno nám tedy entropie říká, kolik bitů v průměru
-potřebujeme na uložení hodnoty náhodné veličiny $A$.
+je rovna nule.
 
 Podobně jako u pravděpodobnosti můžeme poměrně přímočaře nadefinovat i   
 podmíněnou entropii $\H(A| B)$
@@ -297,9 +291,9 @@ podmíněnou entropii $\H(A| B)$
 
 V této práci se budeme zabývat úlohou, kdy pozorovatel hledá gabor patch v
 kruhovém poli, v němž se nachází růžový šum. Předchozí výzkum ukázal, že lidští
-pozorovatelé v této úloze využívají krátkých pohledů a rychlých pohybů očí.
+pozorovatelé v této úloze využívají krátkých pohledů a rychlých pohybů očí \citep{Najemnik05}.
 Jednomu takovému krátkému pohledu budeme říkat \emph{fixace}. Očnímu pohybu
-budeme říkat \emph{sakáda}. Pojem sakáda přirozeně aplikujeme i na simulované
+se říká \emph{sakáda} \citep{sakady}. Pojem sakáda přirozeně aplikujeme i na simulované
 (tj. ne liské) pozorovatele, kde ho budeme chápat jako vektor v $\mathbb{R}^2$
 mezi středy dvou po sobě jdoucích fixací. Jednotlivé fixace trvají přibližně
 $200$--$300 \operatorname{ms}$.
@@ -322,7 +316,7 @@ budeme pro každý bod $x$ vědět, jaká je hodnota $d'$ pro rozhodování, zda
 cíl v bodě $x$, pokud zafixujeme střed.
 
 Předchozí výzkum ukázal, že u běžného člověka je $d'$ mapa poměrně
-nepravidelná, ale dá se s přijatelnou přesností aproximovat mapou, kde křivky
+nepravidelná \citep{Najemnik08}, ale dá se s přijatelnou přesností aproximovat mapou, kde křivky
 spojující body se stejnou hodnotou $d'$ jsou tvořeny čtyřmi čtvrtelipsami
 (jednou v každém kvadrantu) se středem v počátku, s
 excentricitami a velikostí poloos danou hodnotou $d'$ a individuálními
@@ -348,8 +342,8 @@ chvíli, kdy na nějaké lokaci pravděpodobnost přesáhne kritérium, pozorova
 ukončí hledání a ohlásí nalezení cíle na této lokaci.
 
 V rámci předchozího výzkumu bylo otestováno mnoho modelů, jako například
-pozorovatel, který volí fixace náhodně nebo pozorovatel, který volí fixace co
-nejdále od míst, která již zafixoval. Všechny tyto modely se ale ukázaly jako
+pozorovatel, který volí fixace náhodně nebo pozorovatel, který volí fixace 
+tak, aby nikdy nezafixoval tutéž lokaci vícekrát. Všechny tyto modely se ale ukázaly jako
 nevhodné, vzhledem k tomu, že v praxi dosahují mnohem horších výsledků (měřeno
 pomocí střední hodnoty počtu fixací před nalezením cíle) než lidský
 pozorovatel.
@@ -389,8 +383,10 @@ opravdu je a byl zafixován bod $k(T+1)$}.
 
 IBO však ale též není příliš pravděpodobný  kandidát na model, podle nějž se
 lidé chovají.  Ač má jeho vyhledávání podobné statistické vlastnosti, jako
-vyhledávání lidského pozorovatele, můžeme si všimnout, že přinejmenším
-přímočaré vyhodnocení výrazu \eqref{IBOnext} je kubické v počtu potenciálních
+vyhledávání lidského pozorovatele, vyžaduje perfektní paměť a ideální integraci
+informace mezi fixacemi. Ani jednu z těchto dovedností ale lidský pozorovatel
+nemá \citep{Najemnik08}. Dále si můžeme všimnout, že přinejmenším přímočaré
+vyhodnocení výrazu \eqref{IBOnext} je kubické v počtu potenciálních
 lokací (výpočet druhého činitele součinu v sumě je lineární, suma sama je přes
 lineárně mnoho členů, a vnější maximum má též lineárně mnoho možných voleb
 $k(T+1)$). Lidský pozorovatel při vyhledávání volí další fixaci přibližně
@@ -403,7 +399,7 @@ ELM\footnote{z anglického \uv{Entropy limit minimization}.} pozorovatel je
 pozorovatel, který při výběru následující fixace minimalizuje střední hodnotu
 entropie náhodné veličiny určující lokaci cíle. Tu spočítáme jako
 \begin{equation}\label{EntropyBasic}\E{\H(T+1)|k(T+1)}=-\E{\displaystyle\sum_{i\in
-L}p_{T+1}(i)\log_2p_{T+1}(i)|k(T+1)}.\end{equation} V ZDROJ09 se však zjistilo,
+L}p_{T+1}(i)\log_2p_{T+1}(i)|k(T+1)}.\end{equation} \citet{Najemnik09} však ukázali,
 že vyjádření hodnoty entropie podle vzorce \eqref{EntropyBasic} je sice
 netriviální, ale lze ho dobře aproximovat případem, kdy pošleme v limitě $|L|$
 do nekonečna. Pak dostáváme výraz $$ \E{\H(T+1)|k(T+1)}= \H(T) -
