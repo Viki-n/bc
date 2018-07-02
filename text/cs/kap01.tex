@@ -209,12 +209,18 @@ odstavcích, se pro kritérium jdoucí k nekonečnu tento poměr též blíží 
 nekonečnu. Dobrý pozorovatel by tedy téměř vždy odpovídal \uv{ne}, optimální
 pozorovatel by neexistoval.}
 
+Další možností by bylo charakterizovat pozorovatele jeho poměrem správných
+a špatných odpovědí. To ale též není vhodné, protože potom by jeho citlivost
+nezávisela jen na jeho vlastnostech, ale v případě, kdy by pravděpodobnost hitu
+a pravděpodobnost correct rejection nebyla stejná, i na poměru počtu situací,
+kdy je signál přítomen, v naší sadě testů.
+
 Při detekci signálu rozeznáváme dva druhy šumu. Šum vnitřní a šum vnější \citep{DavidSDT}.
 Vnější šum je zkreslení dat, které se stane ještě mimo pozorovatele. Vnitřní
 šum je naopak šum, který je způsoben přímo algoritmem, který používá
 pozorovatel, aby dekódoval, zda signál je přítomen, či není.
 
-Pro lepší porozumnění případ z praxe. Nechť je pozorovatel člověk, který není
+Pro lepší porozumnění představíme případ z praxe. Nechť je pozorovatel člověk, který není
 příliš pozorný a chystá se přejít silnici. Jeho (podvědomým) pozorováním je
 informace, která dorazí ddo jeho mozku z periferií jeho sítnic, a signál, jehož
 přítomnost zkoumá, je, zda přijíždí auto. V takovém případě se v mozku spustí
