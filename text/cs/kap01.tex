@@ -248,7 +248,7 @@ značit $d'$ a spočítáme jí jako $d' = \Phi^{-1}(H_p) - \Phi^{-1}(F_p),$ kde
 \begin{figure}[h!]
   \includegraphics[width=.8\linewidth]{graphs/ROC.pdf}
   \centering
-\caption{Závislost hit rate a false alarm rate pro různé hodnoty $d'$.} 
+\caption{Závislost hit rate a false alarm rate pro různé hodnoty $d'$. Těmto křivkám se říká ROC křivky z anglického Receiver Operating Characteristic \citep{DavidSDT}.} 
 \label{obr:dprime} 
 \end{figure}
 
@@ -273,22 +273,16 @@ zjistíme, jaké hodnoty nabývá $Y$.
 \def\H{\operatorname{H}}
 
 Hodnotu informace, kterou nám přineslo zjištění, že náhodná veličina $A$ nabývá
-hodoty $a$, spočítáme jako $$I(A=a)=\log_b\left(\frac1{\P{A=a}}\right).$$ Jako
+hodoty $a$, spočítáme jako $$I(A=a)=-\log_b\left({\P{A=a}}\right)=\log_b\left(\frac1{\P{A=a}}\right).$$ Jako
 základ logaritmu $b$ se běžně používá 2 (což budeme dělat i v této práci), $e$
 nebo 10. Všimneme si, že toto vyjádření množství informace je konzistentní s
 intuitivní představou, že zjištění, že $A$ nabývá nějaké nepravděpodobné
 hodnoty, je cennější, než zjištění, že nabývá nějaké pravděpodobné. Odsud tedy
-entropii $\H(A)$ lze vyjádřit jako $$\H(A)=\mathbb{E}[I(A)]=\displaystyle\sum_{a
-\in \Omega}\P{A=a}\log_2\frac1{\P{A=a}},$$ kde $\Omega = \{a|\P{A=a} > 0\}$.
+entropii $\H(A)$ lze vyjádřit jako $$\H(A)=\mathbb{E}[I(A)]=-\displaystyle\sum_{a
+\in \Omega}\P{A=a}\log_2{\P{A=a}},$$ kde $\Omega = \{a|\P{A=a} > 0\}$.
 Všimneme si, že podle tohoto vzorce je entropie veličiny $X$, tak jak byla
 nadefinována v předchozím odstavci, rovna jedné, kdežto  entropie veličiny $Y$
-je rovna nule. To je konzistentní s jednou vlastností entropie, totiž s tím, že
-říká, že pokud označíme $A^n$ řetězec prvků $\Omega$ s pravděpodobnostním
-rozdělením náhodné veličiny $A$, a $\operatorname K$ ideální kompresní
-algoritmus (tedy funkce z $\Omega^*$ do ${0,1}^*$), pak
-$$\operatorname{lim}_{n\rightarrow\infty} \frac{\mathbb{E}[|K(A^n)|]}{n} =
-\H(A).$$ Neformálně řečeno nám tedy entropie říká, kolik bitů v průměru
-potřebujeme na uložení hodnoty náhodné veličiny $A$.
+je rovna nule.
 
 Podobně jako u pravděpodobnosti můžeme poměrně přímočaře nadefinovat i   
 podmíněnou entropii $\H(A| B)$
