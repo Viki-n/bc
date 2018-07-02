@@ -23,6 +23,8 @@ class dPrimeMeasuringViewController: UIViewController {
         super.viewDidLoad()
         MainImg.image = getBlank()
         MeasuringState.contrast = State.GaborOpacity
+        State.LastPressX = Constants.radius
+        State.LastPressY = Constants.radius
         // Do any additional setup after loading the view.
     }
     @IBAction func YesPress(_ sender: Any) {
@@ -54,7 +56,7 @@ class dPrimeMeasuringViewController: UIViewController {
         MeasuringState.Visible = true
         var noise = GeneratePinkNoise()
         if(MeasuringState.SignalPresent){
-            let gabor = MakeGabor(Size: State.GaborSize, rotation: 45, Contrast: 1, Period: State.GaborSize)
+            let gabor = MakeGabor(Size: State.GaborSize, rotation: 45, Contrast: 1, Period: State.GaborSize/3)
             let mask = MakeGaborMask(Size: State.GaborSize, peak: MeasuringState.contrast)
             ImagePaste(Background: &noise, BackgroundWidth: Constants.radius*2, BackgroundHeight: Constants.radius*2, Image: gabor, Width: State.GaborSize, Height: State.GaborSize, Top: Constants.radius-State.GaborSize/2, Left: Constants.radius-State.GaborSize/2, Alpha: mask)
         }

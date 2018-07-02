@@ -11,6 +11,7 @@
 		3805814420B32D3D004A9720 /* SetBoolCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3805814320B32D3D004A9720 /* SetBoolCell.swift */; };
 		3805814620B32D6D004A9720 /* SetStringCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3805814520B32D6D004A9720 /* SetStringCell.swift */; };
 		380CC87420C312B4001810AE /* DisplayLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380CC87320C312B4001810AE /* DisplayLogViewController.swift */; };
+		3848398220E99B8600531885 /* ELM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3848398120E99B8600531885 /* ELM.swift */; };
 		384BBBC920B3380C00D1381F /* SetNumberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384BBBC820B3380C00D1381F /* SetNumberCell.swift */; };
 		384BBBCB20B346FC00D1381F /* ButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384BBBCA20B346FC00D1381F /* ButtonCell.swift */; };
 		384BBBCD20B34EC400D1381F /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384BBBCC20B34EC400D1381F /* PreviewViewController.swift */; };
@@ -46,6 +47,7 @@
 		3805814320B32D3D004A9720 /* SetBoolCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetBoolCell.swift; sourceTree = "<group>"; };
 		3805814520B32D6D004A9720 /* SetStringCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetStringCell.swift; sourceTree = "<group>"; };
 		380CC87320C312B4001810AE /* DisplayLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayLogViewController.swift; sourceTree = "<group>"; };
+		3848398120E99B8600531885 /* ELM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ELM.swift; sourceTree = "<group>"; };
 		384BBBC820B3380C00D1381F /* SetNumberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetNumberCell.swift; sourceTree = "<group>"; };
 		384BBBCA20B346FC00D1381F /* ButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCell.swift; sourceTree = "<group>"; };
 		384BBBCC20B34EC400D1381F /* PreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				38DC0A8120332E2400F56EA6 /* Info.plist */,
 				38CE558C2097EC2900C8F879 /* sound.swift */,
 				380CC87320C312B4001810AE /* DisplayLogViewController.swift */,
+				3848398120E99B8600531885 /* ELM.swift */,
 			);
 			path = Bc;
 			sourceTree = "<group>";
@@ -266,6 +269,7 @@
 				38DC0A7620332E2400F56EA6 /* AppDelegate.swift in Sources */,
 				3805814420B32D3D004A9720 /* SetBoolCell.swift in Sources */,
 				3853654920BCEF9F0087A439 /* MainMenuViewController.swift in Sources */,
+				3848398220E99B8600531885 /* ELM.swift in Sources */,
 				38F61798209A01920022FBBA /* NoiseGen.swift in Sources */,
 				38CE558D2097EC2900C8F879 /* sound.swift in Sources */,
 				384BBBD120B444E400D1381F /* TitleCell.swift in Sources */,
