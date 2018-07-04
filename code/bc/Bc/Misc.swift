@@ -62,7 +62,7 @@ class State{
     
     //DPrime map. Constants measured on subject FD
     public static var dMap = [Double]()
-    public static var dPrimeZero = 4.0
+    public static var dPrimeZero = 3.0
     public static var dMapBeingUsed = true
     public static var dMapActual = false
     private static let pixelsperdegree = Double(Constants.radius)/15
