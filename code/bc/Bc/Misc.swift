@@ -29,9 +29,11 @@ class DebugFlags{
     public static let executeTests = false
     public static let actualGabor = true
     public static let cover = true
+    public static var ShowTargets = true
 }
 
 class State{
+    public static var GaborIndex = 0
     public static var GaborX = 0
     public static var GaborY = 0
     public static var GaborSize = 50
@@ -60,8 +62,8 @@ class State{
     
     //DPrime map. Constants measured on subject FD
     public static var dMap = [Double]()
-    public static var dPrimeZero = 0.8
-    public static var dMapBeingUsed = false
+    public static var dPrimeZero = 4.0
+    public static var dMapBeingUsed = true
     public static var dMapActual = false
     private static let pixelsperdegree = Double(Constants.radius)/15
     public static var eRight = 6.54 * pixelsperdegree
@@ -83,9 +85,11 @@ class State{
     public static var SubjectDatatbase = [subjectData]()
     public static var CurrentSubject = subjectData()
     
-    
+    public static let elm = ELM()
+    public static var SoundMode = 0
 }
 
+///Function for logging what was previous screen, so return from preview will work.
 func SetScreen(screen: String){
     State.PreviousScreen = State.Screen
     State.Screen = screen
@@ -128,5 +132,11 @@ func  InitApp(){
         CalculatePossibleLocations(d:State.PossibleLocationsDistance)
         State.appInitialized = true
         MakeDMap()
+        State.elm.Reset()
+        if(State.dMapBeingUsed){
+            State.MaskFunc = DPrimePressFilter
+        } else {
+            State.MaskFunc = SimpleCircularSinusoidPressFilter
+        }
     }
 }

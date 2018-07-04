@@ -113,14 +113,14 @@ class ViewController: UIViewController {
             let TouchDistance = distance(Xdiference: TouchDistanceX, Ydiference: TouchDistanceY)
             let xInPx = Double(position.x)*Double(2*radius)/Double(ViewSize)
             let yInPx = Double(position.y)*Double(2*radius)/Double(ViewSize)
-            if State.RedrawOnClick {
+            if State.RedrawOnClick {//Genereating new background
                 State.RedrawOnClick = false
                 State.presses = 0
                 NewBackground()
                 BottomLeftButton.setTitle("Gabor was located", for: UIControlState.normal)
             } else if distance(X1: xInPx, Y1: yInPx, X2: Double(radius), Y2: Double(radius))>Double(radius) {
                 //Do nothing, clicked outside the noise
-            } else if State.GaborLocated {
+            } else if State.GaborLocated { //Area was uncovered, subject guessed where gabor was
              //   State.GaborSize -= 1
                 State.PreviousAccuracy = Int(TouchDistance)
                 State.GaborLocated = false
@@ -134,33 +134,10 @@ class ViewController: UIViewController {
                 DrawUncovered()
                 State.RedrawOnClick = true
                 BottomLeftButton.setTitle("Next trial", for: UIControlState.normal)
-            } else {
-                State.presses += 1
-                print(TouchDistanceX," ",TouchDistanceY)
-
-                State.currentTrial.fixations.append(point(Int(xInPx),Int(yInPx)))
-                State.LastPressX = Int(xInPx)
-                State.LastPressY = Int(yInPx)
-                if(!State.showJustForShortTime){
-                    for i in Int(xInPx)-Constants.UncoverRadius..<Int(xInPx)+Constants.UncoverRadius{
-                        if(i<0){continue}
-                        if(i>=Constants.radius*2){continue}
-                        for i1 in Int(yInPx)-Constants.UncoverRadius..<Int(yInPx)+Constants.UncoverRadius{
-                            if(i1<0){continue}
-                            if(i1>=Constants.radius*2){continue}
-                            let indexinarray = i+i1*Constants.radius*2
-                            let distancefromtouch = sqrt(Double(sqr(i-Int(xInPx))+sqr(i1-Int(yInPx))))
-                            if(distancefromtouch>Double(Constants.UncoverRadius)){continue}
-                            if(Constants.MultiplicativeTransparency){
-                                State.showmap[indexinarray] = 1-((1-State.showmap[indexinarray])*(0.5 - 0.5*cos(.pi*distancefromtouch/Double(Constants.UncoverRadius))))
-                            } else {
-                                State.showmap[indexinarray] = max(State.showmap[indexinarray],(0.5 +    0.5*cos(.pi*distancefromtouch/Double(Constants.UncoverRadius))))
-                            }
-                        }
-                    }
-                }
+            } else {//Normal press
+                let location = point(Int(xInPx),Int(yInPx))
+                NormalPress(Location: location)
                 Redraw(ForcedBlank: false)
-                Constants.AudioPlayer.play(Float32(440*pow(2, Double(TouchDistance)/200)), modulatorFrequency: 600, modulatorAmplitude: 0, duration: 0.8)
             }
         }
         TopText.numberOfLines = 3
@@ -172,6 +149,68 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func NormalPress(Location:point){
+        let xInPx = Location.x
+        let yInPx = Location.y
+        State.presses += 1
+        State.currentTrial.fixations.append(point(Int(xInPx),Int(yInPx)))
+        State.LastPressX = Int(xInPx)
+        State.LastPressY = Int(yInPx)
+        MakeSound(Location: Location)
+        State.elm.Update(Fixated: Location)
+        
+        //Rest of this procedure is here for debug purposes only
+        if(!State.showJustForShortTime){
+            for i in Int(xInPx)-Constants.UncoverRadius..<Int(xInPx)+Constants.UncoverRadius{
+                if(i<0){continue}
+                if(i>=Constants.radius*2){continue}
+                for i1 in Int(yInPx)-Constants.UncoverRadius..<Int(yInPx)+Constants.UncoverRadius{
+                    if(i1<0){continue}
+                    if(i1>=Constants.radius*2){continue}
+                    let indexinarray = i+i1*Constants.radius*2
+                    let distancefromtouch = sqrt(Double(sqr(i-Int(xInPx))+sqr(i1-Int(yInPx))))
+                    if(distancefromtouch>Double(Constants.UncoverRadius)){continue}
+                    if(Constants.MultiplicativeTransparency){
+                        State.showmap[indexinarray] = 1-((1-State.showmap[indexinarray])*(0.5 - 0.5*cos(.pi*distancefromtouch/Double(Constants.UncoverRadius))))
+                    } else {
+                        State.showmap[indexinarray] = max(State.showmap[indexinarray],(0.5 +    0.5*cos(.pi*distancefromtouch/Double(Constants.UncoverRadius))))
+                    }
+                }
+            }
+        }
+    }
+    
+    func MakeSound(Location:point){
+        var tone = 0.0
+        let value = State.elm.GetValue(location: Location)
+        switch(State.SoundMode){
+        case 0://Only partially relative
+            tone = 2-((value - State.elm.minvalue) / (State.elm.maxvalue - State.elm.minvalue) * 2)
+            if(tone<0){tone = 0}
+            if(tone>2){tone = 2}
+        case 1://Fully relative
+            var all = 0
+            var better = 0
+            for i in State.elm.Values{
+                all += 1
+                if(i>value){
+                    better += 1
+                }
+            }
+            tone = Double(better)/Double(all)*2
+        default:
+            break
+        }
+        MakeScaledSound(Tone: tone)
+    }
+    
+    ///Zero means c1, difference by 1 is difference by an octave
+    func MakeScaledSound(Tone:Double){
+        Constants.AudioPlayer.play(Float32(440*pow(2, Tone)), modulatorFrequency: 600, modulatorAmplitude: 0, duration: 0.8)
+        
+    }
+    
+    
     func Redraw(ForcedBlank:Bool) {
         if (State.showJustForShortTime){
             if(ForcedBlank || (State.LastPressY == -1 && State.LastPressX == -1 )){ //regenerating empty image
@@ -179,7 +218,9 @@ class ViewController: UIViewController {
                 } else {
                     MainImg.image! = UIImageFromArray(source: State.Uncovered, height: Constants.radius*2, width: Constants.radius*2, transformation: State.MaskFunc)
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(State.showFor)/1000, execute: {
-                    self.MainImg.image! = getBlank()
+                        if(!(State.GaborLocated || State.RedrawOnClick)){
+                            self.MainImg.image! = getBlank()
+                        }
                 })
             }
             
@@ -202,7 +243,8 @@ class ViewController: UIViewController {
         State.noise = State.Uncovered
         let gabor = MakeGabor(Size: State.GaborSize, rotation: 45, Contrast: 1, Period: State.GaborSize/3)
         let mask = MakeGaborMask(Size: State.GaborSize, peak: State.GaborOpacity)
-        let p = State.PossibleLocations[Int(arc4random_uniform(UInt32(State.PossibleLocations.count)))]
+        State.GaborIndex = Int(arc4random_uniform(UInt32(State.PossibleLocations.count)))
+        let p = State.PossibleLocations[State.GaborIndex]
         State.GaborX=p.x-State.GaborSize/2
         State.GaborY=p.y-State.GaborSize/2
         ImagePaste(Background: &State.Uncovered, BackgroundWidth: Constants.radius*2, BackgroundHeight: Constants.radius*2, Image: gabor, Width: State.GaborSize, Height: State.GaborSize, Top: State.GaborY, Left: State.GaborX, Alpha: mask)
@@ -210,6 +252,7 @@ class ViewController: UIViewController {
         State.showmap = getStartingShowmap()
         State.LastPressX = -1
         State.LastPressY = -1
+        State.elm.Reset()
         Redraw(ForcedBlank: false)
     }
     

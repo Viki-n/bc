@@ -10,7 +10,29 @@ import Foundation
 import UIKit
 
 func getBlank() ->UIImage {
-    if (!State.BlankStored) { //first call
+    if(DebugFlags.ShowTargets){
+        var darkness = combine(first: State.Uncovered, second:State.darkness, mask: getStartingShowmap(), length: Constants.radius*Constants.radius*4)
+        let size = State.GaborSize/2
+        var count = -1
+        for i in State.PossibleLocations {
+            count += 1
+            let color = 1+UInt8(((State.elm.Values[count] - State.elm.minvalue) / (State.elm.maxvalue - State.elm.minvalue) * 254))
+            let color2 = 1 + UInt8(State.elm.posteriori[count]*254)
+            for x in i.x-size..<i.x+size{
+                for y in i.y-size..<i.y+size{
+                    let coordinate = y*Constants.radius*2 + x
+                    if distance(X1: x, Y1: y, X2: i.x, Y2: i.y)<Double(size){
+                        if (x-y < i.x-i.y) {
+                        darkness[coordinate] = color
+                        } else {
+                            darkness[coordinate] = color2
+                        }
+                    }
+                }
+            }
+        }
+        return UIImageFromArray(source: darkness, height: Constants.radius*2, width: Constants.radius*2)
+    } else if (!State.BlankStored) { //first call
         State.Blank = UIImageFromArray(source: combine(first: State.Uncovered, second:State.darkness, mask: getStartingShowmap(), length: Constants.radius*Constants.radius*4), height: Constants.radius*2, width: Constants.radius*2)
         State.BlankStored = true
     }

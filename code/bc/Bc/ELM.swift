@@ -11,19 +11,25 @@ import GameplayKit
 
 class ELM {
     private var Random = GKGaussianDistribution(randomSource: GKRandomSource(), mean: 0, deviation: 1)
-    private var posteriori = [Double]()
+    public var posteriori = [Double]()
     private var AggregateResponses = [Double]()
     private var count = 0
     public var Values = [Double]()
+    public var maxvalue = -Double.infinity
+    public var minvalue = Double.infinity
+    private var prior = 0.0
     
     public func Reset(){
         count = State.PossibleLocations.count
-        posteriori = [Double](repeating: 1/Double(count), count: count)
+        prior = 1/Double(count)
+        posteriori = [Double](repeating: prior, count: count)
         AggregateResponses = [Double](repeating: 0, count: count)
         Values = [Double](repeating: 0, count:count)
+        UpdateValues()
     }
+    
     public func Update(Fixated:point){
-        let responses = GetResponses(Looking: Fixated, Target: point(State.GaborX,State.GaborY))
+        let responses = GetResponses(Looking: Fixated, Target: State.PossibleLocations[State.GaborIndex])
         UpdateSum(responses: responses, Fixated: Fixated)
         UpdatePosteriors()
         UpdateValues()
@@ -38,12 +44,20 @@ class ELM {
     
     
     private func UpdateValues() {
+        minvalue = Double.infinity
+        maxvalue = -Double.infinity
         for i in 0..<count{
             var sum = 0.0
             for i1 in 0..<count {
                 sum += posteriori[i1] * dSq_stat_fixd(CalculatingFor: State.PossibleLocations[i1], fixated: State.PossibleLocations[i])
             }
             Values[i] = sum
+            if (sum>maxvalue){
+                maxvalue = sum
+            }
+            if (sum<minvalue){
+                minvalue = sum
+            }
         }
     }
     
@@ -57,10 +71,10 @@ class ELM {
         var ExpResp = AggregateResponses.map(exp)
         var sum = 0.0
         for i in 0..<count{
-            sum += ExpResp[i]*posteriori[i]
+            sum += ExpResp[i]*prior
         }
         for i in 0..<count{
-            posteriori[i] = ExpResp[i]*posteriori[i]/sum
+            posteriori[i] = ExpResp[i]*prior/sum
         }
         
     }
@@ -73,10 +87,10 @@ class ELM {
         return r
     }
     private func d_true_fixd(CalculatingFor:point, fixated: point)->Double{
-        
+        return 3*dprime(fixated: fixated, measuring: CalculatingFor)//3 je d`_0
     }
     private func dSq_stat_fixd(CalculatingFor:point, fixated:point )->Double{
-        
+            return sqr(d_true_fixd(CalculatingFor: CalculatingFor, fixated: fixated))
     }
     
 }
