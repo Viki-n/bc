@@ -144,6 +144,8 @@ cyklech na pixel) $0.1$, třetí $0.02$.}
 
 \section{Úvod do teorie detekce signálu}
 
+Obsah této sekce je volně převzatý od Jozefa Amemoriho \citeyearpar{Pepa}.
+
 Teorie detekce signálu řeší problém rozlišení dvou signálů, případně signálu a
 šumu. V této práci se budem zabývat problémem, kdy je potřeba rozhodnout, zda
 se v dané ploše nachází signál, či ne. Této úloze budeme říkat A/N problem,
@@ -168,7 +170,7 @@ Pozorovatel odpoví záporně &{\it Miss}&{\it Correct rejection}\\
 
  V této úloze se pozorovatel chová tak,
 že si zvolí kritérium (někdy též práh odpovědi), které udává, jaká musí být
-pravděpodobnost, že signál je přítomen, aby pozorovatel odpověděl kladně.
+pravděpodobnost, že signál je přítomen, aby pozorovatel odpověděl kladně \citep[kapitola 1.7]{GreenSDT}.
 
 \def\P#1{\operatorname{P}\left[#1\right]}
 \def\E#1{\mathbb{E}\left[#1\right]}
@@ -238,7 +240,7 @@ se příslušným směrem znovu s cílem získat lepší pozorování.
 Praxe ukazuje, že v těchto situacích je rozdělení veličiny $X$ často dobře
 aproximováno normálním rozdělením, a to jak v případě, že signál přítomen je,
 tak v případě, že přítomen není. Obě tato normální rozdělení navíc mají v tomto
-typickém případě stejný rozptyl a liší se jen svou střední hodnotou. Potom je
+typickém případě stejný rozptyl a liší se jen svou střední hodnotou \citep{SwetsSDT}. Potom je
 přirozená otázka ptát se, jaký je rozdíl mezi jejich středními hodnotami (či lépe
 rozdíl mezi jejich středními hodnotami vydělený směrodatnou odchylkou).
 
@@ -254,7 +256,7 @@ značit $d'$ a spočítáme jí jako $d' = \Phi^{-1}(H_p) - \Phi^{-1}(F_p),$ kde
 \begin{figure}[h!]
   \includegraphics[width=.8\linewidth]{graphs/ROC.pdf}
   \centering
-\caption{Závislost hit rate a false alarm rate pro různé hodnoty $d'$. Těmto křivkám se říká ROC křivky z anglického Receiver Operating Characteristic \citep{DavidSDT}.} 
+\caption{Závislost hit rate a false alarm rate pro různé hodnoty $d'$. Těmto křivkám se říká ROC křivky z anglického Receiver Operating Characteristic \citep{SwetsSDT,GreenSDT}.} 
 \label{obr:dprime} 
 \end{figure}
 
@@ -326,7 +328,7 @@ nepravidelná \citep{Najemnik08}, ale dá se s přijatelnou přesností aproximo
 spojující body se stejnou hodnotou $d'$ jsou tvořeny čtyřmi čtvrtelipsami
 (jednou v každém kvadrantu) se středem v počátku, s
 excentricitami a velikostí poloos danou hodnotou $d'$ a individuálními
-vlastnostmi pozorovatele a cíle. 
+vlastnostmi pozorovatele a cíle \citep{Ellipse}. 
 
 Ke kompletnímu vyjádření aproximace funkce $d'$ potřebujeme celkem 6 hodnot,
 které závisí na konkrétním pozorovateli a cíli. Jedná se o hodnotu $d'_0 =
@@ -391,13 +393,13 @@ IBO však ale též není příliš pravděpodobný  kandidát na model, podle n
 lidé chovají.  Ač má jeho vyhledávání podobné statistické vlastnosti, jako
 vyhledávání lidského pozorovatele, vyžaduje perfektní paměť a ideální integraci
 informace mezi fixacemi. Ani jednu z těchto dovedností ale lidský pozorovatel
-nemá \citep{Najemnik08}. Dále si můžeme všimnout, že přinejmenším přímočaré
+nemá. Dále si můžeme všimnout, že přinejmenším přímočaré
 vyhodnocení výrazu \eqref{IBOnext} je kubické v počtu potenciálních
 lokací (výpočet druhého činitele součinu v sumě je lineární, suma sama je přes
 lineárně mnoho členů, a vnější maximum má též lineárně mnoho možných voleb
 $k(T+1)$). Lidský pozorovatel při vyhledávání volí další fixaci přibližně
 třikrát až čtyřikrát za vteřinu, je tedy nepravděpodobné, že by lidský mozek
-dokázal takový výpočet provést. 
+dokázal takový výpočet provést \citep{Najemnik08}. 
 
 \subsubsection{ELM pozorovatel}
 
