@@ -29,7 +29,8 @@ class DebugFlags{
     public static let executeTests = false
     public static let actualGabor = true
     public static let cover = true
-    public static var ShowTargets = true
+    public static var ShowTargets = false
+    
 }
 
 class State{
@@ -38,6 +39,7 @@ class State{
     public static var GaborY = 0
     public static var GaborSize = 50
     public static var GaborOpacity = 0.7
+    public static var DefaultGaborOpacity = 0.7
     public static var noise = [UInt8]()
     public static var Uncovered = [UInt8](repeating: UInt8(Constants.backgroundcolor),count:Constants.radius*Constants.radius * 4)
     public static var showmap = [Double]()
@@ -87,6 +89,15 @@ class State{
     
     public static let elm = ELM()
     public static var SoundMode = 0
+    
+    //Gamification
+    public static var FirstAndThirdTest = 50
+    public static var SecondTest = 150
+    public static var ReponsesBeforeChange = 3
+    public static var FixationLimit = 5
+    public static var ChangeDifficultyBy = 10
+    public static var ResponseCounter = 0
+    public static var AccuracyThreshold = 60
 }
 
 ///Function for logging what was previous screen, so return from preview will work.

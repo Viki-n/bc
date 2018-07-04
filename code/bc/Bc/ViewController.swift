@@ -115,7 +115,6 @@ class ViewController: UIViewController {
             let yInPx = Double(position.y)*Double(2*radius)/Double(ViewSize)
             if State.RedrawOnClick {//Genereating new background
                 State.RedrawOnClick = false
-                State.presses = 0
                 NewBackground()
                 BottomLeftButton.setTitle("Gabor was located", for: UIControlState.normal)
             } else if distance(X1: xInPx, Y1: yInPx, X2: Double(radius), Y2: Double(radius))>Double(radius) {
@@ -206,7 +205,12 @@ class ViewController: UIViewController {
     
     ///Zero means c1, difference by 1 is difference by an octave
     func MakeScaledSound(Tone:Double){
-        Constants.AudioPlayer.play(Float32(440*pow(2, Tone)), modulatorFrequency: 600, modulatorAmplitude: 0, duration: 0.8)
+        if((State.CurrentSubject.Feedback == .ELM) &&//Feedback should be given
+            ((State.SubjectName == "unknown") || //default observer -- debug reasons
+                (State.currentTrial.TrialNumber > State.FirstAndThirdTest && //not within first test
+                    State.currentTrial.TrialNumber <= State.FirstAndThirdTest + State.SecondTest))){//not after second test
+            Constants.AudioPlayer.play(Float32(440*pow(2, Tone)), modulatorFrequency: 600, modulatorAmplitude: 0, duration: 0.8)
+        }
         
     }
     
@@ -239,6 +243,7 @@ class ViewController: UIViewController {
     
     @objc func NewBackground(){
         print("Touches: ",State.presses)
+        GameController()
         State.Uncovered = GeneratePinkNoise()
         State.noise = State.Uncovered
         let gabor = MakeGabor(Size: State.GaborSize, rotation: 45, Contrast: 1, Period: State.GaborSize/3)
@@ -253,9 +258,34 @@ class ViewController: UIViewController {
         State.LastPressX = -1
         State.LastPressY = -1
         State.elm.Reset()
+        State.presses = 0
         Redraw(ForcedBlank: false)
     }
     
-    
+    func GameController(){
+        let num = State.currentTrial.TrialNumber
+        if (num==1||num == 1+State.FirstAndThirdTest||num==1+State.FirstAndThirdTest+State.SecondTest){
+            State.GaborOpacity = State.DefaultGaborOpacity
+            State.ResponseCounter = 0
+            return
+        }
+        if (State.presses <= State.FixationLimit||State.PreviousAccuracy <= State.AccuracyThreshold){
+            State.ResponseCounter = max(State.ResponseCounter,0)
+            State.ResponseCounter += 1
+            if(State.ResponseCounter == State.ReponsesBeforeChange){
+                State.GaborOpacity -= Double(State.ChangeDifficultyBy)/1000
+                State.GaborOpacity = max(State.GaborOpacity, 0)
+                State.ResponseCounter = 0
+            }
+        } else {
+            State.ResponseCounter = min(State.ResponseCounter,0)
+            State.ResponseCounter -= 1
+            if(State.ResponseCounter == -State.ReponsesBeforeChange){
+                State.GaborOpacity += Double(State.ChangeDifficultyBy)/1000
+                State.GaborOpacity = max(State.GaborOpacity, 0)
+                State.ResponseCounter = 0
+            }
+        }
+    }
 
 }

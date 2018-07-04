@@ -19,12 +19,22 @@ class dPrimeMeasuringViewController: UIViewController {
     @IBOutlet weak var TopText: UILabel!
     
     @IBOutlet weak var MainImg: UIImageView!
+    
+    private var FalsePositives = 0
+    private var Hits = 0
+    private var Misses = 0
+    private var CorrectRejections = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         MainImg.image = getBlank()
         MeasuringState.contrast = State.GaborOpacity
         State.LastPressX = Constants.radius
         State.LastPressY = Constants.radius
+        FalsePositives = 0
+        Hits = 0
+        Misses = 0
+        CorrectRejections = 0
         // Do any additional setup after loading the view.
     }
     @IBAction func YesPress(_ sender: Any) {
@@ -37,17 +47,28 @@ class dPrimeMeasuringViewController: UIViewController {
         if(!MeasuringState.Visible){
             evaluateTrial(response: false)
             newTrial()
-        }    }
+        }
+    }
     
     
     func evaluateTrial(response:Bool){
         var s = ""
         if response == MeasuringState.SignalPresent { //correct response
             s = "correct"
+            if(response){
+                Hits += 1
+            } else {
+                CorrectRejections += 1
+            }
         } else { //incorrect response
             s = "incorrect"
+            if(response){
+                FalsePositives += 1
+            } else {
+                Misses += 1
+            }
         }
-        TopText.text = "Last response was "+s+". Press yes if you saw the Gabor, no otherwise."
+        TopText.text = "Last response was "+s+". Press yes if you saw the Gabor, no otherwise.\n Hits: \(Hits), Misses: \(Misses), False alarms: \(FalsePositives), Correct rejections:\(CorrectRejections)"
         MeasuringState.SignalPresent = arc4random()%2==0
     }
     

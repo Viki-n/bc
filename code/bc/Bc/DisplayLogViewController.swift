@@ -17,10 +17,6 @@ class DisplayLogViewController: UIViewController {
         super.viewDidLoad()
         var s = ""
         
-        for i in State.elm.Values{
-            s += String(i) + "\n"
-        }
-        
         for i in State.log{
             s = s + i.ToString()
         }

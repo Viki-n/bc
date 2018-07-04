@@ -62,7 +62,7 @@ class SettingsViewController: UITableViewController {
     func FillCellInfo() {
         items.append(cellInfo(text: "General settings"))
         
-        items.append(cellInfo(text: "Difficulty (0 = impossible, 1000 = easiest)", get: {return Int(State.GaborOpacity*1000)}, set: {v in let x = Double(min(1000,max(0,v)))/1000; State.GaborOpacity = x; return Int(x*1000)}))
+        items.append(cellInfo(text: "Difficulty (0 = impossible, 1000 = easiest)", get: {return Int(State.GaborOpacity*1000)}, set: {v in let x = Double(min(1000,max(0,v)))/1000; State.GaborOpacity = x; State.DefaultGaborOpacity = x; return Int(x*1000)}))
         items.append(cellInfo(text: "Gabor patch diameter", get: {return State.GaborSize}, set:{v in State.GaborSize = max(1,v); return max(1,v)}))
         items.append(cellInfo(text: "Radius of uncovered area", get: {return Constants.UncoverRadius}, set: {v in Constants.UncoverRadius = max(1,v); return max(1,v)}))
         items.append(cellInfo(text: "Area uncovered for (ms)", get: {return State.showFor}, set: {v in State.showFor = max(1,v); return max(1,v)}))
@@ -79,6 +79,19 @@ class SettingsViewController: UITableViewController {
         items.append(cellInfo(text: "Preview", press: {self.performSegue(withIdentifier: "ShowPreview", sender: nil)} ))
         items.append(cellInfo(text: "Start game", press: {self.performSegue(withIdentifier: "SettingsToGame", sender: nil)}))
         items.append(cellInfo(text: "Back to main menu", press:{self.performSegue(withIdentifier: "SettingsToMainMenu", sender: nil)}))
+        
+        
+        
+        
+        items.append(cellInfo(text: "Gamification settings"))
+        items.append(cellInfo(text: "Trials in first and third test", get: {return State.FirstAndThirdTest }, set: {v in let x=max(v,1); State.FirstAndThirdTest=x;return x}))
+        items.append(cellInfo(text: "Trials in second test", get: {return State.SecondTest }, set: {v in let x=max(v,1); State.SecondTest=x;return x}))
+        items.append(cellInfo(text: "Correct/wrong responses in row before difficulty changes", get: {return State.ReponsesBeforeChange }, set: {v in let x=max(v,1); State.ReponsesBeforeChange=x;return x}))
+        items.append(cellInfo(text: "Difficulty changed by", get: {return State.ChangeDifficultyBy }, set: {v in let x=max(v,1); State.ChangeDifficultyBy=x;return x}))
+        items.append(cellInfo(text: "Accuracy threshold", get: {return State.AccuracyThreshold }, set: {v in let x=max(v,1); State.AccuracyThreshold = x;return x}))
+        items.append(cellInfo(text: "Maximal amount of fixations for succesful trial", get: {return State.FixationLimit }, set: {v in let x=max(v,1); State.FixationLimit = x;return x}))
+        
+        
         
         items.append(cellInfo(text: "d’ map constants setting"))
         items.append(cellInfo(text: "Foveal detectability (x100)", get: {return Int(100*State.dPrimeZero)}, set: {v in let u = v<1 ? 1 : v;State.dPrimeZero = Double(u)/100; return u}))
