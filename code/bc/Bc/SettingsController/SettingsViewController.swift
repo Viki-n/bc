@@ -67,19 +67,21 @@ class SettingsViewController: UITableViewController {
         items.append(cellInfo(text: "Radius of uncovered area", get: {return Constants.UncoverRadius}, set: {v in Constants.UncoverRadius = max(1,v); return max(1,v)}))
         items.append(cellInfo(text: "Area uncovered for (ms)", get: {return State.showFor}, set: {v in State.showFor = max(1,v); return max(1,v)}))
         items.append(cellInfo(text: "Area uncovered for brief period only", get: {return State.showJustForShortTime}, set:{v in State.showJustForShortTime = v}))
+        items.append(cellInfo(text: "Sound fully relative", get: {return State.SoundMode==1}, set:{v in State.SoundMode = v ? 0 : 1}))
         items.append(cellInfo(text: "Possible location distance", get: {return State.PossibleLocationsDistance}, set: {v in
             let h = max(v,60)
             State.PossibleLocationsDistance = h
             CalculatePossibleLocations(d: h)
             return h
         }))
-        items.append(cellInfo(text: "Generate noise", get: {DebugFlags.randomNoise},set: {v in DebugFlags.randomNoise = v}))
+    
         items.append(cellInfo(text: "Regenerate noise", get:{return State.GenerateBackgroundOnEntry}, set:{v in State.GenerateBackgroundOnEntry = v}))
         items.append(cellInfo(text: "Preview", press: {self.performSegue(withIdentifier: "ShowPreview", sender: nil)} ))
         items.append(cellInfo(text: "Start game", press: {self.performSegue(withIdentifier: "SettingsToGame", sender: nil)}))
         items.append(cellInfo(text: "Back to main menu", press:{self.performSegue(withIdentifier: "SettingsToMainMenu", sender: nil)}))
         
         items.append(cellInfo(text: "d’ map constants setting"))
+        items.append(cellInfo(text: "Foveal detectability (x100)", get: {return Int(100*State.dPrimeZero)}, set: {v in let u = v<1 ? 1 : v;State.dPrimeZero = Double(u)/100; return u}))
         items.append(cellInfo(text: "Left side visibility", get: {return Int(State.eLeft)}, set: {v in
             var param = v
             if (param<1){
@@ -181,6 +183,9 @@ class SettingsViewController: UITableViewController {
                 self.present(ac, animated: true)
             }
         }))
+        items.append(cellInfo(text: "Debug flags"))
+        items.append(cellInfo(text: "Generate noise", get: {DebugFlags.randomNoise},set: {v in DebugFlags.randomNoise = v}))
+        items.append(cellInfo(text: "Display locations", get: {return DebugFlags.ShowTargets}, set: {v in DebugFlags.ShowTargets = v}))
         
         
     }
