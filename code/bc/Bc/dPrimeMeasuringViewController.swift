@@ -67,7 +67,9 @@ class dPrimeMeasuringViewController: UIViewController {
         YesButton.setTitle("Yes", for: .normal)
         NoButton.setTitle("No", for: .normal)
         started = true
+        TopText.text = "Press yes if you saw the Gabor, no otherwise."
         newTrial()
+        
     }
     
     func evaluateTrial(response:Bool){

@@ -42,6 +42,11 @@ func getBlank() ->UIImage {
     }
     return State.Blank!
 }
+
+func GetGrey()->UIImage{
+    return UIImageFromArray(source: [UInt8](repeating: 128, count:Constants.radius*Constants.radius*4), height: Constants.radius*2, width: Constants.radius*2)
+}
+
 func combine(first: [UInt8], second: [UInt8], mask: [Double], length: Int)->[UInt8]{
     var output = [UInt8]()
     for i in 0..<length{

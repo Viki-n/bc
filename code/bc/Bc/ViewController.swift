@@ -13,7 +13,7 @@ import UIKit
 func getTopText() -> String {
     if State.GaborLocated{
         return "Click at the location where you think you saw the Gabor."
-    } else if State.RedrawOnClick{
+    } else if State.RedrawOnClick || State.ShowScore{
         return "Gabor was located with an error of \(State.PreviousAccuracy) px. Now you can see where exactly was it. Click again anywhere within the noise or at the button in the bottom left to start a new game."
     } else {
         var s = ""
@@ -70,7 +70,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var CenterText: UILabel!
     
     @IBAction func LocatedButton(_ sender: Any) {
-        if (!(State.RedrawOnClick||State.GaborLocated||State.presses == 0)){
+        if (State.ShowScore){
+            ShowScore()
+        } else if (!(State.RedrawOnClick||State.GaborLocated||State.presses == 0)){
             State.GaborLocated = true
             DrawNoise()
             TopText.text = getTopText()
@@ -121,11 +123,7 @@ class ViewController: UIViewController {
             let xInPx = Double(position.x)*Double(2*radius)/Double(ViewSize)
             let yInPx = Double(position.y)*Double(2*radius)/Double(ViewSize)
             if State.ShowScore{
-                State.ShowScore = false
-                State.RedrawOnClick = true
-                let score = State.PreviousAccuracy <= State.AccuracyThreshold ? Int((1-State.GaborOpacity)*1000/Double(State.prevResults[State.prevResults.count-1])) : 0
-                State.Score += score
-                CenterText.text = "Your score is \(score)."
+                ShowScore()
             } else if State.RedrawOnClick {//Genereating new background
                 State.RedrawOnClick = false
                 CenterText.text = ""
@@ -195,6 +193,15 @@ class ViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    func ShowScore(){
+        State.ShowScore = false
+        State.RedrawOnClick = true
+        let score = State.PreviousAccuracy <= State.AccuracyThreshold ? Int((1-State.GaborOpacity)*1000/Double(State.prevResults[State.prevResults.count-1])) : 0
+        State.Score += score
+        MainImg.image = GetGrey()
+        CenterText.text = "Your score is \(score)."
     }
     
     func MakeSound(Location:point){

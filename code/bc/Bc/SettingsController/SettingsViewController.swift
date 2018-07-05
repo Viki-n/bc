@@ -90,6 +90,9 @@ class SettingsViewController: UITableViewController {
         items.append(cellInfo(text: "Difficulty changed by", get: {return State.ChangeDifficultyBy }, set: {v in let x=max(v,1); State.ChangeDifficultyBy=x;return x}))
         items.append(cellInfo(text: "Accuracy threshold", get: {return State.AccuracyThreshold }, set: {v in let x=max(v,1); State.AccuracyThreshold = x;return x}))
         items.append(cellInfo(text: "Maximal amount of fixations for succesful trial", get: {return State.FixationLimit }, set: {v in let x=max(v,1); State.FixationLimit = x;return x}))
+        items.append(cellInfo(text: "Calculate score?", get: {return State.CalculatingScore}, set: {v in State.CalculatingScore = v;if(v){State.Score = 0}}))
+        
+        
         
         
         
