@@ -3,18 +3,35 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "GeneratePinkNoise():ViewController.swift">
+         contextName = "ViewController.GameController():ViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "FFTinput.realp[2]">
+               value = "State.GaborOpacity">
+            </PersistentString>
+            <PersistentString
+               value = "State.ResponseCounter">
+            </PersistentString>
+            <PersistentString
+               value = "State.presses">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ELM.Update(Fixated:):ELM.swift">
       </ContextState>
       <ContextState
          contextName = "ViewController.ImageTap():ViewController.swift">
          <PersistentStrings>
             <PersistentString
                value = "MainImg.image">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GeneratePinkNoise():ViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "FFTinput.realp[2]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

@@ -67,7 +67,7 @@ class SettingsViewController: UITableViewController {
         items.append(cellInfo(text: "Radius of uncovered area", get: {return Constants.UncoverRadius}, set: {v in Constants.UncoverRadius = max(1,v); return max(1,v)}))
         items.append(cellInfo(text: "Area uncovered for (ms)", get: {return State.showFor}, set: {v in State.showFor = max(1,v); return max(1,v)}))
         items.append(cellInfo(text: "Area uncovered for brief period only", get: {return State.showJustForShortTime}, set:{v in State.showJustForShortTime = v}))
-        items.append(cellInfo(text: "Sound fully relative", get: {return State.SoundMode==1}, set:{v in State.SoundMode = v ? 0 : 1}))
+        items.append(cellInfo(text: "Sound fully relative", get: {return State.SoundMode==1}, set:{v in State.SoundMode = v ? 1 : 0}))
         items.append(cellInfo(text: "Possible location distance", get: {return State.PossibleLocationsDistance}, set: {v in
             let h = max(v,60)
             State.PossibleLocationsDistance = h
@@ -166,18 +166,7 @@ class SettingsViewController: UITableViewController {
                 State.CurrentSubject.Feedback = .None
             }
         }))
-        items.append(cellInfo(text: "Difficulty for 90% detectability", get: {return Int(1000*State.CurrentSubject.ContrastFor90Detectability)}, set: {v in
-            if v<0 {
-                State.CurrentSubject.ContrastFor90Detectability = 0
-                return 0
-            }
-            if v > 1000 {
-                State.CurrentSubject.ContrastFor90Detectability = 1
-                return 1000
-            }
-            State.CurrentSubject.ContrastFor90Detectability = Double(v)/1000
-            return v
-        }))
+      
         items.append(cellInfo(text: "Measure detectability", press:{self.performSegue(withIdentifier: "SettingsToMeasuring", sender: nil)}))
         
         items.append(cellInfo.init(text: "Logging"))

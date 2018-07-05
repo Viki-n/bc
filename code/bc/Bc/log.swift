@@ -100,7 +100,7 @@ class trial:NSObject,NSCoding{
     public func ToString() -> String{
         var s = """
         Name: \(subject) Trial:\(TrialNumber) Difficulty:\(Int(1000*difficulty))
-        Attempts:\(attempts) Accuracy:\(TargetDistance)
+        Fixations:\(attempts) Accuracy:\(TargetDistance)
         Gabor location:\(Gabor.x) \(Gabor.y)
         
         """
@@ -128,8 +128,7 @@ enum FeedbackType : Int{
 
 class subjectData: NSObject,NSCoding{
     public var Name = ""
-    public var Feedback = FeedbackType.None
-    public var ContrastFor90Detectability = 0.0
+    public var Feedback = FeedbackType.ELM
     
     struct propertyKey{
         public static let Name = "Name"
@@ -140,13 +139,13 @@ class subjectData: NSObject,NSCoding{
     func encode(with aCoder: NSCoder) {
         aCoder.encode(Name, forKey: propertyKey.Name)
         aCoder.encode(Feedback.rawValue, forKey: propertyKey.Feedback)
-        aCoder.encode(ContrastFor90Detectability, forKey: propertyKey.Contrast)
+        //aCoder.encode(ContrastFor90Detectability, forKey: propertyKey.Contrast)
     }
     
     required init?(coder aDecoder: NSCoder) {
         self.Name = aDecoder.decodeObject(forKey: propertyKey.Name) as! String
         self.Feedback =  FeedbackType(rawValue: aDecoder.decodeInteger(forKey: propertyKey.Feedback))!
-        self.ContrastFor90Detectability = aDecoder.decodeDouble(forKey: propertyKey.Contrast)
+        //self.ContrastFor90Detectability = aDecoder.decodeDouble(forKey: propertyKey.Contrast)
     }
     
     override init(){}

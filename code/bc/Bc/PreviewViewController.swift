@@ -84,6 +84,29 @@ class PreviewViewController: UIViewController {
             }
             let myimg = UIImageFromArray(source: noise, height: Constants.radius*2, width: Constants.radius*2)
             self.Image.image = myimg
+        case 8:
+            if (State.CurrentSubject.Feedback == .None){
+                switch(State.PreviousScreen){
+                case "Settings":
+                    performSegue(withIdentifier: "BackToSettings", sender: nil)
+                case "Menu":
+                    performSegue(withIdentifier: "BackToMainMenu", sender: nil)
+                default:
+                    print("Unexhaustive switch at the end of preview!")
+                    performSegue(withIdentifier: "BackToSettings", sender: nil)
+                }
+            }  else{
+                Label.text = "You will get acoustic feedback about the locations you choose to fixate. This sound means you did as good as you could"
+                MakeScaledSound(Tone: 0)
+            }
+        case 9:
+            Label.text = "And this means you did as badly as you could"
+            MakeScaledSound(Tone: 2)
+        case 10:
+            Label.text = "This is not the best, but still pretty good!"
+            MakeScaledSound(Tone: 1)
+        case 11:
+            Label.text = "These are not all the sounds you can hear -- there is full scale from the worst to the best. The lower tone, the better!"
         default:
             switch(State.PreviousScreen){
             case "Settings":

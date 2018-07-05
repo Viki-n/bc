@@ -25,7 +25,7 @@ func getTopText() -> String {
             }
         }
         return """
-            Presses: \(State.presses) Difficulty: \(Int(floor(State.GaborOpacity*1000))) Last accuracy: \(State.PreviousAccuracy)
+            Presses: \(State.presses) Difficulty: \(Int(floor(State.GaborOpacity*1000))) Last accuracy: \(State.PreviousAccuracy) Trial number:\(State.currentTrial.TrialNumber)
             Previous results: \(s)
             """
     }
@@ -75,8 +75,8 @@ class ViewController: UIViewController {
             TopText.text = getTopText()
         } else if (State.RedrawOnClick) {
             State.RedrawOnClick = false
-            State.presses = 0
             NewBackground()
+            TopText.text = getTopText()
             BottomLeftButton.setTitle("Gabor was located", for: UIControlState.normal)
         }
     }
@@ -204,15 +204,7 @@ class ViewController: UIViewController {
     }
     
     ///Zero means c1, difference by 1 is difference by an octave
-    func MakeScaledSound(Tone:Double){
-        if((State.CurrentSubject.Feedback == .ELM) &&//Feedback should be given
-            ((State.SubjectName == "unknown") || //default observer -- debug reasons
-                (State.currentTrial.TrialNumber > State.FirstAndThirdTest && //not within first test
-                    State.currentTrial.TrialNumber <= State.FirstAndThirdTest + State.SecondTest))){//not after second test
-            Constants.AudioPlayer.play(Float32(440*pow(2, Tone)), modulatorFrequency: 600, modulatorAmplitude: 0, duration: 0.8)
-        }
-        
-    }
+
     
     
     func Redraw(ForcedBlank:Bool) {
@@ -269,7 +261,7 @@ class ViewController: UIViewController {
             State.ResponseCounter = 0
             return
         }
-        if (State.presses <= State.FixationLimit||State.PreviousAccuracy <= State.AccuracyThreshold){
+        if (State.presses <= State.FixationLimit && State.PreviousAccuracy <= State.AccuracyThreshold){
             State.ResponseCounter = max(State.ResponseCounter,0)
             State.ResponseCounter += 1
             if(State.ResponseCounter == State.ReponsesBeforeChange){
@@ -282,10 +274,11 @@ class ViewController: UIViewController {
             State.ResponseCounter -= 1
             if(State.ResponseCounter == -State.ReponsesBeforeChange){
                 State.GaborOpacity += Double(State.ChangeDifficultyBy)/1000
-                State.GaborOpacity = max(State.GaborOpacity, 0)
+                State.GaborOpacity = min(State.GaborOpacity, 1)
                 State.ResponseCounter = 0
             }
         }
+        State.currentTrial.difficulty = State.GaborOpacity
     }
 
 }

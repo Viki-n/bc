@@ -10,6 +10,15 @@
 import AVFoundation
 import Foundation
 
+func MakeScaledSound(Tone:Double){
+    if((State.CurrentSubject.Feedback == .ELM) &&//Feedback should be given
+        ((State.SubjectName == "unknown") || //default observer -- debug reasons
+            (State.currentTrial.TrialNumber > State.FirstAndThirdTest && //not within first test
+                State.currentTrial.TrialNumber <= State.FirstAndThirdTest + State.SecondTest))){//not after second test
+        Constants.AudioPlayer.play(Float32(440*pow(2, Tone)), modulatorFrequency: 600, modulatorAmplitude: 0, duration: 0.8)
+    }
+    
+}
 // The single FM synthesizer instance.
 let gFMSynthesizer: FMSynthesizer = FMSynthesizer()
 
