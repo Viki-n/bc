@@ -16,6 +16,8 @@ class MeasuringState{//General state class is getting way too complex to be furt
 import UIKit
 
 class dPrimeMeasuringViewController: UIViewController {
+    @IBOutlet weak var YesButton: UIButton!
+    @IBOutlet weak var NoButton: UIButton!
     @IBOutlet weak var TopText: UILabel!
     
     @IBOutlet weak var MainImg: UIImageView!
@@ -24,6 +26,7 @@ class dPrimeMeasuringViewController: UIViewController {
     private var Hits = 0
     private var Misses = 0
     private var CorrectRejections = 0
+    private var started = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,21 +38,37 @@ class dPrimeMeasuringViewController: UIViewController {
         Hits = 0
         Misses = 0
         CorrectRejections = 0
+        YesButton.setTitle("Start", for: .normal)
+        NoButton.setTitle("Start", for: .normal)
         // Do any additional setup after loading the view.
     }
     @IBAction func YesPress(_ sender: Any) {
+        if(!started){
+            start()
+            return
+        }
         if(!MeasuringState.Visible){
             evaluateTrial(response: true)
             newTrial()
         }
     }
     @IBAction func NoPress(_ sender: Any) {
+        if(!started){
+            start()
+            return
+        }
         if(!MeasuringState.Visible){
             evaluateTrial(response: false)
             newTrial()
         }
     }
     
+    func start(){
+        YesButton.setTitle("Yes", for: .normal)
+        NoButton.setTitle("No", for: .normal)
+        started = true
+        newTrial()
+    }
     
     func evaluateTrial(response:Bool){
         var s = ""

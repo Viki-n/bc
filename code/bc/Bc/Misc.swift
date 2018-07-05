@@ -56,6 +56,7 @@ class State{
     public static var GaborLocated = false
     public static var PreviousAccuracy = 0
     public static var RedrawOnClick = false
+    public static var ShowScore = false
     public static var Screen = ""
     public static var PreviousScreen = ""
     public static var appInitialized = false
@@ -91,13 +92,15 @@ class State{
     public static var SoundMode = 0
     
     //Gamification
-    public static var FirstAndThirdTest = 50
-    public static var SecondTest = 150
+    public static var FirstAndThirdTest = 40
+    public static var SecondTest = 120
     public static var ReponsesBeforeChange = 3
-    public static var FixationLimit = 5
+    public static var FixationLimit = 6
     public static var ChangeDifficultyBy = 10
     public static var ResponseCounter = 0
     public static var AccuracyThreshold = 60
+    public static var Score = 0
+    public static var CalculatingScore = false
 }
 
 ///Function for logging what was previous screen, so return from preview will work.

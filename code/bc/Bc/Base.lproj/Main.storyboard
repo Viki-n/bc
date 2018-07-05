@@ -128,6 +128,13 @@
                                     <action selector="LocatedButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fXb-yK-cN5"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4jv-uJ-rx5">
+                                <rect key="frame" x="20" y="413" width="728" height="195"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.42745098039215684" green="0.42745098039215684" blue="0.42745098039215684" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -138,6 +145,7 @@
                     </view>
                     <connections>
                         <outlet property="BottomLeftButton" destination="ZQC-YQ-gJV" id="4V6-lt-Kjc"/>
+                        <outlet property="CenterText" destination="4jv-uJ-rx5" id="T4x-yS-dIG"/>
                         <outlet property="MainImg" destination="ubs-ir-VOz" id="OxO-nf-sV2"/>
                         <outlet property="TopText" destination="IeR-1q-hdI" id="aE6-IA-9JQ"/>
                     </connections>
@@ -439,7 +447,9 @@
                     </view>
                     <connections>
                         <outlet property="MainImg" destination="wmy-wn-iAn" id="v66-Pg-PmQ"/>
+                        <outlet property="NoButton" destination="xhL-oe-H5O" id="iRk-EZ-WGL"/>
                         <outlet property="TopText" destination="yPE-ts-lvb" id="Oob-4P-WcU"/>
+                        <outlet property="YesButton" destination="GES-tu-x3X" id="FYr-lh-xH3"/>
                         <segue destination="CfE-Hz-Ci1" kind="show" identifier="MeasuringToSettings" id="Czp-1C-DTb"/>
                     </connections>
                 </viewController>

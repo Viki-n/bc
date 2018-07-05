@@ -25,7 +25,7 @@ func getTopText() -> String {
             }
         }
         return """
-            Presses: \(State.presses) Difficulty: \(Int(floor(State.GaborOpacity*1000))) Last accuracy: \(State.PreviousAccuracy) Trial number:\(State.currentTrial.TrialNumber)
+            Presses: \(State.presses) Difficulty: \(Int(floor(State.GaborOpacity*1000))) Last accuracy: \(State.PreviousAccuracy) Trial number:\(State.currentTrial.TrialNumber) \(State.CalculatingScore ? "Score: " + String(State.Score) : "" )
             Previous results: \(s)
             """
     }
@@ -67,6 +67,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var MainImg: UIImageView!
     @IBOutlet weak var TopText: UILabel!
     @IBOutlet weak var BottomLeftButton: UIButton!
+    @IBOutlet weak var CenterText: UILabel!
     
     @IBAction func LocatedButton(_ sender: Any) {
         if (!(State.RedrawOnClick||State.GaborLocated||State.presses == 0)){
@@ -77,11 +78,17 @@ class ViewController: UIViewController {
             State.RedrawOnClick = false
             NewBackground()
             TopText.text = getTopText()
+            CenterText.text = ""
             BottomLeftButton.setTitle("Gabor was located", for: UIControlState.normal)
         }
     }
     
     override func viewDidLoad() {
+        if(State.ShowScore){
+            State.RedrawOnClick = true
+            State.ShowScore = false
+        }
+        CenterText.text = ""
         tests()
         super.viewDidLoad()
         TopText.text = getTopText()
@@ -113,8 +120,15 @@ class ViewController: UIViewController {
             let TouchDistance = distance(Xdiference: TouchDistanceX, Ydiference: TouchDistanceY)
             let xInPx = Double(position.x)*Double(2*radius)/Double(ViewSize)
             let yInPx = Double(position.y)*Double(2*radius)/Double(ViewSize)
-            if State.RedrawOnClick {//Genereating new background
+            if State.ShowScore{
+                State.ShowScore = false
+                State.RedrawOnClick = true
+                let score = State.PreviousAccuracy <= State.AccuracyThreshold ? Int((1-State.GaborOpacity)*1000/Double(State.prevResults[State.prevResults.count-1])) : 0
+                State.Score += score
+                CenterText.text = "Your score is \(score)."
+            } else if State.RedrawOnClick {//Genereating new background
                 State.RedrawOnClick = false
+                CenterText.text = ""
                 NewBackground()
                 BottomLeftButton.setTitle("Gabor was located", for: UIControlState.normal)
             } else if distance(X1: xInPx, Y1: yInPx, X2: Double(radius), Y2: Double(radius))>Double(radius) {
@@ -131,7 +145,11 @@ class ViewController: UIViewController {
                 logger.SaveLog()
                 State.currentTrial = trial()
                 DrawUncovered()
-                State.RedrawOnClick = true
+                if (!State.CalculatingScore){
+                    State.RedrawOnClick = true
+                } else {
+                    State.ShowScore = true
+                }
                 BottomLeftButton.setTitle("Next trial", for: UIControlState.normal)
             } else {//Normal press
                 let location = point(Int(xInPx),Int(yInPx))
