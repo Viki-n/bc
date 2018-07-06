@@ -8,7 +8,7 @@ V teorii detekce signálu šumem nazýváme jakoukoli nechtěnou (a typicky nezn
 
 U aditivního\footnote{Šumu říkáme aditivní, pokud se jeho hodnoty přičítají k
 hodnotě signálu. Dále existuje například ještě šum multiplikativní či fázový
-(šum, který se projevuje krátkodobým fázovám posunem signálu).} šumu můžeme
+(šum, který se projevuje krátkodobým fázovém posunem signálu).} šumu můžeme
 měřit intenzitu šumu na různých frekvencích. Tu změříme tak, že na šum aplikujeme
 Fourierovu transformaci
 
@@ -132,7 +132,7 @@ potom ho sečíst se šumem. Takto vytvořenému signálu budeme říkat Gabor p
   \includegraphics[width=.8\linewidth]{img/gabor4}
 \end{subfigure}% 
 
-\caption{Ukázky několika Gabor patchů. Všechny gabor patche jsou 100 pixelů
+\caption{Ukázky několika Gabor patchů. Všechny Gabor patche jsou 100 pixelů
 široké i vysoké. Levý patch má $\Theta = 1/4\pi$, ostatní mají $\Theta =
 -1/4\pi$, levý má jako obálku Gaussovu funkci, prostřední dva raised cosine,
 pravý lineární funkci vzdálenosti, první, druhý a čtvrtý mají frekvenci (v
@@ -144,11 +144,11 @@ cyklech na pixel) $0.1$, třetí $0.02$.}
 
 \section{Úvod do teorie detekce signálu}
 
-Obsah této sekce je volně převzatý od Jozefa Amemoriho \citeyearpar{Pepa}.
+Obsah této sekce je volně převzatý od Josefa Amemoriho \citeyearpar{Pepa}.
 
 Teorie detekce signálu řeší problém rozlišení dvou signálů, případně signálu a
-šumu. V této práci se budem zabývat problémem, kdy je potřeba rozhodnout, zda
-se v dané ploše nachází signál, či ne. Této úloze budeme říkat A/N problem,
+šumu. V této práci se budeme zabývat problémem, kdy je potřeba rozhodnout, zda
+se v dané ploše nachází signál, či ne. Této úloze budeme říkat A/N problém,
 nebo pouze A/N.
 
 V kontextu této úlohy můžou po odpovědi pozorovatele nastat čtyři možné situace:
@@ -189,7 +189,7 @@ $s$}}\\ \end{multline*}
 Poté porovná tuto rozhodovací proměnnou s kritériem a podle výsledku tohoto
 porovnání odpoví.
 
-Odsud je zřejmé, že zvyšováním kritéria zvedáme pravděprodobnost, že nastane
+Odsud je zřejmé, že zvyšováním kritéria zvedáme pravděpodobnost, že nastane
 miss, ale snižujeme pravděpodobnost false alarmu.
 
 V souvislosti s A/N úlohou je ale ještě nutné zavést následující pojmy:
@@ -222,14 +222,14 @@ Vnější šum je zkreslení dat, které se stane ještě mimo pozorovatele. Vni
 šum je naopak šum, který je způsoben přímo algoritmem, který používá
 pozorovatel, aby dekódoval, zda signál je přítomen, či není.
 
-Pro lepší porozumnění představíme případ z praxe. Nechť je pozorovatel člověk, který není
+Pro lepší porozumění představíme případ z praxe. Nechť je pozorovatel člověk, který není
 příliš pozorný a chystá se přejít silnici. Jeho (podvědomým) pozorováním je
-informace, která dorazí ddo jeho mozku z periferií jeho sítnic, a signál, jehož
+informace, která dorazí do jeho mozku z periferií jeho sítnic, a signál, jehož
 přítomnost zkoumá, je, zda přijíždí auto. V takovém případě se v mozku spustí
 algoritmus, který převede pozorování na číslo $X$. Poznamenejme, že v mozku je
 hodnota tohoto čísla dobře kvantifikovaná, i když je mimo záběr této práce
 popisovat, co přesně z fyzikálního hlediska tato hodnota znamená. Pro
-porozumnění stačí představa, že se jedná o frkvenci určitého druhu impulsu,
+porozumění stačí představa, že se jedná o frekvenci určitého druhu impulsu,
 které si mezi sebou neurony posílají. Mozek ví, jakou distribuci má náhodná
 veličina $X$ v případě, že se auto blíží, a jakou má v případě, že nikoliv.
 Podle konkrétní hodnoty $X$ kterou naměřil, se rozhodne, jestli auto přítomno
@@ -244,7 +244,7 @@ typickém případě stejný rozptyl a liší se jen svou střední hodnotou \ci
 přirozená otázka ptát se, jaký je rozdíl mezi jejich středními hodnotami (či lépe
 rozdíl mezi jejich středními hodnotami vydělený směrodatnou odchylkou).
 
-Právě tuto hodnotu označíma jako hodnotu $d'$. Protože ale ne vždy je rozdělení
+Právě tuto hodnotu označíme jako hodnotu $d'$. Protože ale ne vždy je rozdělení
 normální, musíme nadefinovat hodnotu $d'$ způsobem, která nebude závislá na rozdělení
 veličiny $X$.
 
@@ -281,7 +281,7 @@ zjistíme, jaké hodnoty nabývá $Y$.
 \def\H{\operatorname{H}}
 
 Hodnotu informace, kterou nám přineslo zjištění, že náhodná veličina $A$ nabývá
-hodoty $a$, spočítáme jako $$I(A=a)=-\log_b\left({\P{A=a}}\right)=\log_b\left(\frac1{\P{A=a}}\right).$$ Jako
+hodnoty $a$, spočítáme jako $$I(A=a)=-\log_b\left({\P{A=a}}\right)=\log_b\left(\frac1{\P{A=a}}\right).$$ Jako
 základ logaritmu $b$ se běžně používá 2 (což budeme dělat i v této práci), $e$
 nebo 10. Všimneme si, že toto vyjádření množství informace je konzistentní s
 intuitivní představou, že zjištění, že $A$ nabývá nějaké nepravděpodobné
@@ -297,12 +297,14 @@ podmíněnou entropii $\H(A| B)$
 
 \section{Modely pozorovatele}
 
-V této práci se budeme zabývat úlohou, kdy pozorovatel hledá gabor patch v
+\TODO{Tady bude ještě obecný popis toho, co je to ideální pozorovatel}
+
+V této práci se budeme zabývat úlohou, kdy pozorovatel hledá Gabor patch v
 kruhovém poli, v němž se nachází růžový šum. Předchozí výzkum ukázal, že lidští
 pozorovatelé v této úloze využívají krátkých pohledů a rychlých pohybů očí \citep{Najemnik05}.
 Jednomu takovému krátkému pohledu budeme říkat \emph{fixace}. Očnímu pohybu
 se říká \emph{sakáda} \citep{sakady}. Pojem sakáda přirozeně aplikujeme i na simulované
-(tj. ne liské) pozorovatele, kde ho budeme chápat jako vektor v $\mathbb{R}^2$
+(tj. ne lidské) pozorovatele, kde ho budeme chápat jako vektor v $\mathbb{R}^2$
 mezi středy dvou po sobě jdoucích fixací. Jednotlivé fixace trvají přibližně
 $200$--$300 \operatorname{ms}$.
 
@@ -332,7 +334,7 @@ vlastnostmi pozorovatele a cíle \citep{Ellipse}.
 
 Ke kompletnímu vyjádření aproximace funkce $d'$ potřebujeme celkem 6 hodnot,
 které závisí na konkrétním pozorovateli a cíli. Jedná se o hodnotu $d'_0 =
-d'(0,0)$, hodnot $e_L$, $e_R$, $e_U$ a $e_D$, které určují vzdálenost ve čyřech
+d'(0,0)$, hodnot $e_L$, $e_R$, $e_U$ a $e_D$, které určují vzdálenost ve čtyřech
 základních směrech takovou, že v nich je hodnota $d'$ poloviční oproti počátku,
 a hodnotu $\beta$ popisující sklon této funkce. Funkci $d'$ pak vyjádříme jako
 $$ d'(x,y) = \frac{d'_0}{1+\left(\frac{x^2}{e_H^2}+\frac{y^2}{e_V^2}
@@ -343,7 +345,7 @@ a $e_V$ je rovno $e_D$ pro záporná $y$ a $e_N$ pro kladná.
 \subsection{Modely chování pozorovatele}
 
 Všechny modely, které zde budeme zkoumat, vypadají tak, že mají tzv. {\it Mapu
-posteriorních pravděpododbností}. V této mapě je pro každou lokaci, kde by
+aposteriorních pravděpodobností}. V této mapě je pro každou lokaci, kde by
 signál (též cíl) mohl být, uvedeno, jaká je pravděpodobnost, že se na ní cíl
 nachází vzhledem k informaci, kterou již o dané lokaci pozorovatel získal. Ve
 chvíli, kdy na nějaké lokaci pravděpodobnost přesáhne kritérium, pozorovatel
@@ -358,12 +360,12 @@ pozorovatel.
 
 \subsubsection{MAP pozorovatel}
 
-Nejjednoduší model, který dosahuje podobných výsledků, jako lidský pozorovatel,
+Nejjednodušší model, který dosahuje podobných výsledků, jako lidský pozorovatel,
 je tzv. MAP\footnote{Z anglického \uv{Maximum Aposteriori Probability}.}
-pozorovatel, který vždy zafixuje lokaci, která má v jeho mapě posteriorních
+pozorovatel, který vždy zafixuje lokaci, která má v jeho mapě aposteriorních
 pravděpodobností nejvyšší hodnotu. Tento pozorovatel již dosahuje podobných
 výsledků jako lidský, ale jeho strategie fixací neodpovídá strategii, jakou
-volí lidský pozorovatel. Lidský pozorovatel umístí svoji první fxaci do středu
+volí lidský pozorovatel. Lidský pozorovatel umístí svoji první fixaci do středu
 scény. Ostatní fixace jsou pak rozmístěny v okolí kružnice se středem ve středu
 scény a poloměrem rovným přibližně $2/3$ poloměru scény, s preferencí pro horní
 a spodní okraj. MAP pozorovatel oproti tomu vybírá každou lokaci se zhruba
@@ -372,7 +374,7 @@ stejnou pravděpodobností.
 \subsubsection{Ideální Bayesovský pozorovatel}
 
 Ještě o malinko lepších a hlavě statisticky lidskému pozorovateli bližších
-výsledků bosahuje model Ideálního Bayesovského pozorovatele.  
+výsledků dosahuje model Ideálního Bayesovského pozorovatele.  
 
 Ideální Bayesovský pozorovatel (dále IBO) je pozorovatel, který $T+1$ lokaci
 vybírá tak, aby maximalizoval pravděpodobnost, že v následujícím kroku odhalí
@@ -381,9 +383,9 @@ cíl. Vybere tedy lokaci
 max}}_{k(T+1)} \left(\displaystyle\sum_{i\in L} p_T(i)\P{p_{T+1}(i)\geq c|i,
 k(T+1)}\right),
 \end{equation} 
-kde $p_N$ je mapa posteriorních pravděpodobností po $N$-té
+kde $p_N$ je mapa aposteriorních pravděpodobností po $N$-té
 fixaci, $L$ je množina všech potenciálních lokací cíle a $c$ je kritérium,
-které musí hodnota v mapě posteriorních pravděpodobností překročit, aby bylo
+které musí hodnota v mapě aposteriorních pravděpodobností překročit, aby bylo
 ukončeno hledání a nahlášeno nalezení cíle. Výraz $\P{p_{T+1}(i)\geq c |
 i,k(T+1)}$ pak tedy znamená \uv{pravděpodobnost, že po $T+1$ fixaci bude
 ukončeno hledání a nahlášen signál v lokaci $i$, za podmínky, že tam signál
@@ -412,7 +414,7 @@ L}p_{T+1}(i)\log_2p_{T+1}(i)|k(T+1)}.\end{equation} \citet{Najemnik09} však uk�
 netriviální, ale lze ho dobře aproximovat případem, kdy pošleme v limitě $|L|$
 do nekonečna. Pak dostáváme výraz $$ \E{\H(T+1)|k(T+1)}= \H(T) -
 \displaystyle\sum_{i\in L} p_T(i)d'^2(i-k(T+1)),$$ kde v posledním členu bereme
-lokace jako vektory od počátku k nim. Člen $\H(T)$ navíc nezávisí $k(T+1)$,
+lokace jako vektory od počátku k nim. Člen $\H(T)$ navíc nezávisí na $k(T+1)$,
 takže s ním vůbec nemusíme počítat a k minimalizaci entropie nám stačí
 maximalizovat hodnotu sumy. 
 
