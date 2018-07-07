@@ -96,7 +96,7 @@ class SettingsViewController: UITableViewController {
         
         
         
-        items.append(cellInfo(text: "d’ map constants setting"))
+        items.append(cellInfo(text: "d’ map constants settings"))
         items.append(cellInfo(text: "Foveal detectability (x100)", get: {return Int(100*State.dPrimeZero)}, set: {v in let u = v<1 ? 1 : v;State.dPrimeZero = Double(u)/100; return u}))
         items.append(cellInfo(text: "Left side visibility", get: {return Int(State.eLeft)}, set: {v in
             var param = v
@@ -134,7 +134,7 @@ class SettingsViewController: UITableViewController {
             State.dMapActual = false
             return param
         }))
-        items.append(cellInfo(text: "Function steepnes (exponent times 100)", get: {return Int(State.FunctionSteepnes*100)}, set: {v in
+        items.append(cellInfo(text: "Function steepness (exponent times 100)", get: {return Int(State.FunctionSteepnes*100)}, set: {v in
             var param = v
             if (param<100){
                 param = 100

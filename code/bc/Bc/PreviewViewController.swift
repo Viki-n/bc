@@ -43,14 +43,14 @@ class PreviewViewController: UIViewController {
             noise = GeneratePinkNoise()
             img = UIImageFromArray(source: noise, height: Constants.radius*2, width: Constants.radius*2)
             self.Image.image = img
-            Label.text = "This is pink noise."
+            Label.text = "This is a pink noise."
         case 1:
             let gabor = MakeGabor(Size: State.GaborSize, rotation: 45, Contrast: 1, Period: State.GaborSize/3)
             let mask = MakeGaborMask(Size: State.GaborSize, peak: State.GaborOpacity)
             ImagePaste(Background: &noise, BackgroundWidth: Constants.radius*2, BackgroundHeight: Constants.radius*2, Image: gabor, Width: State.GaborSize, Height: State.GaborSize, Top: Constants.radius-(State.GaborSize/2), Left: Constants.radius-(State.GaborSize/2), Alpha: mask)
             let myimg = UIImageFromArray(source: noise, height: Constants.radius*2, width: Constants.radius*2)
             self.Image.image = myimg
-            Label.text = "In the middle, there is a gabor patch."
+            Label.text = "In the middle, there is a Gabor patch."
         case 2:
             self.Image.image = getBlank()
             Label.text = "But the noise is covered."
@@ -64,7 +64,7 @@ class PreviewViewController: UIViewController {
             State.LastPressY = -1
         case 4:
             self.Image.image = getBlank()
-            Label.text = "And only for a small amount of time (\(State.showFor) ms)"
+            Label.text = "And only for a small amount of time (\(State.showFor) ms)."
 
         case 5:
             Image.image = uncoveredCenter
@@ -74,9 +74,9 @@ class PreviewViewController: UIViewController {
             })
         case 6:
             Image.image = img
-            Label.text = "When you think you saw the gabor, press the button in bottom left corner. The noise will be uncovered (without the gabor). Try to press as close to the gabor location as possible."
+            Label.text = "When you think you saw the Gabor, press the button in the bottom left corner. The noise will be uncovered (without the Gabor). Try to press as close to the Gabor location as possible."
         case 7:
-            Label.text = "The gabor can't appear anywhere. These are all \(State.PossibleLocations.count) possible locations:"
+            Label.text = "The Gabor can't appear anywhere. These are all \(State.PossibleLocations.count) possible locations:"
             let gabor = MakeGabor(Size: State.GaborSize, rotation: 45, Contrast: 1, Period: State.GaborSize/3)
             let mask = MakeGaborMask(Size: State.GaborSize, peak: State.GaborOpacity)
             for p in State.PossibleLocations{
@@ -96,17 +96,17 @@ class PreviewViewController: UIViewController {
                     performSegue(withIdentifier: "BackToSettings", sender: nil)
                 }
             }  else{
-                Label.text = "You will get acoustic feedback about the locations you choose to fixate. This sound means you did as good as you could"
+                Label.text = "You will get acoustic feedback about the locations you choose to fixate. This sound means you did as good as you could."
                 MakeScaledSound(Tone: 0)
             }
         case 9:
-            Label.text = "And this means you did as badly as you could"
+            Label.text = "And this means you did as badly as you could."
             MakeScaledSound(Tone: 2)
         case 10:
             Label.text = "This is not the best, but still pretty good!"
             MakeScaledSound(Tone: 1)
         case 11:
-            Label.text = "These are not all the sounds you can hear -- there is full scale from the worst to the best. The lower tone, the better!"
+            Label.text = "These are not all the sounds you can hear -- there is full scale from the worst to the best. The lower the tone, the better!"
         default:
             switch(State.PreviousScreen){
             case "Settings":
