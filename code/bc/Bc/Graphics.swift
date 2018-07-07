@@ -18,7 +18,7 @@ func getBlank() ->UIImage {
             count += 1
             let color = 1+UInt8(((State.elm.Values[count] - State.elm.minvalue) / (State.elm.maxvalue - State.elm.minvalue) * 254))
             let inside = State.elm.Values[count] == State.elm.maxvalue
-            let color2 = 1 + UInt8(State.elm.posteriori[count]*254)
+            let color2 = 1 + UInt8(max(min(1,pow(1.25,log2(State.elm.posteriori[count]))),0)*254)
             for x in i.x-size..<i.x+size{
                 for y in i.y-size..<i.y+size{
                     let coordinate = y*Constants.radius*2 + x

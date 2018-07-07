@@ -17,7 +17,8 @@ func getTopText() -> String {
         return "Gabor was located with an error of \(State.PreviousAccuracy) px. Now you can see where exactly was it. Click again anywhere within the noise or at the button in the bottom left to start a new game."
     } else {
         var s = ""
-        for i in State.prevResults {
+        for j in max(0,State.prevResults.count-10)..<State.prevResults.count {
+            let i = State.prevResults[j]
             if(s==""){
                 s = s + String(i)
             } else {
