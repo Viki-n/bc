@@ -160,6 +160,7 @@ class SettingsViewController: UITableViewController {
             State.currentTrial.subject = value
             State.currentTrial.TrialNumber = 1 + findLastTrial(log: State.log, subject: value)
             State.CurrentSubject = GetSubject(name:value)
+            State.prevResults = [Int]()
             return value
         }))
         items.append(cellInfo(text: "Feedback", get: {return State.CurrentSubject.Feedback == FeedbackType.ELM}, set: {v in
