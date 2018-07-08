@@ -97,7 +97,19 @@ a středu skutečné lokace cíle menší než 60 pixelů. Úkol byl považován
 
 V každém testu byl počáteční kontrast cíle $0.7$. Pokaždé, když byl subjekt třikrát po sobě úspěšný,
 byla zvýšena obtížnost snížením kontrastu cíle o $0.01$, pokud byl
-třikrát po sobě neúspěšný, byla obtížnost opět snížena. Hodnota $0.01$ byla vybrána tak, aby se během 120 úkolů, které jsou v prostředním testu, účastník mohl teoreticky dostat až na hodnoty kontrastu kolem $0.3$. S kontrastem menším než přibližně $0.45$ je ale pravděpodobnost splnění úkolu bez ohledu na strategii podle subjektivního názoru autora práce velmi nízká.
+třikrát po sobě neúspěšný, byla obtížnost opět snížena. 
+
+Byl tedy využit obecný postup, kterému se říká Up/Down metoda. Tento postup se používá,
+pokud je závislost pravděpodobnosti daného jevu na nějakém parametru rostoucí
+(či obecně monotónní) funkce. Spočívá v tom, že se daný parametr snižuje, když
+jev nastává, a zvyšuje když nenastává (v obou případech o předem danou
+konstantu, která se během experimentu nemění, nemusí však být v obou směrech
+stejná). Blíže je popsána v knize Psychophysics: A practical introduction \citep{psychophysics}.
+Na rozdíl od implementace této metody, která je popsaná v knize, jsme se
+rozhodli za jev považovat tři úspěchy za sebou a za jeho absenci tři neúspěchy,
+abychom zmenšili velký rozptyl, který náš jev jinak má.\TODO{Nebo jak tohle okecat?}
+
+Hodnota $0.01$ byla vybrána tak, aby se během 120 úkolů, které jsou v prostředním testu, účastník mohl teoreticky dostat až na hodnoty kontrastu kolem $0.3$. S kontrastem menším než přibližně $0.45$ je ale pravděpodobnost splnění úkolu bez ohledu na strategii podle subjektivního názoru autora práce velmi nízká.
 
 
 
@@ -171,5 +183,7 @@ přesný experiment, nebylo by potřeba zvyšovat počet účastníků, ale pouz
 měření na jednotlivých účastnících, například tak, že bychom vícekrát opakovali
 první a třetí test. Jinak ale není ve výzkumu nutně přínosné velký vzorek,
 často je lepší na malém vzorku provést větší počet přesnějších měření
-\citep{SmallN}.
+\citep{SmallN}. Kdybychom se však rozhodli raději pro Large-$N$ design, mohli
+bychom většinu ostatních parametrů experimentu ponechat, ale bylo by potřeba
+přinejmenším o řád více účastníků. 
 
