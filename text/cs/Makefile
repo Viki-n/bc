@@ -6,14 +6,16 @@ all: prace.pdf
 
 # LaTeX je potreba spustit nekolikrat, aby spravne spocital odkazy
 prace.pdf: prace.tex $(wildcard *.tex) literatura.bib prace.xmpdata $(wildcard */*.pdf) $(wildcard */*.png)
-	pdflatex $<
+	pdflatex --shell-escape $<
 	bibtex prace
-	pdflatex $<
-	pdflatex $<
+	texindy -L czech -M lang/czech/utf8 -M /media/sf_shared/bp/text/cs/instyle.xdy -o ~/prace.ind prace.idx
+	mv ~/prace.ind ./prace.ind
+	: xindy -M texindy -M indexstyle -C utf8 -L czech -o prace.ind prace.idx
+	pdflatex --sehll-escape $<
+	pdflatex --shell-escape $<
 
-clean:
-	rm -f *.log *.dvi *.aux *.toc *.lof *.lot *.out *.bbl *.blg *.xmpi
+clean: tidy
 	rm -f prace.pdf
 
 tidy:
-	rm -f *.log *.dvi *.aux *.toc *.lof *.lot *.out *.bbl *.blg *.xmpi
+	rm -f *.log *.idx *.ind *.dvi *.aux *.toc *.lof *.lot *.out *.bbl *.blg *.xmpi *.xdy

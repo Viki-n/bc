@@ -2,7 +2,8 @@
 
 \section{Šum}
 
-V teorii detekce signálu šumem nazýváme jakoukoli nechtěnou (a typicky neznámou) modifikaci signálu.
+V teorii detekce signálu šumem nazýváme necht (a typicky neznámou) modifikaci signálu.
+\index{Šum}
 
 \subsection{Barva šumu}
 
@@ -15,17 +16,25 @@ Fourierovu transformaci
  Šumu se
 říká bílý šum, pokud by světlo, které by mělo stejnou distribuci intenzity
 napříč frekvencemi, jako daný šum (který ale vůbec nemusí být světelný), bylo
-bílé. Podobně známe například ještě růžový, červený či modrý šum.
+bílé. Podobně známe například ještě růžový, červený (někdy též označovaný jako
+Brownův či nesprávně hnědý\footnote{V anglické literatuře se používá
+termín {\it Brownian noise}, setkáme se ale i se zavádějícím
+termínem {\it Brown noise}. Jméno je odvozeno od souvislostí s Brownovým pohybem částic}) či modrý šum.
+\index{Šum!bílý}
+\index{Šum!červený}
+\index{Šum!růžový}
+\index{Šum!modrý}
 
 Intenzita $p$ všech zmíněných šumů na v na dané frekvenci lze vyjádřit jako
 $p=1/f^\beta$, kde hodnota $\beta$ je $-1$ pro modrý šum, $0$ pro bílý, $1$ pro
 růžový a $2$ pro hnědý. Proto se růžový šum někdy též označuje jako $1/f$ šum. Pro
-ostatní barvy šumu není podobné označení běžné.
+ostatní barvy šumu není podobné označení běžné. O šumu a jeho barvách je uvedeno více v
+knize Noise \citep{Noise}.
 
 Pravděpodobnostní rozdělení jednotlivých složek Fourierovy transformace ale
 není definicí barvy šumu dáno. Pokud je rozdělení normální\footnote{Nezáleží na
 tom, zda má normální rozdělení šum sám nebo jeho Fourierův obraz -- tyto dvě
-vlastnosti jsou ekvivalentní.}, řekneme, že se jedná o Gaussovský šum. \TODO{Tyhle obecný kecy moc nikde na jednom místě krom Wikipedie nejsou -- něco málo je tady http://www.atis.org/glossary/ -- Nějaká americká telekomunikační norma.} 
+vlastnosti jsou ekvivalentní.}, řekneme, že se jedná o Gaussovský šum.
 
 V této práci se budeme zabývat vizuálním šumem, tedy šumem, kde místo obvykle
 používané časové souřadnice použijeme dvě souřadnice prostorové, a měřenou
@@ -54,12 +63,13 @@ hodnotou bude jas.
   \caption{Červený, někdy též Brownův šum} 
 \end{subfigure}%
 \end{tabular} 
-\caption{Ukázky různých šumů.} 
+\caption{Ukázky různých šumů. Tyto šumy byly vygenerovány pomocí algoritmu, který je použitý přímo v aplikaci, která je součástí této práce. Algoritmus je blíže popsán ve druhé příloze.} 
 \label{obr:noise:example} 
  
 \end{figure}
 \section{Gabor patch}
 
+\index{Gabor patch}
 Gabor filter (v českých textech někdy označovaný jako Gaborova vlnka) je
 lineární filtr používaný ve zpracování obrazu, chceme-li detekovat signál
 mající danou frekvenci a směr, který se vyskytuje kolem daného bodu.
@@ -144,14 +154,14 @@ cyklech na pixel) $0.1$, třetí $0.02$.}
 
 \section{Úvod do teorie detekce signálu}
 
-Obsah této sekce je volně převzatý od Josefa Amemoriho \citeyearpar{Pepa}.
-
-Teorie detekce signálu řeší problém rozlišení dvou signálů, případně signálu a
+Hlavním problémem, který řeší teorie detekce signálu, je rozlišení dvou různých signálů, případně signálu a
 šumu. V této práci se budeme zabývat problémem, kdy je potřeba rozhodnout, zda
-se v dané ploše nachází signál, či ne. Této úloze budeme říkat A/N problém,
-nebo pouze A/N.
+se v dané ploše nachází signál, či ne. Této úloze budeme říkat Yes-No problém \citep{NeilSDT},
+nebo pouze Y/N.
+\index{Yes-No problém} 
+\index{Y/N}
 
-V kontextu této úlohy můžou po odpovědi pozorovatele nastat čtyři možné situace:
+V kontextu této úlohy můžou po odpovědi pozorovatele nastat čtyři možné situace \citep{Pepa}:
 
 \bigskip\noindent
 \begin{center}
@@ -167,6 +177,10 @@ Pozorovatel odpoví záporně &{\it Miss}&{\it Correct rejection}\\
 \end{tabular}
 \end{center}
 \bigskip
+\index{Hit}
+\index{Miss}
+\index{False alarm}
+\index{Correct rejection}
 
  V této úloze se pozorovatel chová tak,
 že si zvolí kritérium (někdy též práh odpovědi), které udává, jaká musí být
@@ -186,20 +200,23 @@ signál přítomen. Tato pravděpodobnost se z Bayesovy věty spočítá jako
 | Signál je přítomen}*\tP{Signál je přítomen}}{\tP{Pozorování dalo informaci
 $s$}}\\ \end{multline*}
 %\end{equation}
-Poté porovná tuto rozhodovací proměnnou s kritériem a podle výsledku tohoto
+Potom porovná tuto rozhodovací proměnnou s kritériem a podle výsledku tohoto
 porovnání odpoví.
 
 Odsud je zřejmé, že zvyšováním kritéria zvedáme pravděpodobnost, že nastane
 miss, ale snižujeme pravděpodobnost false alarmu.
 
-V souvislosti s A/N úlohou je ale ještě nutné zavést následující pojmy:
+V souvislosti s Y/N úlohou je ale ještě nutné zavést následující pojmy:
 
 \begin{definice}\label{hitrate}
-Mějme pozorovatele $p$ v úloze A/N. Potom jeho \emph{hit rate\/} $H_p$ definujeme jako $$\P{\text{hit}|\text{Signál je přítomen}}$$ a jeho \emph{False alarm rate\/} $F_p$ jako $$\P{\text{False alarm}|\text{Signál není přítomen}}.$$
+Mějme pozorovatele $p$ v úloze Y/N. Potom jeho \emph{hit rate\/} $H_p$ definujeme jako $$\P{\text{hit}|\text{Signál je přítomen}}$$ a jeho \emph{False alarm rate\/} $F_p$ jako $$\P{\text{False alarm}|\text{Signál není přítomen}}.$$
 \end{definice}
+\index{Hit rate}
+\index{False alarm rate}
 
 \subsection{Senzitivita}
 
+\index{Senzitivita}
 Jedním s dílčích problémů je též určení, jakou rozlišovací schopnost má daný
 pozorovatel na daný signál. Z předchozího odstavce by mělo být vidět, že
 kvantifikovat citlivost pouze pomocí hit rate není vhodné -- například pozorovatel, který vždy odpoví
@@ -214,13 +231,12 @@ pozorovatel by neexistoval.}
 Další možností by bylo charakterizovat pozorovatele jeho poměrem správných
 a špatných odpovědí. To ale též není vhodné, protože potom by jeho citlivost
 nezávisela jen na jeho vlastnostech, ale v případě, kdy by pravděpodobnost hitu
-a pravděpodobnost correct rejection nebyla stejná, i na poměru počtu situací,
-kdy je signál přítomen, v naší sadě testů.
+a pravděpodobnost correct rejection nebyla stejná, i na pravděpodobnosti, že bude signál přítomen.
 
 Při detekci signálu rozeznáváme dva druhy šumu. Šum vnitřní a šum vnější \citep{DavidSDT}.
 Vnější šum je zkreslení dat, které se stane ještě mimo pozorovatele. Vnitřní
 šum je naopak šum, který je způsoben přímo algoritmem, který používá
-pozorovatel, aby dekódoval, zda signál je přítomen, či není.
+pozorovatel, aby dekódoval, zda signál je přítomen, či není.\index{Šum}
 
 Pro lepší porozumění představíme případ z praxe. Nechť je pozorovatel člověk, který není
 příliš pozorný a chystá se přejít silnici. Jeho (podvědomým) pozorováním je
@@ -252,6 +268,7 @@ veličiny $X$.
 Nechť má pozorovatel $p$ hit rate $H_p$ a false alarm rate $F_p$ obě ostře mezi jedničkou a nulou. Potom budeme jeho \emph{senzitivitu}
 značit $d'$ a spočítáme jí jako $d' = \Phi^{-1}(H_p) - \Phi^{-1}(F_p),$ kde $\Phi^{-1}$ je inverzní distribuční funkce normovaného normálního rozdělení.
 \end{definice}
+\index{d'@$d'$}
 
 \begin{figure}[h!]
   \includegraphics[width=.8\linewidth]{graphs/ROC.pdf}
@@ -270,6 +287,8 @@ Nahlédneme, že senzitivita má následující vlastnosti:
 
 \section{Entropie}
 
+\index{Entropie}
+\index{Shannonova entropie}
 Entropií (nazývanou též Shannonova entropie, aby nedošlo k záměně s entropií
 tak, jak jí chápe termodynamika) náhodné veličiny se v teorii informace rozumí
 střední hodnota informace, kterou nám hodnota této veličiny přinese. Například
@@ -295,26 +314,34 @@ je rovna nule.
 Podobně jako u pravděpodobnosti můžeme poměrně přímočaře nadefinovat i   
 podmíněnou entropii $\H(A| B)$
 
+Shannonova entropie byla v této podobě zavedena Claudem Shannonem v jeho článku \citeyearpar{Entropie}. 
+
 \section{Modely pozorovatele}
 
-V teorii detekce signálu je velmi důležitým konceptem ideální detektor \citep{GreenSDT}.
-\TODO{Tady bude ještě obecný popis toho, co je to ideální pozorovatel}
+V teorii detekce signálu je velmi důležitým konceptem ideální detektor.
+Mohlo by se nám zdát, že by nás ideální pozorovatel nemusel zajímat -- pracujeme
+přece s pozorovatelem lidským. Pro lidského pozorovatele ale potřebujeme srovnání.
+Též v případě, kdy je algoritmus ideálního pozorovatele v určitém smyslu
+přirozený, apříklad nedělá žádné kontraintuitivní kroky, můžeme tvrzení
+\uv{Lidský pozorovatel se chová ideálně} použít jako úodní hypotézu, kterou
+poté už pouze upravujeme či zpřesňujeme \citep{GreenSDT}.
 
+\index{Gabor patch}
+\index{Šum!růžový}
 V této práci se budeme zabývat úlohou, kdy pozorovatel hledá Gabor patch v
 kruhovém poli, v němž se nachází růžový šum. Předchozí výzkum ukázal, že lidští
 pozorovatelé v této úloze využívají krátkých pohledů a rychlých pohybů očí \citep{Najemnik05}.
 Jednomu takovému krátkému pohledu budeme říkat \emph{fixace}. Očnímu pohybu
-se říká \emph{sakáda} \citep{sakady}. Pojem sakáda přirozeně aplikujeme i na simulované
-(tj. ne lidské) pozorovatele, kde ho budeme chápat jako vektor v $\mathbb{R}^2$
-mezi středy dvou po sobě jdoucích fixací. Jednotlivé fixace trvají přibližně
-$200$--$300 \operatorname{ms}$.
-
+se říká \emph{sakáda} \citep{sakady}.
+ 
 Abychom ale mohli hodnotit fixace lidského pozorovatele, potřebujeme mít nějaký
 model, který nám bude říkat, jak se chová optimální pozorovatel. Nejprve ale
 stručnou odbočku:
 
 \subsection{$d'$ mapa}
 
+\index{d' mapa@$d'$ mapa}
+\index{d'@$d'$}
 Ještě předtím, než začneme zjišťovat, podle jakého modelu se chová lidský
 pozorovatel, je nutné zjistit, kolik informace člověk jednou fixací získá. Je
 například zjevné, že kdyby jedním pohledem bez ohledu na to, kam se dívá,
@@ -366,6 +393,7 @@ pozorovatel.
 
 \subsubsection{MAP pozorovatel}
 
+\index{MAP pozorovatel}
 Nejjednodušší model, který dosahuje podobných výsledků, jako lidský pozorovatel,
 je tzv. MAP\footnote{Z anglického \uv{Maximum Aposteriori Probability}.}
 pozorovatel, který vždy zafixuje lokaci, která má v jeho mapě aposteriorních
@@ -379,6 +407,8 @@ stejnou pravděpodobností.
 
 \subsubsection{Ideální Bayesovský pozorovatel}
 
+\index{Ideální Bayesovský pozorovatel}
+\index{IBO}
 Ještě o malinko lepších a hlavě statisticky lidskému pozorovateli bližších
 výsledků dosahuje model Ideálního Bayesovského pozorovatele.  
 
@@ -397,7 +427,7 @@ i,k(T+1)}$ pak tedy znamená \uv{pravděpodobnost, že po $T+1$ fixaci bude
 ukončeno hledání a nahlášen signál v lokaci $i$, za podmínky, že tam signál
 opravdu je a byl zafixován bod $k(T+1)$}. 
 
-IBO však ale též není příliš pravděpodobný  kandidát na model, podle nějž se
+IBO však ale též není příliš dobrý kandidát na model, podle nějž se
 lidé chovají.  Ač má jeho vyhledávání podobné statistické vlastnosti, jako
 vyhledávání lidského pozorovatele, vyžaduje perfektní paměť a ideální integraci
 informace mezi fixacemi. Ani jednu z těchto dovedností ale lidský pozorovatel
@@ -411,6 +441,8 @@ dokázal takový výpočet provést \citep{Najemnik08}.
 
 \subsubsection{ELM pozorovatel}
 
+\index{ELM pozorovatel}
+\index{Entropie}
 ELM\footnote{z anglického \uv{Entropy limit minimization}.} pozorovatel je
 pozorovatel, který při výběru následující fixace minimalizuje střední hodnotu
 entropie náhodné veličiny určující lokaci cíle. Tu spočítáme jako
@@ -422,5 +454,5 @@ do nekonečna. Pak dostáváme výraz $$ \E{\H(T+1)|k(T+1)}= \H(T) -
 \displaystyle\sum_{i\in L} p_T(i)d'^2(i-k(T+1)),$$ kde v posledním členu bereme
 lokace jako vektory od počátku k nim. Člen $\H(T)$ navíc nezávisí na $k(T+1)$,
 takže s ním vůbec nemusíme počítat a k minimalizaci entropie nám stačí
-maximalizovat hodnotu sumy. 
+maximalizovat hodnotu sumy.
 

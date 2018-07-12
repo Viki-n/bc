@@ -1,26 +1,38 @@
 \chapter{Metody}
 
-\TODO{Nemělo by být napřed formálně popsáno, co to vlastně zkoumáme, než začneme popisovat metody?}
+V této kapitole popíšeme metody, kterým byl prováděn experiment. Technické detaily,
+jako například algoritmus, kterým byl generován šum, nebo hodnoceny lokace, jsou
+ale uvedeny až v dokumentaci aplikace, která je druhou přílohou této práce.
 
 \section{Účastníci}
 
-\section{Nástroje a stimuly}
+Účastníků bylo celkem deset, pět v každé
+skupině. Zrak všech z nich byl normální nebo upravený na normální (např.
+brýlemi). Byli vybráni z okolí autora této práce, nejednalo se tedy o náhodný
+výběr z populace. Do skupin byli rozřazeni náhodně. Ve skupině se zpětnou
+vazbou byl věkový průměr 27 let, dva muži a tři ženy, ve skupině bez zpětné
+vazby 26, jeden muž a čtyři ženy. Detailnější statistiky jsou uveden v první
+příloze. Za účast na experimentu nebyli účastníci nijak odměněni.
 
+\section{Nástroje a stimuly}
 \begin{figure}
-\centering
+\begin{center}
 \begin{tabular}{c}
-\begin{subfigure}{0.8\textwidth}
+\begin{subfigure}{0.95\textwidth}
 \centering
-\includegraphics[width = .9\linewidth]{img/noise_visible}
+\includegraphics[width = .75\linewidth]{img/noise_visible}
 \caption{Šum s dobře viditelným Gabor patchem u levého dolního okraje (kontrast $0.99$).}
 \end{subfigure}\\
-\begin{subfigure}{0.8\textwidth}
+\noalign{\vskip\bigskipamount}
+\\
+\begin{subfigure}{0.95\textwidth}
 \centering
-\includegraphics[width = .9\linewidth]{img/noise_invisible}
+\includegraphics[width = .75\linewidth]{img/noise_invisible}
 \caption{Šum se špatně viditelným Gabor patchem u pravého okraje (kontrast $0.61$).}
 \end{subfigure}
 \end{tabular}
 \caption{Příklady šumů s cíli.}
+\end{center}
 \end{figure}
 
 K experimentu byla použita aplikace, která je součástí této práce. 
@@ -33,7 +45,13 @@ V experimentu použitý růžový šum byl kruhový a jeho průměr byl 1024 pix
 pixel obrázku, nikoliv pixel displeje.} Tento průměr byl zvolen proto, že je
 to nejbližší mocnina dvojky ke kratšímu rozměr displeje iPadu v pixelech.
 Mocnina dvojky byla zvolena kvůli použití rychlé Fourierova transformace při
-generování růžového šumu.
+generování růžového šumu. RMS kontast\footnote{{\it RMS kontrast} je pro
+černobílý obraz vlastně jiný název pro standarní odchylku jasu pixelu, kdy jas
+měříme tak, aby černý pixel dostal hodnotu nula a bílý hodnotu jedna
+\citep{RMS}.} šumu byl po vygenerování roven $0.25$, ale při zobrazování byly
+hodnoty lišící se od střední hodnoty o více než dvě standardní odchylky
+přiblíženy ke střední hodnotě právě na tuto vzdálenost, čímž byl RMS kontrast
+mírně snížen. \index{RMS kontrast}
 
 Jako stimulus byl použit Gabor patch. Jedním z problémů aditivního Gabor patche
 ale je fakt, že jas pixelu je v praxi omezený. Kdybychom tedy přičítali Gabor
@@ -75,8 +93,8 @@ V druhém testu bylo prezentováno 120 obdobných úkolů a ve třetím opět 40
 subjekty, které byly ve skupině se zpětnou vazbou, po každé fixaci zvukovou
 odpověď, která značila, kolik informace mohli od této fixace očekávat (tedy
 jestli bylo z pohledu ELM moudré udělat právě tuto fixaci). Tato odpověď
-byla ve formě tónu, jehož frekvence byla dána vzorcem
-$$440\operatorname{Hz}*2^{2-2*\frac{c - \delta}{\Delta - \delta}},$$ kde $c$ je očekávané snížení entropie při fixaci, kterou si subjekt vybral, $\Delta$ je maximální dosažitelné očekávané
+byla ve formě tónu, jehož frekvence $f$ byla dána vzorcem
+$$f = 440\operatorname{Hz}*2^{2-2*\frac{c - \delta}{\Delta - \delta}},$$ kde $c$ je očekávané snížení entropie při fixaci, kterou si subjekt vybral, $\Delta$ je maximální dosažitelné očekávané
 snížení entropie a $\delta$ minimální v případě, že by byla zafixována některá
 z možných lokací cíle.\footnote{To znamená, že je potenciálně možné dosáhnout
 výsledku lepšího než $\Delta$, resp. horšího, než $\delta$. Rozdíl by však
@@ -93,7 +111,7 @@ veličiny, u nichž má smysl uvádět jednotku, jsou v pixelech).
 Ve chvíli, kdy si subjekt myslel, že objevil cíl, zmáčkl tlačítko. Poté mu byl ukázán celý odkrytý šum, ovšem
 bez cíle. Potom se měl subjekt dotknout šumu na místě, kde si myslel, že se cíl
 nacházel. Cíl byl považován za nalezený, pokud byla vzdálenost vybraného místa
-a středu skutečné lokace cíle menší než 60 pixelů. Úkol byl považován za úspěšně splněný, pokud byl cíl nalezen a současně v rámci něj účastník provedl nejvýše šest fixací. 
+a středu skutečné lokace cíle menší než 60 pixelů displeje. Úkol byl považován za úspěšně splněný, pokud byl cíl nalezen a současně v rámci něj účastník provedl nejvýše šest fixací. 
 
 V každém testu byl počáteční kontrast cíle $0.7$. Pokaždé, když byl subjekt třikrát po sobě úspěšný,
 byla zvýšena obtížnost snížením kontrastu cíle o $0.01$, pokud byl
@@ -109,7 +127,12 @@ Na rozdíl od implementace této metody, která je popsaná v knize, jsme se
 rozhodli za jev považovat tři úspěchy za sebou a za jeho absenci tři neúspěchy,
 abychom zmenšili velký rozptyl, který náš jev jinak má.\TODO{Nebo jak tohle okecat?}
 
-Hodnota $0.01$ byla vybrána tak, aby se během 120 úkolů, které jsou v prostředním testu, účastník mohl teoreticky dostat až na hodnoty kontrastu kolem $0.3$. S kontrastem menším než přibližně $0.45$ je ale pravděpodobnost splnění úkolu bez ohledu na strategii podle subjektivního názoru autora práce velmi nízká.
+Hodnota $0.01$ byla vybrána tak, aby se během 120 úkolů, které jsou v
+prostředním testu, účastník mohl teoreticky dostat až na hodnoty kontrastu
+kolem $0.3$. S kontrastem menším než přibližně $0.45$ je ale pravděpodobnost
+splnění úkolu bez ohledu na strategii podle subjektivního názoru autora práce
+velmi nízká. V experimentu se tento dojem potvrdil, nejnižší v experimentu
+dosažený kontrast byl $0.51$.
 
 
 

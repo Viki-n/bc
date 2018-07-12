@@ -1,0 +1,3 @@
+#!/bin/bash
+
+sed -rn '/^Name/{N;s/.*Trial:(.*) Difficulty:([0-9]*).?\n.*:([0-9]*).*:(.*)/\1 \2 \3 \4/;p}'

@@ -59,6 +59,33 @@
 
 \usepackage{subcaption}
 \usepackage{wrapfig}
+%\usepackage{imakeidx}
+\usepackage{makeidx}
+\makeindex
+%\makeindex[program=texindy,options=-L czech -M lang/czech/utf8 -M indexstyle.xdy]
+
+\usepackage{filecontents}
+\begin{filecontents*}{instyle.xdy}
+;;; xindy style file
+
+;;; Load a predefined style:
+;;;(require "makeindex.xdy")
+
+
+(markup-locclass-list :open ", " :sep "")
+
+(define-attributes (( "textbf" "default" )) )
+(markup-locref   :attr  "textbf"     :open "\textbf{\hyperpage{" :close "}}")
+(markup-locref   :attr  "textit"     :open "\textit{\hyperpage{" :close "}}")
+(markup-locref   :attr  "textttt"     :open "\textttt{\hyperpage{" :close "}}")
+(markup-locref   :attr  "texttsc"     :open "\texttsc{\hyperpage{" :close "}}")
+(markup-locref   :attr  "default"     :open "\hyperpage{" :close "}")
+
+
+
+\end{filecontents*}
+
+
 %%% Údaje o práci
 
 \def\problemy{{\noindent\bf Problémy}\par\bigskip}
@@ -158,8 +185,7 @@ Abstract.
 
 %%% Použité zkratky v bakalářské práci (opět nemusí být nutné uvádět)
 %%% U matematických prací může být lepší přemístit seznam zkratek na začátek práce.
-\chapwithtoc{Seznam použitých zkratek}
-
+\printindex
 %%% Přílohy k bakalářské práci, existují-li. Každá příloha musí být alespoň jednou
 %%% odkazována z vlastního textu práce. Přílohy se číslují.
 %%%
@@ -171,7 +197,7 @@ Abstract.
 %%% je také do práce vložit na CD/DVD. Povolené formáty souborů specifikuje
 %%% opatření rektora č. 72/2017.
 \appendix
-\chapter{Přílohy}
+\chapter*{Přílohy}
 
 \section{První příloha}
 

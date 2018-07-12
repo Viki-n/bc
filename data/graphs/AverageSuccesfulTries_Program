@@ -1,0 +1,13 @@
+unset log
+unset label
+unset title
+set ylabel 'Po učení
+set xlabel 'Před učením
+set key top right
+set key box
+set size square
+unset xrange
+unset yrange
+
+plot "../short/AverageSuccesfulTriesF" using 1:2 title "Se zpětnou vazbou" lt rgb "blue", \
+"../short/AverageSuccesfulTriesN" using 1:2 title "Bez zpětné vazby" lt rgb "red"
