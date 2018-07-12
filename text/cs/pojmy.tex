@@ -1,8 +1,10 @@
-\chapter{Základní pojmy}
+\chapter{Teoretický úvod}
+
+V této kapitole přiblížíme některé pojmy a teorie, které jsou v práci využity.
 
 \section{Šum}
 
-V teorii detekce signálu šumem nazýváme necht (a typicky neznámou) modifikaci signálu.
+V teorii detekce signálu šumem nazýváme nechtěnou (a typicky neznámou) modifikaci signálu.
 \index{Šum}
 
 \subsection{Barva šumu}
@@ -321,9 +323,9 @@ Shannonova entropie byla v této podobě zavedena Claudem Shannonem v jeho člá
 V teorii detekce signálu je velmi důležitým konceptem ideální detektor.
 Mohlo by se nám zdát, že by nás ideální pozorovatel nemusel zajímat -- pracujeme
 přece s pozorovatelem lidským. Pro lidského pozorovatele ale potřebujeme srovnání.
-Též v případě, kdy je algoritmus ideálního pozorovatele v určitém smyslu
-přirozený, apříklad nedělá žádné kontraintuitivní kroky, můžeme tvrzení
-\uv{Lidský pozorovatel se chová ideálně} použít jako úodní hypotézu, kterou
+V případě, kdy je algoritmus ideálního pozorovatele v určitém smyslu
+přirozený, například nedělá žádné kontraintuitivní kroky, můžeme také tvrzení
+\uv{Lidský pozorovatel se chová ideálně} použít jako úvodní hypotézu, kterou
 poté už pouze upravujeme či zpřesňujeme \citep{GreenSDT}.
 
 \index{Gabor patch}
@@ -445,7 +447,7 @@ dokázal takový výpočet provést \citep{Najemnik08}.
 \index{Entropie}
 ELM\footnote{z anglického \uv{Entropy limit minimization}.} pozorovatel je
 pozorovatel, který při výběru následující fixace minimalizuje střední hodnotu
-entropie náhodné veličiny určující lokaci cíle. Tu spočítáme jako
+entropie náhodné veličiny určující lokaci cíle po fixaci. Tu spočítáme jako
 \begin{equation}\label{EntropyBasic}\E{\H(T+1)|k(T+1)}=-\E{\displaystyle\sum_{i\in
 L}p_{T+1}(i)\log_2p_{T+1}(i)|k(T+1)}.\end{equation} \citet{Najemnik09} však ukázali,
 že vyjádření hodnoty entropie podle vzorce \eqref{EntropyBasic} je sice

@@ -6,13 +6,16 @@ ale uvedeny až v dokumentaci aplikace, která je druhou přílohou této práce
 
 \section{Účastníci}
 
-Účastníků bylo celkem deset, pět v každé
-skupině. Zrak všech z nich byl normální nebo upravený na normální (např.
-brýlemi). Byli vybráni z okolí autora této práce, nejednalo se tedy o náhodný
-výběr z populace. Do skupin byli rozřazeni náhodně. Ve skupině se zpětnou
-vazbou byl věkový průměr 27 let, dva muži a tři ženy, ve skupině bez zpětné
-vazby 26, jeden muž a čtyři ženy. Detailnější statistiky jsou uveden v první
-příloze. Za účast na experimentu nebyli účastníci nijak odměněni.
+Účastníků bylo celkem deset, pět v každé skupině. Zrak všech z nich byl
+normální nebo upravený na normální (např.  brýlemi). Byli vybráni z okolí
+autora této práce, nejednalo se tedy o náhodný výběr z populace. Do skupin byli
+rozřazeni náhodně. Ve skupině se zpětnou vazbou byl věkový průměr $26.8$ let,
+směrodatná odchylka věku byla $10.1$, dva z účastníků byli muži a tři ženy. Ve
+skupině bez zpětné vazby byl průměrný věk 26 let se směrodatnou odchylkou
+$11.1$ let, jeden muž a čtyři ženy. Detailnější statistiky jsou uvedeny v první
+příloze. Za účast na experimentu nebyli účastníci nijak odměněni a účastnili se
+ho dobrovolně. Na začátku experimentu žádný účastník nevěděl nic o vlastnostech
+modelů IBO a ELM.
 
 \section{Nástroje a stimuly}
 \begin{figure}
@@ -82,50 +85,70 @@ Možných lokací Gabor patche bylo celkem 85, a byly rozmístěny po scéně v
 trojúhelníkové mřížce tak, aby jedna možná lokace byla ve středu. Vzdálenost
 dvou sousedních možných lokací byla 100 pixelů. 
 
-Kontrast cíle byl daný maximem obálky, tedy při snižování kontrastu byl cíl čím dál tím průhlednější. Hodnoty kontrastu se mohly pohybovat mezi nulou a jedničkou.
+Kontrast cíle byl daný maximem obálky, tedy při snižování kontrastu byl cíl čím
+dál tím průhlednější. Hodnoty kontrastu se mohly pohybovat mezi nulou a
+jedničkou.
 
 \section{Procedura}
 
-Každý subjekt prošel sadou 3
-testů. V prvním testu mu bylo postupně prezentováno 40 úkolů, kde
-v každém z nich měl najít Gabor patch v růžovém šumu.  
-V druhém testu bylo prezentováno 120 obdobných úkolů a ve třetím opět 40. Ve druhém testu dostávaly
-subjekty, které byly ve skupině se zpětnou vazbou, po každé fixaci zvukovou
-odpověď, která značila, kolik informace mohli od této fixace očekávat (tedy
-jestli bylo z pohledu ELM moudré udělat právě tuto fixaci). Tato odpověď
-byla ve formě tónu, jehož frekvence $f$ byla dána vzorcem
-$$f = 440\operatorname{Hz}*2^{2-2*\frac{c - \delta}{\Delta - \delta}},$$ kde $c$ je očekávané snížení entropie při fixaci, kterou si subjekt vybral, $\Delta$ je maximální dosažitelné očekávané
-snížení entropie a $\delta$ minimální v případě, že by byla zafixována některá
-z možných lokací cíle.\footnote{To znamená, že je potenciálně možné dosáhnout
-výsledku lepšího než $\Delta$, resp. horšího, než $\delta$. Rozdíl by však
-neměl být důležitý.} 
+Každý účastník prošel sadou 3 testů. V prvním testu mu bylo postupně
+prezentováno 40 úkolů, kde v každém z nich měl najít Gabor patch v růžovém
+šumu.  V druhém testu bylo prezentováno 120 obdobných úkolů a ve třetím opět
+40. 
 
-V každém úkolu byl šum překryt černou barvou. Subjekt se měl vždy dotknout displeje v místě, které se
-rozhodl zafixovat. Na tomto místě byl poté šum odkryt na $300
-\operatorname{ms}$. Výpočet tvaru a míry odkrytí oblasti bylo provedeno
-vynásobením s $d'$ mapou posunutou do bodu fixace, s parametrem $d'_0$
-nastaveným na 1 a ostatními parametry naměřenými na pozorovateli FD
+Ve druhém testu dostávaly účastníci, kteří byly ve skupině se zpětnou
+vazbou, po každé fixaci zvukovou odpověď, která značila, kolik informace mohli
+od této fixace očekávat (tedy jestli bylo z pohledu ELM moudré udělat právě
+tuto fixaci). Tato odpověď byla ve formě tónu, jehož frekvence $f$ byla dána
+vzorcem $$f = 440\operatorname{Hz}*2^{2-2*\frac{c - \delta}{\Delta -
+\delta}},$$ kde $c$ je očekávané snížení entropie při fixaci, kterou si subjekt
+vybral, $\Delta$ je maximální dosažitelné očekávané snížení entropie a $\delta$
+minimální v případě, že by byla zafixována některá z možných lokací
+cíle.\footnote{To znamená, že je potenciálně možné dosáhnout výsledku lepšího
+než $\Delta$, resp. horšího, než $\delta$. Rozdíl by však neměl být důležitý.} 
+
+Tento vzorec byl sestaven tak, aby účastník dostal tón a1 v případě, že zvolil
+lokaci, terá vedla ke stejnému očekávanému snížení entropie, jako lokace,
+kterou vybral model ELM jako nejlepší, tón a3 v případě, že naopak zvolil
+nějakou z nejhorších možných lokací.
+
+V každém úkolu byl šum překryt černou barvou. Subjekt se měl vždy dotknout
+displeje v místě, které se rozhodl zafixovat. Na tomto místě byl poté šum
+odkryt na $300 \operatorname{ms}$. Výpočet tvaru a míry odkrytí oblasti bylo
+provedeno vynásobením s $d'$ mapou posunutou do bodu fixace, s parametrem
+$d'_0$ nastaveným na 1 a ostatními parametry naměřenými na pozorovateli FD
 ($e_R=223$, $e_L=223$, $e_U = 161$, $e_D = 164$, $\beta=2.46$, všechny
 veličiny, u nichž má smysl uvádět jednotku, jsou v pixelech).
 
-Ve chvíli, kdy si subjekt myslel, že objevil cíl, zmáčkl tlačítko. Poté mu byl ukázán celý odkrytý šum, ovšem
-bez cíle. Potom se měl subjekt dotknout šumu na místě, kde si myslel, že se cíl
-nacházel. Cíl byl považován za nalezený, pokud byla vzdálenost vybraného místa
-a středu skutečné lokace cíle menší než 60 pixelů displeje. Úkol byl považován za úspěšně splněný, pokud byl cíl nalezen a současně v rámci něj účastník provedl nejvýše šest fixací. 
+Tuto $d'$ mapu\index{d' mapa@$d'$ mapa} by bylo lepší měřit každému účastníkovi
+zvlášť. Takové měření ale zahrnuje podle metodiky z článku \citep{Ellipse}
+přinejmenším 2000 trialů a s metodikou předepsanými přestávkami trvá celý den.
+Aby bylo možné při něm kontrolovat chování účastníka, je navíc potřeba
+eyetracker. Proto jsme se rozhodli i vzhledem k nemožnosti kontrolovat přesně
+podmínky k tomuto měření nepřistoupit. K tomuto problému se ale znovu vrátíme
+závěrem této kapitoly v sekci Limitace.  
 
-V každém testu byl počáteční kontrast cíle $0.7$. Pokaždé, když byl subjekt třikrát po sobě úspěšný,
-byla zvýšena obtížnost snížením kontrastu cíle o $0.01$, pokud byl
-třikrát po sobě neúspěšný, byla obtížnost opět snížena. 
+Ve chvíli, kdy si účastník myslel, že objevil cíl, zmáčkl tlačítko. Poté mu byl
+ukázán celý odkrytý šum, ovšem bez cíle. Potom se měl účastník dotknout šumu na
+místě, kde si myslel, že se cíl nacházel. Cíl byl považován za nalezený, pokud
+byla vzdálenost vybraného místa a středu skutečné lokace cíle menší než 60
+pixelů displeje. Úkol byl považován za úspěšně splněný, pokud byl cíl nalezen a
+současně v rámci něj účastník provedl nejvýše šest fixací. 
 
-Byl tedy využit obecný postup, kterému se říká Up/Down metoda. Tento postup se používá,
-pokud je závislost pravděpodobnosti daného jevu na nějakém parametru rostoucí
-(či obecně monotónní) funkce. Spočívá v tom, že se daný parametr snižuje, když
-jev nastává, a zvyšuje když nenastává (v obou případech o předem danou
-konstantu, která se během experimentu nemění, nemusí však být v obou směrech
-stejná). Blíže je popsána v knize Psychophysics: A practical introduction \citep{psychophysics}.
-Na rozdíl od implementace této metody, která je popsaná v knize, jsme se
-rozhodli za jev považovat tři úspěchy za sebou a za jeho absenci tři neúspěchy,
-abychom zmenšili velký rozptyl, který náš jev jinak má.\TODO{Nebo jak tohle okecat?}
+V každém testu byl počáteční kontrast cíle $0.7$. Pokaždé, když byl účastník
+třikrát po sobě úspěšný, byla zvýšena obtížnost snížením kontrastu cíle o
+$0.01$, pokud byl třikrát po sobě neúspěšný, byla obtížnost opět snížena. 
+
+Byl tedy využit obecný postup, kterému se říká Up/Down metoda. Tento postup se
+používá, pokud je závislost pravděpodobnosti daného jevu na nějakém parametru
+rostoucí (či obecně monotónní) funkce. Spočívá v tom, že se daný parametr
+snižuje, když jev nastává, a zvyšuje když nenastává (v obou případech o předem
+danou konstantu, která se během experimentu nemění, nemusí však být v obou
+směrech stejná). Blíže je popsána v knize Psychophysics: A practical
+introduction \citep{psychophysics}.  Na rozdíl od implementace této metody,
+která je popsaná v knize, jsme se rozhodli za jev považovat tři úspěchy za
+sebou a za jeho absenci tři neúspěchy, abychom zmenšili velký rozptyl, který
+náš jev jinak má.\TODO{Nebo jak tohle okecat?}
 
 Hodnota $0.01$ byla vybrána tak, aby se během 120 úkolů, které jsou v
 prostředním testu, účastník mohl teoreticky dostat až na hodnoty kontrastu
@@ -154,11 +177,11 @@ od pozorovatele, aby ji viděl pod zorným úhlem $15^\circ$. To při velikosti
 scény v našem případě odpovídá vzdálenosti pozorovatele a zařízení přibližně
 $65 \operatorname{cm}$. V našich experimentech nebyla vzdálenost pozorovatele od
 scény hlídána. a určitě byla nižší, než řečených $65 \operatorname{cm}$
-(dodržení této vzdálenosti by odpovídalo situaci, kdy by subjekty držely iPad
+(dodržení této vzdálenosti by odpovídalo situaci, kdy by účastníci držely iPad
 před sebou zhruba na délku natažené paže). 
 
 \item I pokud odhlédneme od nepřesností zmíněných v předchozím bodě a dovolíme
-si na chvíli (evidentně scestný) předpoklad, že subjekty měly vlastní $d'$ mapu
+si na chvíli (evidentně scestný) předpoklad, že účastnící měly vlastní $d'$ mapu
 konstantní, narazíme na další problém. Okraj oblasti, která byla odkrývána,
 byl ztmavován lineárně se snižující se hodnotou $d'$ v použité $d'$ mapě.
 Závislost $d'$ na kontrastu ale téměř jistě
@@ -167,7 +190,7 @@ není lineární.
 \item S tím souvisí ještě jeden problém: Subjekty samozřejmě nemají svou $d'$
 mapu konstantní. Tato mapa se tedy nějak skládá s $d'$ mapou, pomocí které
 bylo určeno odhalování šumu. V práci jsme toto skládání ignorovali (tedy
-předpokládali jsme, že $d'$ na kontrastu závisí lineárně a $d'$ mapa subjektů
+předpokládali jsme, že $d'$ na kontrastu závisí lineárně a $d'$ mapa účastníků
 je konstantní.) Nabízela by se otázka, proč tedy bylo zatemňování šumu vůbec
 prováděno. To se dělo z několika důvodů:
 
@@ -182,7 +205,7 @@ jednotky vteřin místo nižších desetin vteřiny) a poskytuje nám tedy mnoho
 na update mapy aposteriorních pravděpodobností a výpočet množství informace,
 kterou lze získat následující fixací.
 
-\item Takto navržený experiment též umožňuje zjišťovat, které lokace subjekt
+\item Takto navržený experiment též umožňuje zjišťovat, které lokace účastník
 fixuje bez použití eyetrackeru nebo jiných technologií.
 
 \end{itemize}
