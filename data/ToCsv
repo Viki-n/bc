@@ -1,0 +1,13 @@
+#!/bin/bash
+
+target=csv/data.csv
+echo name trial difficulty fixations accuracy phase hit group > $target
+sed -rn '/Name/{N; s/Name:(.*) Trial:(.*) Difficulty:(.*)\nFixations:(.*) Accuracy:(.*)/\1 \2 \3 \4 \5/;p}' raw/*| while read a b c d e; do
+hit=false;
+test $e -le 60 && hit=true
+phase=before
+test $b -gt 40 && phase=training
+test $b -gt 160 && phase=after
+group=$(echo $a|tr -d 1-5)
+echo $a $b $c $d $e $phase $hit $group >> $target
+done

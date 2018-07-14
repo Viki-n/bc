@@ -1,0 +1,75 @@
+library(readr)
+
+data <- read_table2("C:/Users/l/Desktop/Shared/bp/data/csv/data.csv", 
++     col_types = cols(hit = col_logical()))
+
+library(tidyverse)
+library(ez)
+library(Hmisc)
+
+
+data %>% 
+filter(hit,trial>5,phase=="before") %>% 
+mutate(Skupina= (ifelse((group=="control"), "Kontrolní", "Experimentální")),
+	ucastnik=paste(str_sub(name,1,1),str_sub(name,-1,100))) %>% 
+ggplot(aes(ucastnik,fixations,group=name,col=Skupina)) +
+ 	stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = 0.2) + 
+	stat_summary() +
+	labs(x="Účastníci",y="Průměrný počet fixací",color="Skupina")
+
+
+data %>% 
+filter(hit,trial>5,phase!="training") %>%
+mutate(Skupina= (ifelse((group=="control"), "Kontrolní", "Experimentální")),ucastnik=paste(str_sub(name,1,1),str_sub(name,-1,100))) %>%
+group_by(Skupina,ucastnik,phase) %>%
+summarise(mn = mean(fixations)) %>%
+mutate(signmean=ifelse(phase=="before",0-mn,mn)) %>%
+group_by(Skupina, ucastnik) %>%
+summarise(mn = sum(signmean)) %>% 
+ggplot(aes(ucastnik,mn,col=Skupina)) + 
+	geom_point()
+
+
+pd <- position_dodge(width = 0.1)
+
+data %>%
+filter(trial>5,phase!="training",hit) %>%
+mutate(Skupina= (ifelse(group=="control", "Kontrolní", "Experimentální")),faze=ifelse(phase=="before","Před učením","Po učení")) %>%
+ggplot(aes(faze,fixations,group=Skupina,col=Skupina)) +
+	stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = 0.2, position = pd) + 
+	stat_summary(position = pd)+stat_summary(geom="line",position = pd) +
+	labs(x="Fáze",y="Průměrný počet fixací",color="Skupina") + 
+	scale_x_discrete(limits=c("Před učením","Po učení"))
+
+data %>% 
+    filter(trial>5,phase=="before") %>% 
+    mutate(Skupina= (ifelse((group=="control"), "Kontrolní", "Experimentální")), hitnum = ifelse(hit,1,0),
+           ucastnik=paste(str_sub(name,1,1),str_sub(name,-1,100))) %>%
+    ggplot(aes(ucastnik,hitnum,group=name,col=Skupina)) +
+    stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = 0.2) +
+    stat_summary() +
+    labs(x="Účastníci",y="Průměrný počet fixací",color="Skupina")
+
+data %>%
+filter(trial>5,phase!="training") %>%
+mutate(Skupina= (ifelse(group=="control", "Kontrolní", "Experimentální")),faze=ifelse(phase=="before","Před učením","Po učení"),hitnum = ifelse(hit,1,0)) %>%
+ggplot(aes(faze,hitnum,group=Skupina,col=Skupina)) +
+	stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = 0.2, position = pd)+
+	stat_summary(position = pd)+
+	stat_summary(geom="line",position = pd) +
+	labs(x="Fáze",y="Hit rate",color="Skupina") +	
+	scale_x_discrete(limits=c("Před učením","Po učení"))
+
+
+data %>% 
+    filter(trial>5,phase=="before") %>% 
+    mutate(Skupina= (ifelse((group=="control"), "Kontrolní", "Experimentální")), hitnum = ifelse(hit,1,0),
+           ucastnik=paste(str_sub(name,1,1),str_sub(name,-1,100))) %>%
+    ggplot(aes(ucastnik,hitnum,group=name,col=Skupina)) +
+    stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = 0.2) +
+    stat_summary() +
+    labs(x="Účastníci",y="Hit rate",color="Skupina")
+
+
+
+
