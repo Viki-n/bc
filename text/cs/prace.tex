@@ -55,7 +55,7 @@
 \usepackage{dcolumn}        % lepší zarovnání sloupců v tabulkách
 \usepackage{booktabs}       % lepší vodorovné linky v tabulkách
 \usepackage{paralist}       % lepší enumerate a itemize
-\usepackage[usenames]{xcolor}  % barevná sazba
+\usepackage[table,usenames]{xcolor}  % barevná sazba
 
 \usepackage{subcaption}
 \usepackage{wrapfig}
@@ -84,12 +84,20 @@
 
 
 \end{filecontents*}
-
+\usepackage{longtable}
 
 %%% Údaje o práci
 
 \def\problemy{{\noindent\bf Problémy}\par\bigskip}
 \def\TODO#1{{\bf\color{red}#1}\expandafter\expandafter\expandafter\def\expandafter\expandafter\expandafter\problemy\expandafter\expandafter\expandafter{\expandafter\problemy\thepage: #1\par}}
+\def\kapitolka#1{
+\chapter*{#1}
+\addcontentsline{toc}{chapter}{#1}
+}
+\def\sekcicka#1{
+\section*{#1}
+\addcontentsline{toc}{section}{#1}
+}
 
 % Název práce v jazyce práce (přesně podle zadání)
 \def\NazevPrace{Percepční učení a Ideální Bayesovský\jednoumezera pozorovatel při zrakovém vyhledávání}
@@ -199,8 +207,11 @@ Abstract.
 %%% opatření rektora č. 72/2017.
 \appendix
 \chapter*{Přílohy}
+\addcontentsline{toc}{chapter}{Přílohy}
 
-\section{První příloha}
+\sekcicka{První příloha -- detailnější výsledky měření}
+
+\input{dokumentace}
 
 \openright
 \end{document}
