@@ -56,7 +56,7 @@ při vstupu do nastavení odpovídá první zmíněné obtížnosti.\\
 Gabor patch diameter & Průměr obálky Gabor patche. Perioda se automaticky
 nastaví na třetinu této hodnoty. \index{Gabor patch}\\
 
-Radius of uncovered area & V případě, že je vypnuté použití $d' mapy$ \index{d'
+Radius of uncovered area & V případě, že je vypnuté použití $d'$ mapy\index{d'
 mapa@$d'$ mapa}, odkrývá se šum pomocí masky Raised cosine. Zde je možné
 nastavit poloměr masky v tomto případě.\\ 
 
@@ -175,12 +175,12 @@ V této sekci stručně přiblížíme dva netriviální algoritmy, které se v 
 vyskytují Bude se jednat o výpočet očekávaného snížení entropie v rámci
 simulace ELM pozorovatele, a generování růžového šumu.
 
-V obou těchto algoritmech se vyskytuje potřeba generovat náhodná čísla s
-normálním rozdělením. K tomu byla využita funkce {\tt
-GKGaussianDistribution.nextUniform()}, která je součástí standardní knihovny
-jazyka Swift {\tt GameplayKit}. Tato funkce se od normálního rozdělení odklání v tom, že
-nepřipouští hodnoty, které se od střední hodnoty rozdělení liší o více než
-tři standardní odchylky. Protože je však pravděpodobnost takových hodnot v
+V obou těchto algoritmech je potřeba generovat náhodná čísla s normálním
+rozdělením. Na to použijeme funkci {\tt GKGaussianDistribution.nextUniform()},
+která je součástí knihovny {\tt GameplayKit}, jedné ze standardních knihoven
+jazyka Swift. Tato funkce se od normálního rozdělení odklání v tom, že
+nepřipouští hodnoty, které se od střední hodnoty rozdělení liší o více než tři
+standardní odchylky. Protože je však pravděpodobnost takových hodnot v
 normálním rozdělení rovna přibližně $0.003$, rozhodli jsme se, že ovlivnění
 experimentu touto odlišností zanedbáme.
 
@@ -258,3 +258,6 @@ odchylku, žádná předchozí nekonstantní lineární transformace výstup neo
 (nebo alespoň ne více, než tím, že způsobí nějaké nechtěné
 zaokrouhlování\footnote{V algoritmu je komplexní číslo reprezentováno pomocí
 dvou hodnot typu {\tt Double}.}, to ale nebude mít v praxi významný vliv).
+
+Pro generování jiného z šumů, o kterých se mluví v sekci o barvách šumu, stačí 
+ve vzorci \eqref{Pink} vynásobit hodnotu $-2$ v exponentu příslušnou hodnotou $\beta$.

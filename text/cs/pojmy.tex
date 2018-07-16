@@ -2,168 +2,41 @@
 
 V této kapitole přiblížíme některé pojmy a teorie, které jsou v práci využity.
 
-\section{Šum}
+\section{Zrakové vyhledávání}
 
-V teorii detekce signálu šumem nazýváme nechtěnou (a typicky neznámou) modifikaci signálu.
-\index{Šum}
+V úloze zrakového vyhledávání je úkolem najít ve scéně stimul s určitými
+vlastnostmi. Tyto scény mohou být jednoduché, jako například několik černých
+úseček na bílém pozadí, kdy je úkolem najít úsečku, která má určitý směr. I
+takto jednoduché úlohy ale mají mnoho společného se zrakovým vyhledáváním tak,
+jak ho provádíme v běžném životě \citep{VisualSearch}. Mohou ale také být velmi
+komplikované a těžko popsatelné, jako například hledání muže v pruhovaném
+oblečení, jaké známe z populární úlohy \uv{Kde je Valda?}.  
 
-\subsection{Barva šumu}
+Předchozí výzkum ukázal, že lidští
+pozorovatelé v této úloze využívají krátkých pohledů a rychlých pohybů očí \citep{Holmquist}.
+Jednomu takovému krátkému pohledu budeme říkat \emph{fixace}. Rychlému očnímu pohybu
+se říká \emph{sakáda} \citep{sakady}.
 
-U aditivního\footnote{Šumu říkáme aditivní, pokud se jeho hodnoty přičítají k
-hodnotě signálu. Dále existuje například ještě šum multiplikativní či fázový
-(šum, který se projevuje krátkodobým fázovém posunem signálu).} šumu můžeme
-měřit intenzitu šumu na různých frekvencích. Tu změříme tak, že na šum aplikujeme
-Fourierovu transformaci
+Při vyhledávání nás ve skutečnosti zajímá, ke kterým místům pozorovatel obrací
+svou pozornost. To však výrazně souvisí s tím, kam se kouká \citep{Attention}.
 
- Šumu se
-říká bílý šum, pokud by světlo, které by mělo stejnou distribuci intenzity
-napříč frekvencemi, jako daný šum (který ale vůbec nemusí být světelný), bylo
-bílé. Podobně známe například ještě růžový, červený (někdy též označovaný jako
-Brownův či nesprávně hnědý\footnote{V anglické literatuře se používá
-termín {\it Brownian noise}, setkáme se ale i se zavádějícím
-termínem {\it Brown noise}. Jméno je odvozeno od souvislostí s Brownovým pohybem částic}) či modrý šum.
-\index{Šum!bílý}
-\index{Šum!červený}
-\index{Šum!růžový}
-\index{Šum!modrý}
-
-Intenzita $p$ všech zmíněných šumů na v na dané frekvenci lze vyjádřit jako
-$p=1/f^\beta$, kde hodnota $\beta$ je $-1$ pro modrý šum, $0$ pro bílý, $1$ pro
-růžový a $2$ pro hnědý. Proto se růžový šum někdy též označuje jako $1/f$ šum. Pro
-ostatní barvy šumu není podobné označení běžné. O šumu a jeho barvách je uvedeno více v
-knize Noise \citep{Noise}.
-
-Pravděpodobnostní rozdělení jednotlivých složek Fourierovy transformace ale
-není definicí barvy šumu dáno. Pokud je rozdělení normální\footnote{Nezáleží na
-tom, zda má normální rozdělení šum sám nebo jeho Fourierův obraz -- tyto dvě
-vlastnosti jsou ekvivalentní.}, řekneme, že se jedná o Gaussovský šum.
-
-V této práci se budeme zabývat vizuálním šumem, tedy šumem, kde místo obvykle
-používané časové souřadnice použijeme dvě souřadnice prostorové, a měřenou
-hodnotou bude jas. 
-
-\begin{figure}[h!]
-\begin{tabular}{cc}
-\begin{subfigure}{0.45\textwidth}
-  \centering
-  \includegraphics[width=.8\linewidth]{img/blue_noise}
-  \caption{Modrý šum} 
-\end{subfigure}&
-\begin{subfigure}{0.45\textwidth}
-  \centering
-  \includegraphics[width=.8\linewidth]{img/white_noise}
-  \caption{Bílý šum} 
-\end{subfigure}\\
-\begin{subfigure}{0.45\textwidth}
-  \centering
-  \includegraphics[width=.8\linewidth]{img/pink_noise}
-  \caption{Růžový šum} 
-\end{subfigure}&
-\begin{subfigure}{0.45\textwidth}
-  \centering
-  \includegraphics[width=.8\linewidth]{img/brown_noise}
-  \caption{Červený, někdy též Brownův šum} 
-\end{subfigure}%
-\end{tabular} 
-\caption{Ukázky různých šumů. Tyto šumy byly vygenerovány pomocí algoritmu, který je použitý přímo v aplikaci, která je součástí této práce. Algoritmus je blíže popsán ve druhé příloze.} 
-\label{obr:noise:example} 
- 
-\end{figure}
-\section{Gabor patch}
-
-\index{Gabor patch}
-Gabor filter (v českých textech někdy označovaný jako Gaborova vlnka) je
-lineární filtr používaný ve zpracování obrazu, chceme-li detekovat signál
-mající danou frekvenci a směr, který se vyskytuje kolem daného bodu.
-
-\subsection{Definice}
-
-Hodnotu filtru v daném bodě spočítáme jako součin dvou funkcí. První z nich je
-vždy sinus či cosinus (někdy uváděné v podobě komplexní exponenciály, pokud
-potřebujeme i reálnou, i imaginární složku). Jeho parametry určují, jaké
-vlastnosti má mít signál, který chceme detekovat. Druhé funkci říkáme obálka, a
-určuje, na jakém okolí daného bodu signál zkoumáme.
-
-Funkce tedy vypadá jako $$g(x,y) =
-\sin\left(2\pi\frac{x'}{\lambda}+\phi\right)*\operatorname{obálka}(x',y'),$$
-kde vektor $(x',y')^T$ je vektor $(x,y)^T$ otočený o úhel, který svírá osa $x$
-se směrem, podél nějž chceme měřit signál (tento úhel budeme značit $\Theta$),
-a posunutý do bodu, v němž chceme měřit signál, $\lambda$ je frekvence signálu,
-který hledáme, a $\phi$ je fázový posun \citep{GaborPatch}. 
-
-Jako obálka se používá dvojrozměrná Gaussova funkce, raised cosine, nebo prostá
-lineární funkce vzdálenosti. 
-
-Gaussovu funkci vyjádříme jako $$ \operatorname{obálka}(x,y) =
-\exp\left(\frac{x'^2 + y'^2}{2\rho}\right),$$ kde $\rho$ je směrodatná odchylka
-Gaussovy křivky. Její výhodou je, že chování Gabor filtru, jehož obálku tvoří
-Gaussova funkce, je nejlépe popsané. Raised cosine vyjádříme jako 
-$$
-\operatorname{obálka}(x,y)=
-\begin{cases}
- \frac{\cos(\pi\sqrt{x'^2+y'^2}/r)+1}2 &\text{pro $\sqrt{x'^2+y'^2}\leq r$,}\\[1ex]
- 0 &\text{jinak,}
-\end{cases}
-$$ kde $r$ je poloměr oblasti, v níž chceme signál detekovat. Výhodou raised
-cosine oproti Gaussově funkci je, že ve vzdálenosti alespoň $r$ od středu
-filtru jeho hodnota nabývá nuly. Při výpočtech tedy stačí počítat s malou
-oblastí kolem středu (kdežto při použití Gaussovy funkce je nutné počítat s
-celým obrazem). Výhodou oproti lineární funkci vzdálenosti je, že raised cosine
-se pro většinu aplikací chová dostatečně podobně, jako Gaussova funkce.
-
-\subsection{Použití}
-
-Chceme-li detekovat signál ve vizuálním šumu, spočítáme hodnotu $$s=\sum
-g(x,y)*n[x,y],$$ kde $n$ je šum a sumu bereme přes všechny body $(x,y)$, v
-nichž jsme naměřili hodnoty šumu. Je-li hodnota $s$  blízko nuly, signál v
-daném místě není přítomen, nebo je přítomen s jinými parametry. Vysoké hodnoty
-značí, že
-signál pravděpodobně přítomen je, hluboce záporné značí, že signál je přítomen,
-ovšem s fází posunutou $\pi$.
-
-Gabor filter ale můžeme používat i k samotné tvorbě signálu. Chceme-li vytvořit
-v nějakém bodě signál, můžeme spočítat Gabor filter, jako bychom chtěli
-detekovat signál s právě takovými parametry, jaké má mít tvořený signál, a
-potom ho sečíst se šumem. Takto vytvořenému signálu budeme říkat Gabor patch.
-
-\begin{figure}[h!]
-\begin{subfigure}{0.25\textwidth}
-  \centering
-  \includegraphics[width=.8\linewidth]{img/gabor1}
-\end{subfigure}% 
-\begin{subfigure}{0.25\textwidth}
-  \centering
-  \includegraphics[width=.8\linewidth]{img/gabor2}
-\end{subfigure}% 
-\begin{subfigure}{0.25\textwidth}
-  \centering
-  \includegraphics[width=.8\linewidth]{img/gabor3}
-\end{subfigure}% 
-\begin{subfigure}{0.25\textwidth}
-  \centering
-  \includegraphics[width=.8\linewidth]{img/gabor4}
-\end{subfigure}% 
-
-\caption{Ukázky několika Gabor patchů. Všechny Gabor patche jsou 100 pixelů
-široké i vysoké. Levý patch má $\Theta = 1/4\pi$, ostatní mají $\Theta =
--1/4\pi$, levý má jako obálku Gaussovu funkci, prostřední dva raised cosine,
-pravý lineární funkci vzdálenosti, první, druhý a čtvrtý mají frekvenci (v
-cyklech na pixel) $0.1$, třetí $0.02$.} 
-
-\label{obr:gabor:example} 
- 
-\end{figure}
 
 \section{Úvod do teorie detekce signálu}
 
-Hlavním problémem, který řeší teorie detekce signálu, je rozlišení dvou různých signálů, případně signálu a
-šumu. V této práci se budeme zabývat problémem, kdy je potřeba rozhodnout, zda
-se v dané ploše nachází signál, či ne. Této úloze budeme říkat Yes-No problém \citep{NeilSDT},
-nebo pouze Y/N.
+Jeden z dílčích problémů úlohy zrakového vyhledávání je rozlišení hledaného
+objektu a pozadí. K popisu řešení tohoto problému se nám bude hodit
+terminologie teorie detekce signálu, která se právě touto problematikou
+zaobírá.
+
+V řeči této teorie budeme hledanému objektu říkat {\it signál},
+rušivým elementům ve scéně se říká {\it šum}. Problém rozlišení hledaného
+objektu a pozadí se tedy v řeči teorie detekce signálu formulují jako dotaz,
+zda se v dané lokaci signál nachází, či nenachází. Tomuto problému se říká Yes-No
+problém \citep{NeilSDT}, nebo pouze Y/N.
 \index{Yes-No problém} 
 \index{Y/N}
 
-V kontextu této úlohy můžou po odpovědi pozorovatele nastat čtyři možné situace \citep{Pepa}:
+V kontextu Yes-No problému mohou po odpovědi pozorovatele nastat čtyři možné situace \citep{GreenSDT}:
 
 \bigskip\noindent
 \begin{center}
@@ -192,20 +65,21 @@ pravděpodobnost, že signál je přítomen, aby pozorovatel odpověděl kladně
 \def\E#1{\mathbb{E}\left[#1\right]}
 \def\tP#1{\P{\text{#1}}}
 
-Poté pozorovatel provede pozorování, z nějž získá informaci $s$. Poté spočítá
-hodnotu rozhodovací proměnné, tedy spočítá, jaká je pravděpodobnost, že je
-signál přítomen. Tato pravděpodobnost se z Bayesovy věty spočítá jako 
-%\begin{equation}
-\begin{multline*}
-\tP{Signál je přítomen| Pozorování dalo informaci $s$} = \\ 
-=\frac{\tP{Pozorování dalo informaci $s$
-| Signál je přítomen}*\tP{Signál je přítomen}}{\tP{Pozorování dalo informaci
-$s$}}\\ \end{multline*}
-%\end{equation}
+Poté pozorovatel provede pozorování, z nějž získá informaci $o$. Situaci
+\uv{Pozorovatel získal informaci $o$} označíme jako $O$. Následně spočítá hodnotu
+rozhodovací proměnné, tedy spočítá, jaká je pravděpodobnost, že je signál
+přítomen. Tvrzení \uv{Signál je přítomen} označíme jako $S$
+
+Tato pravděpodobnost se z Bayesovy věty spočítá jako 
+\begin{equation*}
+%\begin{multline*}
+\P{S| O} = =\frac{\P{O| S}*\P{S}}{\P{O}} 
+%\end{multline*}
+\end{equation*}
 Potom porovná tuto rozhodovací proměnnou s kritériem a podle výsledku tohoto
 porovnání odpoví.
 
-Odsud je zřejmé, že zvyšováním kritéria zvedáme pravděpodobnost, že nastane
+Odsud je zřejmé, že zvyšováním kritéria zvyšujeme pravděpodobnost, že nastane
 miss, ale snižujeme pravděpodobnost false alarmu.
 
 V souvislosti s Y/N úlohou je ale ještě nutné zavést následující pojmy:
@@ -220,29 +94,21 @@ Mějme pozorovatele $p$ v úloze Y/N. Potom jeho \emph{hit rate\/} $H_p$ definuj
 
 \index{Senzitivita}
 Jedním s dílčích problémů je též určení, jakou rozlišovací schopnost má daný
-pozorovatel na daný signál. Z předchozího odstavce by mělo být vidět, že
-kvantifikovat citlivost pouze pomocí hit rate není vhodné -- například pozorovatel, který vždy odpoví
-\uv{ano} by měl v tomto případě optimální citlivost, což jistě nechceme. Taktéž
-není vhodné charakterizovat pozorovatele pomocí poměru hitů a false alarmů,
-optimalizace takového parametru by též vedla k scestnému nastavení
-kritéria.\footnote{V typickém případě, který je popsán v následujících třech
-odstavcích, se pro kritérium jdoucí k nekonečnu tento poměr též blíží k
-nekonečnu. Dobrý pozorovatel by tedy téměř vždy odpovídal \uv{ne}, optimální
-pozorovatel by neexistoval.}
+pozorovatel na daný signál. Zde ale narazíme na problém -- není triviální
+najít parametr, který by rozlišovací schopnost pozorovatele dobře popisoval.
 
-Další možností by bylo charakterizovat pozorovatele jeho poměrem správných
-a špatných odpovědí. To ale též není vhodné, protože potom by jeho citlivost
-nezávisela jen na jeho vlastnostech, ale v případě, kdy by pravděpodobnost hitu
-a pravděpodobnost correct rejection nebyla stejná, i na pravděpodobnosti, že bude signál přítomen.
+Intuitivně bychom chtěli, aby pozorovatel, který má vysokou senzitivitu,
+odpovídal ve většině případů správně. Není ale jasné, co to znamená. V předchozí
+podkapitole jsme ukázali, že pozorovatel často může zvýšit pravděpodobnost
+hitu za cenu zvýšení pravděpodobnosti false alarmu či naopak. My bychom od senzitivity
+však chtěli, aby nezávisela na nastavení kritéria.
 
-Při detekci signálu rozeznáváme dva druhy šumu. Šum vnitřní a šum vnější \citep{DavidSDT}.
-Vnější šum je zkreslení dat, které se stane ještě mimo pozorovatele. Vnitřní
-šum je naopak šum, který je způsoben přímo algoritmem, který používá
-pozorovatel, aby dekódoval, zda signál je přítomen, či není.\index{Šum}
+Proto představíme příklad z praxe, na němž budeme poté ilustrovat výhody a 
+nevýhody různých definic senzitivity.
 
-Pro lepší porozumění představíme případ z praxe. Nechť je pozorovatel člověk, který není
+Nechť je pozorovatelem člověk, který není
 příliš pozorný a chystá se přejít silnici. Jeho (podvědomým) pozorováním je
-informace, která dorazí do jeho mozku z periferií jeho sítnic, a signál, jehož
+informace, která dorazí do jeho mozku z periferií jeho sítnic, a signálem, jehož
 přítomnost zkoumá, je, zda přijíždí auto. V takovém případě se v mozku spustí
 algoritmus, který převede pozorování na číslo $X$. Poznamenejme, že v mozku je
 hodnota tohoto čísla dobře kvantifikovaná, i když je mimo záběr této práce
@@ -255,11 +121,30 @@ není, a je tedy bezpečné silnici přejít, nebo zda je pravděpodobnost
 přijíždějícího auta dost vysoká na to, aby mělo smysl zvednout hlavu a podívat
 se příslušným směrem znovu s cílem získat lepší pozorování.
 
+První intuitivní nápad by byl definovat senzitivitu $s$ jako $$s=\text{Hit rate}.$$
+Z předchozího textu by ale mělo být vidět, že
+taková definice citlivosti není vhodná -- například pozorovatel, který vždy odpoví
+\uv{ano} by měl v tomto případě optimální citlivost. V našem případě bychom tedy za každé situace usoudili, že auto přijíždí a silnici bychom nikdy nepřešli, což jistě nechceme.
+
+Na druhý pokus zkusíme senzitivitu nadefinovat jako poměr hitů a false alarmů,
+tedy jako $$s=\frac{\text{Hit rate}}{\text{False alarm rate}}.$$
+Optimalizace s ohledem k takovému parametru by ale též vedla k scestnému nastavení
+kritéria.\footnote{V typickém případě, který je popsán v následujících
+odstavcích, se pro kritérium jdoucí k nekonečnu tento poměr též blíží k
+nekonečnu. Dobrý pozorovatel by tedy téměř vždy odpovídal \uv{ne}, optimální
+pozorovatel by neexistoval. Kdybychom takové kritérium použili v našem případě, vždy bychom usoudili, že je bezpečné silnici přejít.}
+
+Další možností by bylo charakterizovat pozorovatele jeho poměrem správných
+a špatných odpovědí. Zapíšeme-li takový parametr ale vzorcem, zjistíme, že by vypadal jako
+$$s=\text{Hit rate}*\P{S} + (1-\text{False alarm rate})*\P{\overline{S}}.$$ 
+Taková definice senzitivity též není vhodná, protože potom by citlivost pozorovatele
+nezávisela jen na jeho vlastnostech, ale i na pravděpodobnosti, že bude signál přítomen.
+
 Praxe ukazuje, že v těchto situacích je rozdělení veličiny $X$ často dobře
 aproximováno normálním rozdělením, a to jak v případě, že signál přítomen je,
 tak v případě, že přítomen není. Obě tato normální rozdělení navíc mají v tomto
 typickém případě stejný rozptyl a liší se jen svou střední hodnotou \citep{SwetsSDT}. Potom je
-přirozená otázka ptát se, jaký je rozdíl mezi jejich středními hodnotami (či lépe
+přirozenou otázkou ptát se, jaký je rozdíl mezi jejich středními hodnotami (či lépe
 rozdíl mezi jejich středními hodnotami vydělený směrodatnou odchylkou).
 
 Právě tuto hodnotu označíme jako hodnotu $d'$. Protože ale ne vždy je rozdělení
@@ -268,9 +153,11 @@ veličiny $X$.
 
 \begin{definice}\label{dprime}
 Nechť má pozorovatel $p$ hit rate $H_p$ a false alarm rate $F_p$ obě ostře mezi jedničkou a nulou. Potom budeme jeho \emph{senzitivitu}
-značit $d'$ a spočítáme jí jako $d' = \Phi^{-1}(H_p) - \Phi^{-1}(F_p),$ kde $\Phi^{-1}$ je inverzní distribuční funkce normovaného normálního rozdělení.
+značit $d'$ a spočítáme ji jako $$d' = \Phi^{-1}(H_p) - \Phi^{-1}(F_p),$$ kde $\Phi^{-1}$ je inverzní distribuční funkce normovaného normálního rozdělení.
 \end{definice}
 \index{d'@$d'$}
+
+
 
 \begin{figure}[h!]
   \includegraphics[width=.8\linewidth]{graphs/ROC.pdf}
@@ -282,31 +169,203 @@ značit $d'$ a spočítáme jí jako $d' = \Phi^{-1}(H_p) - \Phi^{-1}(F_p),$ kde
 
 Nahlédneme, že senzitivita má následující vlastnosti:
 \begin{itemize}
-\item Pokud $d' = 0$, tak jsou indikátorové náhodné veličiny \uv{Pozorovatel odpověděl kladně} a \uv{Signál je přítomen} nezávislé.
-\item Pokud $d' > 0$, tak mají tyto dvě veličiny kladnou korelaci.
+\item Pokud $d' = 0$, jsou indikátorové náhodné veličiny \uv{Pozorovatel odpověděl kladně} a \uv{Signál je přítomen} nezávislé.
+\item Pokud $d' > 0$, mají tyto dvě veličiny kladnou korelaci.
 \item Pokud skutečně má náhodná veličina $X$ jak v případě, že signál přítomen je, tak v případě, že signál přítomen není, normální rozdělení lišící se pouze střední hodnotou, pak hodnota $d'$ nezáleží na nastavení kritéria (samozřejmě krom případů, kdy kritérium nastavíme na plus nebo mínus nekonečno, pak hodnota $d'$ není dobře definovaná).
 \end{itemize}
+
+Závislost hit rate a false alarm rate pro konkretního pozorovatele se nazývá {\it ROC křivka} z anglického Receiver Operating Characteristic \citep{SwetsSDT,GreenSDT}. ROC křivky pro vybrané hodnoty $d'$ jsou zobrazeny na obrázku \ref{obr:dprime}.  
+
+\section{Šum}
+
+\index{Šum}
+V teorii detekce signálu šumem nazýváme nechtěnou (a typicky neznámou)
+modifikaci signálu.  Signály a s nimi spojené modifikace můžou být různé
+podstaty, například zvukové, nebo se může jednat o šum v elektromagnetickém
+vlnění. Také se může na signálu projevit mnoha různými způsoby. Může se k němu
+například přičíst. Takový šum nazveme {\it aditivní}. Dále existuje například
+ šum multiplikativní či fázový (šum, který se projevuje krátkodobým
+fázovým posunem signálu).
+
+Pro úlohu zrakového vyhledávání je relevantní aditivní vizuální šum. Nabízela
+by se otázka, proč nepoužít reálnou scénu, nebo naopak jednobarevné pozadí.
+Praktické scény jsou však těžko popsatelné a jednobarevné scény (obsahující
+pouze diskrétní rozptýlení) vnášejí do formalizace vyhledávání nepřesnosti --
+jejich popis je však nad rámec této práce, lze ho najít v článku
+\citep{WhyNoise}.
+
+  
+
+\subsection{Barva šumu}
+
+I když však
+odhlédneme od média, v němž se šum šíří či v něm je zachycený, existuje mnoho
+různých šumů. Jeden z parametrů, který lze měřit, se nazývá {\it výkonová
+spektrální hustota}. Její jednotkou jsou watty na Hertz a udává, jaký výkon má šum na dané frekvenci. Máme-li hodnoty šumu v dostatečně mnoha bodech, jeho spektrální hustotu spočítáme tak, že na šum aplikujeme
+Fourierovu transformaci.
+
+V závislosti na distribuci výkonu napříč různými frekvencemi přiřadíme šumu jméno. Tato jména jsou (i pro jiný než vizuální šum) odvozena od analogie s viditelným světlem -- šum se pojmenuje podle barvy, jakou by mělo světlo se stejným rozdělením výkonu napříč viditelným spektrem, jaké má šum rozdělení výkonu napříč svým spektrem. Takto známe například bílý, růžový, červený (někdy též označovaný jako
+Brownův či nesprávně hnědý\footnote{V anglické literatuře se používá
+termín {\it Brownian noise}, setkáme se ale i se zavádějícím
+termínem {\it Brown noise}. Jméno je odvozeno od souvislostí s Brownovým pohybem částic}) či modrý šum (viz obrázek \ref{obr:noise:example}).
+\index{Šum!bílý}
+\index{Šum!červený}
+\index{Šum!růžový}
+\index{Šum!modrý}
+
+Spektrální hustota $p$ všech zmíněných šumů na dané frekvenci $f$ lze vyjádřit jako
+$p=1/f^\beta$, kde hodnota $\beta$ je $-1$ pro modrý šum, $0$ pro bílý, $1$ pro
+růžový a $2$ pro hnědý. Proto se růžový šum někdy též označuje jako $1/f$ šum. Pro
+ostatní barvy šumu není podobné označení běžné. O šumu a jeho barvách je pojednáno více v
+knize Noise \citep{Noise}.
+
+Pravděpodobnostní rozdělení jednotlivých složek Fourierovy transformace ale
+není definicí barvy šumu dáno. Pokud je rozdělení normální (Fourierova obrazu nebo samotného šumu), řekneme, že se jedná o Gaussovský šum.
+
+V této práci se budeme zabývat vizuálním šumem, tedy šumem, kde místo obvykle
+používané časové souřadnice použijeme dvě souřadnice prostorové a měřenou
+hodnotou bude jas. 
+
+\begin{figure}[h!]
+\begin{tabular}{cc}
+\begin{subfigure}{0.45\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{img/blue_noise}
+  \caption{Modrý šum} 
+\end{subfigure}&
+\begin{subfigure}{0.45\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{img/white_noise}
+  \caption{Bílý šum} 
+\end{subfigure}\\
+\begin{subfigure}{0.45\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{img/pink_noise}
+  \caption{Růžový šum} 
+\end{subfigure}&
+\begin{subfigure}{0.45\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{img/brown_noise}
+  \caption{Červený, někdy též Brownův šum} 
+\end{subfigure}%
+\end{tabular} 
+\caption{Ukázky různých šumů. Tyto šumy byly vygenerovány pomocí algoritmu použitého přímo v aplikaci, která je součástí této práce. Algoritmus je blíže popsán ve druhé příloze.} 
+\label{obr:noise:example} 
+ 
+\end{figure}
+\section{Gabor patch}
+
+\index{Gabor patch}
+
+V úloze zrakového vyhledávání potřebujeme také nějaký cíl. V reálném životě
+vnímáme mnoho různých podnětů. Pro takovou situaci by však bylo příliš obtížné
+najít model. Proto se často používají jednodušší, lépe popsatelné cíle.  Jedním z takových
+stimulů je {\it Gabor patch} vycházející z Gabor filteru.
+
+Gabor filter (v českých textech někdy označovaný jako Gaborova vlnka) je
+lineární filtr používaný ve zpracování obrazu, chceme-li detekovat signál
+mající danou frekvenci a směr, který se vyskytuje kolem daného bodu.
+
+\subsection{Definice}
+
+Hodnotu filtru v daném bodě spočítáme jako součin dvou funkcí. První z nich
+nazveme {\it jádro} filtru. Jako jádro se vždy používá sinus či cosinus (někdy
+uváděné v podobě komplexní exponenciály, pokud potřebujeme i reálnou, i
+imaginární složku). Jeho parametry určují, jaké vlastnosti má mít signál, který
+chceme detekovat. Druhé funkci říkáme {\it obálka}, a určuje, na jakém okolí daného
+bodu signál zkoumáme.
+
+Funkci tedy lze vyjádřit jako $$g(x,y) =
+\sin\left(2\pi\frac{x'}{\lambda}+\phi\right)*\operatorname{obálka}(x',y'),$$
+kde vektor $(x',y')$ je vektor $(x,y)$ otočený o úhel, který svírá osa $x$
+se směrem, podél nějž chceme měřit signál (tento úhel budeme značit $\Theta$),
+a posunutý do bodu, v němž chceme měřit signál, $\lambda$ je frekvence signálu,
+který hledáme, a $\phi$ je fázový posun \citep{GaborPatch}. Frekvence signálu
+se nejčastěji udává v cyklech na jednotku vzdálenosti, často na pixel obrazu.
+
+Jako obálka se používá dvojrozměrná Gaussova funkce, raised cosine, nebo prostá
+lineární funkce vzdálenosti. 
+
+Gaussovu funkci vyjádříme jako $$ \operatorname{obálka}(x,y) =
+\exp\left(\frac{x'^2 + y'^2}{2\rho}\right),$$ kde $\rho$ je směrodatná odchylka
+Gaussovy křivky. Její výhodou je, že chování Gabor filtru, jehož obálku tvoří
+Gaussova funkce, je nejpřesněji popsané. Raised cosine vyjádříme jako 
+$$
+\operatorname{obálka}(x,y)=
+\begin{cases}
+ \frac{\cos(\pi\sqrt{x'^2+y'^2}/r)+1}2 &\text{pro $\sqrt{x'^2+y'^2}\leq r$,}\\[1ex]
+ 0 &\text{jinak,}
+\end{cases}
+$$ kde $r$ je poloměr oblasti, v níž chceme signál detekovat. Výhodou raised
+cosine oproti Gaussově funkci je, že ve vzdálenosti alespoň $r$ od středu
+filtru jeho hodnota nabývá nuly. Při výpočtech tedy stačí počítat s malou
+oblastí kolem středu (kdežto při použití Gaussovy funkce je nutné počítat s
+celým obrazem). Výhodou oproti lineární funkci vzdálenosti je, že raised cosine
+se pro většinu aplikací chová dostatečně podobně jako Gaussova funkce.
+
+\subsection{Použití}
+
+Chceme-li detekovat signál ve vizuálním šumu, spočítáme hodnotu $$s=\sum
+g(x,y)*n[x,y],$$ kde $n$ je šum a sumu bereme přes všechny body $(x,y)$, v
+nichž jsme naměřili hodnoty šumu. Je-li hodnota $s$  blízko nuly, signál v
+daném místě není přítomen, nebo je přítomen s jinými parametry. Vysoké hodnoty
+značí, že
+signál pravděpodobně přítomen je, hluboce záporné značí, že signál je přítomen,
+ovšem s fází posunutou $\pi$.
+
+Gabor filter ale můžeme používat i k samotné tvorbě signálu. Chceme-li vytvořit
+v daném bodě signál, můžeme spočítat Gabor filter, jako bychom chtěli
+detekovat signál s právě takovými parametry, jaké má mít tvořený signál, a
+potom ho sečíst se šumem. Takto vytvořenému signálu budeme říkat Gabor patch (několik příkladů viz obrázek \ref{obr:gabor:example}).
+
+\begin{figure}[h!]
+\begin{subfigure}{0.25\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{img/gabor1}
+\end{subfigure}% 
+\begin{subfigure}{0.25\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{img/gabor2}
+\end{subfigure}% 
+\begin{subfigure}{0.25\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{img/gabor3}
+\end{subfigure}% 
+\begin{subfigure}{0.25\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{img/gabor4}
+\end{subfigure}% 
+
+\caption{Ukázky několika Gabor patchů. Všechny Gabor patche jsou 100 pixelů
+široké i vysoké. Levý patch má $\Theta = 1/4\pi$, ostatní mají $\Theta =
+-1/4\pi$, levý má jako obálku Gaussovu funkci, prostřední dva raised cosine,
+pravý lineární funkci vzdálenosti, první, druhý a čtvrtý patch mají frekvenci (v
+cyklech na pixel) $0.1$, třetí $0.02$.} 
+
+\label{obr:gabor:example} 
+ 
+\end{figure}
+
 
 \section{Entropie}
 
 \index{Entropie}
 \index{Shannonova entropie}
-Entropií (nazývanou též Shannonova entropie, aby nedošlo k záměně s entropií
-tak, jak jí chápe termodynamika) náhodné veličiny se v teorii informace rozumí
-střední hodnota informace, kterou nám hodnota této veličiny přinese. Například
-mějme náhodné veličiny $X$ a $Y$. $X$ nechť nabývá hodnoty 0 s pravděpodobností
-$1/2$ a hodnoty 1 s toutéž pravděpodobností. $Y$ nechť nabývá hodnoty 1 s
-pravděpodobností 1 a hodnoty 0 s pravděpodobností 0. Je vidět, že pokud se
-dozvíme, jaké hodnoty nabývá veličina $X$, získáme více informace, než když
-zjistíme, jaké hodnoty nabývá $Y$.
-\def\H{\operatorname{H}}
+Další pojem, který budeme v této práci potřebovat, pochází z teorie informace.
+Entropií (nazývanou též Shannonova entropie) náhodné veličiny se v této teorii
+rozumí střední hodnota informace, kterou nám hodnota této veličiny přinese.
+Například mějme náhodné veličiny $X$ a $Y$. $X$ nechť nabývá hodnoty 0 s
+pravděpodobností $1/2$ a hodnoty 1 s toutéž pravděpodobností. $Y$ nechť nabývá
+hodnoty 1 s pravděpodobností 1 a hodnoty 0 s pravděpodobností 0. Je vidět, že
+pokud se dozvíme, jaké hodnoty nabývá veličina $X$, získáme více informace, než
+když zjistíme, jaké hodnoty nabývá $Y$.  \def\H{\operatorname{H}}
 
 Hodnotu informace, kterou nám přineslo zjištění, že náhodná veličina $A$ nabývá
 hodnoty $a$, spočítáme jako $$I(A=a)=-\log_b\left({\P{A=a}}\right)=\log_b\left(\frac1{\P{A=a}}\right).$$ Jako
-základ logaritmu $b$ se běžně používá 2 (což budeme dělat i v této práci), $e$
+základ logaritmu $b$ se běžně používá 2 (což budeme dodržovat i v této práci), $e$
 nebo 10. Všimneme si, že toto vyjádření množství informace je konzistentní s
-intuitivní představou, že zjištění, že $A$ nabývá nějaké nepravděpodobné
-hodnoty, je cennější, než zjištění, že nabývá nějaké pravděpodobné. Odsud tedy
+intuitivní představou, že pokud $A$ nabývá nějaké nepravděpodobné
+hodnoty, je informace o této hodnotě cennější, než kdyby nabývalo nějaké pravděpodobné. Odsud tedy
 entropii $\H(A)$ lze vyjádřit jako $$\H(A)=\mathbb{E}[I(A)]=-\displaystyle\sum_{a
 \in \Omega}\P{A=a}\log_2{\P{A=a}},$$ kde $\Omega = \{a|\P{A=a} > 0\}$.
 Všimneme si, že podle tohoto vzorce je entropie veličiny $X$, tak jak byla
@@ -317,6 +376,24 @@ Podobně jako u pravděpodobnosti můžeme poměrně přímočaře nadefinovat i
 podmíněnou entropii $\H(A| B)$
 
 Shannonova entropie byla v této podobě zavedena Claudem Shannonem v jeho článku \citeyearpar{Entropie}. 
+
+\section{Psychofyzika}
+
+Psychofyzika je disciplína psychologie, která zkoumá vztah mezi konkrétními
+stimuly a jim odpovídajícími vjemy. Lze ji aplikovat na libovolný smyslový
+vjem, ať už obraz, zvuk, vůni, chuť či hmatový vjem \citep{psychophysics}.
+Funkcím, které dávají do souvislosti parametry stimulů a chování subjektu v
+experimentu, se říká {\it psychometrické funkce}. 
+
+Při detekci signálu rozeznáváme dva druhy šumu. Šum vnitřní a šum vnější \citep{DavidSDT}.
+Vnější šum je zkreslení dat, které nastane ještě mimo pozorovatele. Vnitřní
+šum je naopak šum způsobený přímo algoritmem, který používá
+pozorovatel, aby dekódoval, zda signál je přítomen, či není.\index{Šum}
+
+Vrátíme se zpět na začátek této kapitoly k příkladu s chodcem přecházejícím silnici.
+Vnější šum tam může být způsoben množstvím faktorů. Například může nějaký předmět částečně blokovat výhled. Nebo může být chodcův zrak nedokonalý. Nebo se může směrem, ze kterého by se mohlo blížit auto, nějaký jiný předmět, který vypadá trochu jako auto. Vnitřní šum je naopak čistě uvnitř mozku, kdy mozek vjem, u kterého k tomu nemá žádný důvod vyhodnotí jako přijíždějící auto.
+
+Právě chování tohoto vnitřního šumu zkoumá psychofyzika.
 
 \section{Modely pozorovatele}
 
@@ -331,13 +408,10 @@ poté už pouze upravujeme či zpřesňujeme \citep{GreenSDT}.
 \index{Gabor patch}
 \index{Šum!růžový}
 V této práci se budeme zabývat úlohou, kdy pozorovatel hledá Gabor patch v
-kruhovém poli, v němž se nachází růžový šum. Předchozí výzkum ukázal, že lidští
-pozorovatelé v této úloze využívají krátkých pohledů a rychlých pohybů očí \citep{Najemnik05}.
-Jednomu takovému krátkému pohledu budeme říkat \emph{fixace}. Očnímu pohybu
-se říká \emph{sakáda} \citep{sakady}.
- 
-Abychom ale mohli hodnotit fixace lidského pozorovatele, potřebujeme mít nějaký
-model, který nám bude říkat, jak se chová optimální pozorovatel. Nejprve ale
+kruhovém poli, v němž se nachází růžový šum. 
+
+Abychom mohli hodnotit fixace lidského pozorovatele, potřebujeme mít nějaký
+model, který nám bude říkat, jak se chová optimální pozorovatel v této úloze. Nejprve ale
 stručnou odbočku:
 
 \subsection{$d'$ mapa}
@@ -355,14 +429,12 @@ téměř uniformními lokálními kontrasty lze tuto funkci zjednodušit, stač�
 budeme pro každý bod $x$ vědět, jaká je hodnota $d'$ pro rozhodování, zda je
 cíl v bodě $x$, pokud zafixujeme střed.
 
-Funkcím, které dávají do souvislosti parametry stimulů a chování subjektu v
-experimentu, se říká {\it psychometrické funkce} \citep{psychophysics}. Zde je
-tedy parametrem poloha stimulu, a chování subjektu je vyjádřeno jeho hodnotou
+Jedná se tedy o psychometrickou funkci, kde je parametrem poloha stimulu, a chování subjektu je vyjádřeno jeho hodnotou
 $d'$.
 
 Předchozí výzkum ukázal, že u běžného člověka je $d'$ mapa poměrně
 nepravidelná \citep{Najemnik08}, ale dá se s přijatelnou přesností aproximovat mapou, kde křivky
-spojující body se stejnou hodnotou $d'$ jsou tvořeny čtyřmi čtvrtelipsami
+spojující body se stejnou hodnotou $d'$ jsou tvořeny čtyřmi čtvrt\-elipsami
 (jednou v každém kvadrantu) se středem v počátku, s
 excentricitami a velikostí poloos danou hodnotou $d'$ a individuálními
 vlastnostmi pozorovatele a cíle \citep{Ellipse}. 
@@ -382,21 +454,26 @@ a $e_V$ je rovno $e_D$ pro záporná $y$ a $e_N$ pro kladná.
 Všechny modely, které zde budeme zkoumat, vypadají tak, že mají tzv. {\it Mapu
 aposteriorních pravděpodobností}. V této mapě je pro každou lokaci, kde by
 signál (též cíl) mohl být, uvedeno, jaká je pravděpodobnost, že se na ní cíl
-nachází vzhledem k informaci, kterou již o dané lokaci pozorovatel získal. Ve
-chvíli, kdy na nějaké lokaci pravděpodobnost přesáhne kritérium, pozorovatel
-ukončí hledání a ohlásí nalezení cíle na této lokaci.
+nachází vzhledem k informaci, kterou již o dané lokaci pozorovatel získal. 
+
+Pozorovatel postupuje tak, že si vždy vybere lokaci, kterou zafixuje. Poté
+provede fixaci a získá o každé lokaci určitou informaci. Pak spočítá novou mapu
+posteriorních pravděpodobností. Pokud na některé lokaci pravděpodobnost přesáhne kritérium, pozorovatel
+ukončí hledání a ohlásí nalezení cíle na této lokaci. Jinak pokračuje ve vyhledávání výběrem další lokace k fixaci.
+Jednotlivé modely se dále liší pouze algoritmem, který používají k výběru lokace k fixaci.
+
 
 V rámci předchozího výzkumu bylo otestováno mnoho modelů, jako například
-pozorovatel, který volí fixace náhodně nebo pozorovatel, který volí fixace 
+pozorovatel, který volí fixace náhodně, nebo pozorovatel, který volí fixace 
 tak, aby nikdy nezafixoval tutéž lokaci vícekrát. Všechny tyto modely se ale ukázaly jako
-nevhodné, vzhledem k tomu, že v praxi dosahují mnohem horších výsledků (měřeno
+nevhodné vzhledem k tomu, že v praxi dosahují mnohem horších výsledků (měřeno
 pomocí střední hodnoty počtu fixací před nalezením cíle) než lidský
-pozorovatel.
+pozorovatel. \citep{Najemnik05}.
 
 \subsubsection{MAP pozorovatel}
 
 \index{MAP pozorovatel}
-Nejjednodušší model, který dosahuje podobných výsledků, jako lidský pozorovatel,
+Nejjednodušší model, který dosahuje podobných výsledků jako lidský pozorovatel,
 je tzv. MAP\footnote{Z anglického \uv{Maximum Aposteriori Probability}.}
 pozorovatel, který vždy zafixuje lokaci, která má v jeho mapě aposteriorních
 pravděpodobností nejvyšší hodnotu. Tento pozorovatel již dosahuje podobných
@@ -411,7 +488,7 @@ stejnou pravděpodobností.
 
 \index{Ideální Bayesovský pozorovatel}
 \index{IBO}
-Ještě o malinko lepších a hlavě statisticky lidskému pozorovateli bližších
+Ještě o trochu lepších a hlavě statisticky lidskému pozorovateli bližších
 výsledků dosahuje model Ideálního Bayesovského pozorovatele.  
 
 Ideální Bayesovský pozorovatel (dále IBO) je pozorovatel, který $T+1$ lokaci
@@ -426,17 +503,17 @@ fixaci, $L$ je množina všech potenciálních lokací cíle a $c$ je kritérium
 které musí hodnota v mapě aposteriorních pravděpodobností překročit, aby bylo
 ukončeno hledání a nahlášeno nalezení cíle. Výraz $\P{p_{T+1}(i)\geq c |
 i,k(T+1)}$ pak tedy znamená \uv{pravděpodobnost, že po $T+1$ fixaci bude
-ukončeno hledání a nahlášen signál v lokaci $i$, za podmínky, že tam signál
-opravdu je a byl zafixován bod $k(T+1)$}. 
+ukončeno hledání a nahlášen signál v lokaci $i$, za podmínky, že v ní signál
+opravdu je přítomen a byl zafixován bod $k(T+1)$}. 
 
-IBO však ale též není příliš dobrý kandidát na model, podle nějž se
-lidé chovají.  Ač má jeho vyhledávání podobné statistické vlastnosti, jako
+IBO však ale též není příliš dobrým kandidátem na model, podle nějž se
+lidé chovají.  Ač má jeho vyhledávání podobné statistické vlastnosti jako
 vyhledávání lidského pozorovatele, vyžaduje perfektní paměť a ideální integraci
 informace mezi fixacemi. Ani jednu z těchto dovedností ale lidský pozorovatel
 nemá. Dále si můžeme všimnout, že přinejmenším přímočaré
 vyhodnocení výrazu \eqref{IBOnext} je kubické v počtu potenciálních
 lokací (výpočet druhého činitele součinu v sumě je lineární, suma sama je přes
-lineárně mnoho členů, a vnější maximum má též lineárně mnoho možných voleb
+lineárně mnoho členů a vnější maximum má též lineárně mnoho možných voleb
 $k(T+1)$). Lidský pozorovatel při vyhledávání volí další fixaci přibližně
 třikrát až čtyřikrát za vteřinu, je tedy nepravděpodobné, že by lidský mozek
 dokázal takový výpočet provést \citep{Najemnik08}. 
@@ -458,3 +535,7 @@ lokace jako vektory od počátku k nim. Člen $\H(T)$ navíc nezávisí na $k(T+
 takže s ním vůbec nemusíme počítat a k minimalizaci entropie nám stačí
 maximalizovat hodnotu sumy.
 
+
+\section{Percepční učení}
+
+TODO

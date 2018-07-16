@@ -1,12 +1,12 @@
 \chapter{Metody}
 
-V této kapitole popíšeme metody, kterým byl prováděn experiment. Technické detaily,
+V této kapitole popíšeme metody, kterými byl prováděn experiment. Technické detaily,
 jako například algoritmus, kterým byl generován šum, nebo hodnoceny lokace, jsou
 ale uvedeny až v dokumentaci aplikace, která je druhou přílohou této práce.
 
 \section{Účastníci}
 
-Účastníků bylo celkem deset, pět v každé skupině. Zrak všech z nich byl
+Experiment byl proveden celkem s 10 účastníky, pěti v každé skupině. Zrak všech z nich byl
 normální nebo upravený na normální (např.  brýlemi). Byli vybráni z okolí
 autora této práce, nejednalo se tedy o náhodný výběr z populace. Do skupin byli
 rozřazeni náhodně. Ve skupině se zpětnou vazbou byl věkový průměr $26.8$ let,
@@ -19,7 +19,7 @@ modelů IBO a ELM.
 
 \section{Nástroje a stimuly}
 \begin{figure}
-\begin{center}
+\centering
 \begin{tabular}{c}
 \begin{subfigure}{0.95\textwidth}
 \centering
@@ -35,7 +35,7 @@ modelů IBO a ELM.
 \end{subfigure}
 \end{tabular}
 \caption{Příklady šumů s cíli.}
-\end{center}
+\label{Sumy}
 \end{figure}
 
 K experimentu byla použita aplikace, která je součástí této práce. 
@@ -43,18 +43,18 @@ Jako zobrazovací zařízení byl použit iPad air s displejem o rozlišení
 $2048\times1536$ a o úhlopříčce $9.7$ palců, což odpovídá rozměrům displeje asi
 $19.7 \times 14.8$ centimetrů. Hustota pixelů je 264 pixelů na palec. 
 
-V experimentu použitý růžový šum byl kruhový a jeho průměr byl 1024 pixelů.
+V experimentu použitý růžový šum byl kruhový a jeho průměr byl 1024 pixelů
 \footnote{Odsud již všude, kde není zřejmý opak, se pixelem myslí
-pixel obrázku, nikoliv pixel displeje.} Tento průměr byl zvolen proto, že je
+pixel obrázku, nikoliv pixel displeje.}. Tento průměr byl zvolen proto, že je
 to nejbližší mocnina dvojky ke kratšímu rozměr displeje iPadu v pixelech.
 Mocnina dvojky byla zvolena kvůli použití rychlé Fourierova transformace při
-generování růžového šumu. RMS kontast\footnote{{\it RMS kontrast} je pro
-černobílý obraz vlastně jiný název pro standarní odchylku jasu pixelu, kdy jas
+generování růžového šumu. RMS kontrast\footnote{{\it RMS kontrast} je pro
+černobílý obraz vlastně jiný název pro standardní odchylku jasu pixelu, kdy jas
 měříme tak, aby černý pixel dostal hodnotu nula a bílý hodnotu jedna
 \citep{RMS}.} šumu byl po vygenerování roven $0.25$, ale při zobrazování byly
 hodnoty lišící se od střední hodnoty o více než dvě standardní odchylky
 přiblíženy ke střední hodnotě právě na tuto vzdálenost, čímž byl RMS kontrast
-mírně snížen. \index{RMS kontrast}
+mírně snížen (pro příklad šumu takového, jaký byl použit viz obrázek \ref{Sumy}). \index{RMS kontrast}
 
 Jako stimulus byl použit Gabor patch. Jedním z problémů aditivního Gabor patche
 ale je fakt, že jas pixelu je v praxi omezený. Kdybychom tedy přičítali Gabor
@@ -79,11 +79,12 @@ hodnoty Gaboru a jeho obálky.  Zvolené parametry Gabor patche byly:
 \centering
 \includegraphics[width=0.48\textwidth]{img/locations_outline.png}
 \caption {Možné lokace Gabor patche}.
+\label{LokaceGP}
 \end{figure}
 
 Možných lokací Gabor patche bylo celkem 85, a byly rozmístěny po scéně v
 trojúhelníkové mřížce tak, aby jedna možná lokace byla ve středu. Vzdálenost
-dvou sousedních možných lokací byla 100 pixelů. 
+dvou sousedních možných lokací byla 100 pixelů (viz obrázek \ref{LokaceGP}). 
 
 Kontrast cíle byl daný maximem obálky, tedy při snižování kontrastu byl cíl čím
 dál tím průhlednější. Hodnoty kontrastu se mohly pohybovat mezi nulou a
@@ -108,7 +109,7 @@ cíle.\footnote{To znamená, že je potenciálně možné dosáhnout výsledku l
 než $\Delta$, resp. horšího, než $\delta$. Rozdíl by však neměl být důležitý.} 
 
 Tento vzorec byl sestaven tak, aby účastník dostal tón a1 v případě, že zvolil
-lokaci, terá vedla ke stejnému očekávanému snížení entropie, jako lokace,
+lokaci, která vedla ke stejnému očekávanému snížení entropie, jako lokace,
 kterou vybral model ELM jako nejlepší, tón a3 v případě, že naopak zvolil
 nějakou z nejhorších možných lokací.
 
@@ -148,14 +149,14 @@ směrech stejná). Blíže je popsána v knize Psychophysics: A practical
 introduction \citep{psychophysics}.  Na rozdíl od implementace této metody,
 která je popsaná v knize, jsme se rozhodli za jev považovat tři úspěchy za
 sebou a za jeho absenci tři neúspěchy, abychom zmenšili velký rozptyl, který
-náš jev jinak má.\TODO{Nebo jak tohle okecat?}
+náš jev jinak má.
 
 Hodnota $0.01$ byla vybrána tak, aby se během 120 úkolů, které jsou v
 prostředním testu, účastník mohl teoreticky dostat až na hodnoty kontrastu
 kolem $0.3$. S kontrastem menším než přibližně $0.45$ je ale pravděpodobnost
 splnění úkolu bez ohledu na strategii podle subjektivního názoru autora práce
 velmi nízká. V experimentu se tento dojem potvrdil, nejnižší v experimentu
-dosažený kontrast byl $0.51$.
+dosažený kontrast byl $0.5$.
 
 
 
@@ -176,7 +177,7 @@ naměřená $d'$ mapa odpovídá situaci, kdy je scéna se šumem umístěna tak
 od pozorovatele, aby ji viděl pod zorným úhlem $15^\circ$. To při velikosti
 scény v našem případě odpovídá vzdálenosti pozorovatele a zařízení přibližně
 $65 \operatorname{cm}$. V našich experimentech nebyla vzdálenost pozorovatele od
-scény hlídána. a určitě byla nižší, než řečených $65 \operatorname{cm}$
+scény hlídána a určitě byla nižší, než řečených $65 \operatorname{cm}$
 (dodržení této vzdálenosti by odpovídalo situaci, kdy by účastníci držely iPad
 před sebou zhruba na délku natažené paže). 
 
