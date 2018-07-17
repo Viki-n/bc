@@ -1,29 +1,91 @@
 \chapter{Měření}
 
-V této kapitole stručně představíme výsledky měření, detailní grafy ke každému pozorovateli zvlášť jsou v první příloze této práce.
+V této kapitole stručně představíme výsledky měření. Všechny výsledky
+prezentované v této kapitole jsou založeny pouze na měření z prvního a třetího
+testu. Data z prvních pěti úkolů prvního testu navíc nepoužijeme, protože se
+během nich účastníci ještě seznamovali s rozhraním aplikace, s jejíž pomocí byl
+experiment prováděn. Ve všech případech byly použity výsledky všech testů, ne
+jen těch, v nichž byl cíl nakonec úspěšně nalezen. Grafy, které jsou vytvořeny
+pouze z úkolů, kdy byl cíl nalezen, však vypadají velmi podobně. 
 
-\section{Výsledky}
+\def\graphfigure#1#2#3{
 \begin{figure}[h!]
 \centering
-\begin{tabular}{c}
-\begin{subfigure}{0.80\textwidth}
-\includegraphics[width=0.99\linewidth]{graphs/AverageTries}
-\caption{Průměrný počet fixací}
-\end{subfigure}\\
-\end{tabular}
+ \makebox[\textwidth][c]{\includegraphics{graphs/#1}}
+\caption{#2}
+\label{#3}
 \end{figure}
-\begin{figure}[h!]
-\begin{tabular}{c}
-\begin{subfigure}{0.80\textwidth}
-\includegraphics[width=0.99\linewidth]{graphs/AverageSuccesfullTries}
-\caption{Průměrný počet fixací v úspěšně splněných úkolech}
-\end{subfigure}\\
+}
 
-\begin{subfigure}{0.80\textwidth}
-\includegraphics[width=0.99\linewidth]{graphs/FinalDifficulty}
-\caption{Obtížnost po 40. pokusu}
-\end{subfigure}\\
+\graphfigure{before_all}{Graf znázorňující průměrný počet fixací pro jednotlivé účastníky v jednom úkolu v prvním testu}{beforeall}
 
+\graphfigure{after_all}{Graf znázorňující průměrný počet fixací pro jednotlivé účastníky v jednom úkolu ve třetím testu}{afterall}
+
+Protože grafy průměrného počtu fixací před a po učení (viz obrázky \ref{beforeall} a \ref{afterall}) samy o sobě nevypadají příliš porovnatelně, v tabulce jsou uvedené jednotlivé průměry a jejich rozdíly.
+
+\begin{center}
+\begin{tabular}{cccc}
+\hline
+\hline
+\multirow{2}{*}{Účastník} & \multicolumn{2}{c}{Průměrný počet fixací}&\multirow{2}{*}{Zlepšení} \\
+&Před učením & Po učení &\\ 
+\hline
+Kontrolní 1       &  4.06  &3.62 & 0.432\\
+Kontrolní 2     &    4.03 & 5.88 &-1.85\\ 
+Kontrolní 3      &   4.23 & 4.35 &-0.121\\
+Kontrolní 4    &     5.46 & 3.65 & 1.81 \\
+Kontrolní 5     &    5.69 & 4.35 & 1.34 \\
+Experimentální 1      &   4.74 & 4.08 & 0.668\\
+Experimentální 2       &  4.74  &4.97 &-0.232\\
+Experimentální 3       &  5.51 &  3.7  & 1.81 \\
+Experimentální 4     &   5.63  &3.8  & 1.83 \\
+Experimentální 5      &  7.31 & 4.28  &3.04 \\
+
+\hline
+\hline
+\end{tabular}
+\end{center}
+
+\graphfigure{total_all}{Graf znázorňující průměrný počet fixací v rámci skupin v prvním a třetím testu}{total}
+
+Jak je vidět z tabulky a ještě o něco lépe z posledního grafu (viz obrázek \ref{total}), zlepšení u experimentální skupiny je viditelně větší, než u kontrolní skupiny, ale není jasné, jak moc je tento rozdíl způsobený tím, že experimentální skupina byla na začátku horší než skupina kontrolní. 
+
+\begin{center}
+\begin{tabular}{cccc}
+\hline\hline
+       Efekt & &$p$-hodnota & partial $\eta^2$ \\
+\hline                                            
+ (Intercept)& F(1, 8) = 838.95& < 0.001 & > 0.99 \\
+       Skupina&F(1, 8) =   1.14& 0.318 & 0.12 \\ 
+       Test &F(1, 8) =   4.23& 0.074 & 0.35 \\ 
+ Skupina:Test&F(1, 8) =   1.69& 0.230 & 0.17 \\ 
+\hline\hline
 
 \end{tabular}
-\end{figure}
+\end{center}
+
+Z $p$-hodnot a hodnot $\eta^2$ uvedených v tabulce vyplývá, že učení jako takové má větší vliv na výkon, než příslušnost k jednotlivým skupinám, žádné z těchto výsledků ale nejsou statisticky významné. Když se však podíváme na obtížnost, na které se účastníci při experimentu pohybovali, dostaneme zajímavější výsledky. V tomto porovnání již vliv učení dosahuje statistické významnosti, jak je vidět z grafu (viz obrázek \ref{diff}) i následující tabulky.
+
+\begin{center}
+\begin{tabular}{cccc}
+\hline\hline
+       Efekt & &$p$-hodnota & partial $\eta^2$ \\
+\hline                                         
+(Intercept)& F(1, 8) = 24247.2&  < 0.001& > 0.99\\
+       Skupina& F(1, 8) =     1.03& 0.341&   0.11    \\
+      Test& F(1, 8) =    19.19& 0.002&  0.71  \\
+ Skupina:Test& F(1, 8) =     1.75& 0.223&  0.18       \\
+
+\hline\hline
+
+\end{tabular}
+\end{center}
+
+
+\graphfigure{difficulty_average}{Graf znázorňující obtížnost, na které se účastníci v jednotlivých skupinách a fázích v průměru pohybovali}{diff}
+
+
+Detailní grafy ke každému pozorovateli zvlášť jsou uvedeny v první příloze této práce,
+data a program jazyka R použitý k tvorbě těchto grafů je součástí
+elektronických příloh této práce.
+

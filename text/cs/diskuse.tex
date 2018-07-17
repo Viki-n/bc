@@ -1,2 +1,106 @@
 \chapter{Diskuse}
 
+Cílem experimentu bylo ukázat, zda má zpětná vazba vliv na to, jak dobře se
+člověk během daného počtu pokusů naučí hledat cíl.
+
+Analýza naznačuje, že během 120 tréninkových pokusů dochází k měřitelnému a
+statisticky významnému zlepšení. Zpětná vazba na učení nejspíš mí vliv také, není ale tak výrazný a kvůli velkému rozptylu a malému vzorku
+se ho nepodařilo prokázat statisticky významně.
+
+
+\section{Limitace}
+
+Při návrhu experimentu jsme narazili na několik problémů, které mohly
+nepřesnosti do měření, ale jejichž řešení je mimo rozsah této práce. Konkrétně
+se jedná o následující obtíže:
+
+\begin{itemize}
+
+\item Vjemy lidského pozorovatele neodpovídají příliš dobře vjemům simulovaného
+ideálního pozorovatele. Aby si tyto vjemy odpovídaly, alespoň přibližné, museli
+bychom každému pozorovateli změřit jeho vlastní $d'$ mapu. Měření $d'$ mapy ale
+i  v té nejminimalističtější variantě, která se používá, trvá nejméně jeden
+pracovní den. Druhým důvodem, proč mohou být vjemy rozdílné i v případě, že by
+konstanty $d'$ mapy vyšly pozorovateli stejně, jaké byly použity, je, že tato
+naměřená $d'$ mapa odpovídá situaci, kdy je scéna se šumem umístěna tak daleko
+od pozorovatele, aby ji viděl pod zorným úhlem $15^\circ$. To při velikosti
+scény v našem případě odpovídá vzdálenosti pozorovatele a zařízení přibližně
+$65 \operatorname{cm}$. V našich experimentech nebyla vzdálenost pozorovatele od
+scény hlídána a určitě byla nižší, než řečených $65 \operatorname{cm}$
+(dodržení této vzdálenosti by odpovídalo situaci, kdy by účastníci drželi iPad
+před sebou zhruba na délku natažené paže). 
+
+\item I pokud odhlédneme od nepřesností zmíněných v předchozím bodě a dovolíme
+si na chvíli (evidentně scestný) předpoklad, že účastnící měly vlastní $d'$ mapu
+konstantní, narazíme na další problém. Okraj oblasti, která byla odkrývána,
+byl ztmavován lineárně se snižující se hodnotou $d'$ v použité $d'$ mapě.
+Závislost $d'$ na kontrastu ale téměř jistě
+není lineární.
+
+\item S tím souvisí ještě jeden problém: Subjekty samozřejmě nemají svou $d'$
+mapu konstantní. Tato mapa se tedy nějak skládá s $d'$ mapou, pomocí které
+bylo určeno odhalování šumu. V práci jsme toto skládání ignorovali (tedy
+předpokládali jsme, že $d'$ na kontrastu závisí lineárně a $d'$ mapa účastníků
+je konstantní.) Nabízela by se otázka, proč tedy bylo zatemňování šumu vůbec
+prováděno. To se dělo z několika důvodů:
+
+\begin{itemize}
+
+\item Zatemňování šumu zavádí potřebu klikat na místa, která chce pozorovat v
+dalším kroku prozkoumat. Nutí tedy pozorovatele, aby tato rozhodnutí dělal
+vědomě a nikoli podvědomě, což byl jeden z efektů, které jsme chtěli zkoumat.
+
+\item Celý proces jedné fixace tímto způsobem také trvá mnohem déle (nižší
+jednotky vteřin místo nižších desetin vteřiny) a poskytuje nám tedy mnoho času
+na update mapy aposteriorních pravděpodobností a výpočet množství informace,
+kterou lze získat následující fixací.
+
+\item Takto navržený experiment též umožňuje zjišťovat, které lokace účastník
+fixuje bez použití eyetrackeru nebo jiných technologií.
+
+\end{itemize}
+
+\item Zpomalení celého procesu výběru fixace přináší ale i jednu komplikaci. V případě, kdy
+účastník provádí jednu fixaci za $300\operatorname{ms}$, nestíhá nad svou
+strategií volení fixací přemýšlet. To znamená, že zlepšení strategie je
+skutečně způsobeno převážně percepčním učením. V našem experimentu si však
+účastníci mohli nad každou další fixací přemýšlet, je tedy pravděpodobné, že
+docházelo vedle možného percepčního učení  i ke kognitivnímu učení. Percepční
+učení se však v experimentu odehrálo určitě též.  Během experimentu se u
+účastníků zjevně podstatně zlepšila jejich senzitivita, ke konci experimentu
+byli schopní odhalit cíl s výrazně nižším kontrastem, než na jeho počátku.
+
+
+\item Vzhledem k tomu, že počet reálných pixelů displeje neodpovídal (a ani
+nebyl dělitelný) velikostí scény v pixelech, je možné, že byly efekty jako
+například antialiasing změněny lokální kontrasty scény.
+
+\item Ve výzkumu v oblasti psychofyziky se většinou
+pečlivě kontroluje prostředí (například se zatemňuje místnost, v níž se provádí experiment). To jsme v našem výzkumu nedělali.
+
+\end{itemize}
+
+Za zásadní chybu naopak
+nepovažujeme malý počet účastníků -- kdybychom chtěli na této práci postavit
+přesný experiment, nebylo by potřeba zvyšovat počet účastníků. Jinou, v oblasti
+psychofyziky často preferovanou cestou, je pokusit se co nejvíce minimalizovat vliv vnějšího šumu a provádět více měření
+měření na jednotlivých účastnících. To bychom mohli uskutečnit například tak, že bychom vícekrát opakovali
+první a třetí test. Přístupu, kdy zkoumáme malý počet účastníků, ale provádíme mnoho co nejpřesnějších měření, se říká small-$N$ design. O jeho výhodách pojednává ve svém článku \citet{SmallN}. Kdybychom se však rozhodli raději pro Large-$N$ design, mohli
+bychom většinu ostatních parametrů experimentu ponechat, ale bylo by potřeba
+přinejmenším o řád více účastníků.
+
+V průběhu experimentu se ukázala jedna chyba v návrhu experimentu, kterou by
+bylo při pokračování ve výzkumu vhodné odstranit, bez ohledu na to, zda bychom
+zvolili small-$N$ či large-$N$ design. 
+
+V aplikaci, pomocí níž byl experiment prováděn, byl naimplementován model obecný
+model pozorovatele tak, jak je popsán v článku \citep{Najemnik05}. Tento model funguje tak, že pozorovatel dostane po fixaci z každé lokace odpověď, která je číslem náhodně vygenerovaným z normálního rozdělení. Střední hodnota tohoto rozdělení závisí na tom, zda je v dané lokaci cíl přítomen nebo ne, směrodatná odchylka závisí na hodnotě $d'$, kterou tato lokace zhledem k zafixované lokaci má. Takto získané odpovědi potom model použil k update mapy posteriorních pravděpodobností.
+
+Tento přístup dává smysl v případě, kdy je naším cílem skutečně simulovat
+reálného pozorovatele. Reálnému pozorovateli se stejně jako takto simulovanému
+občas stane, že vjem z nějaké lokace (typicky dále od místa, které zafixoval,
+kde hodnota $d'$ není příliš vysoká) nesprávně vyhodnotí jako pravděpodobnou lokaci
+cíle. V takovém případě je samozřejmě racionální následující fixací zkontrolovat, zda se tam cíl skutečně nachází. Problém nastává ve chvíli, kdy se takovéhle zavádějící pozorování stane simulovanému pozorovateli, ne však pozorovateli reálnému. Simulovaný pozorovatel potom svou zpětnou vazbou trvá na tom, že místo, kde si myslí, že zaznamenal cíl, je nejvhodnější k další fixaci, často s velkým rozdílem oproti ostatním lokacím. V takové situaci je zpětná vazba modelu ELM vyloženě matoucí. 
+
+Při opakování experimentu by tedy bylo vhodnější implementovat ELM pozorovatele tak, aby si myslel, že dostává od modelu odpovědi vybrané z příslušných distribucí, ve skutečnosti by ale dostával pouze dvě možné konstanty, jednu z lokací, kde cíl není, a druhou z lokace, kde je. Takto naimplementovaný pozorovatel by se stále choval dostatečně podobně reálným pozorovatelům, aby dávalo smysl snažit se naučit lidského pozorovatele jeho strategii, ale zmenšil by se rozptyl mezi vnitřním šumem pozorovatele a vnitřním šumem modelu.
+

@@ -1,0 +1,170 @@
+library(readr)
+
+data <- read_table2("C:/Users/l/Desktop/Shared/bp/data/csv/data.csv", 
+     col_types = cols(hit = col_logical()))
+
+library(tidyverse)
+library(ez)
+library(Hmisc)
+
+theme_set(theme_bw(16))
+
+
+library(apa)
+
+Sys.setlocale("LC_CTYPE","czech")
+
+fdata <- data %>% 
+  mutate( ucastnik=paste(str_sub(name,1,1),str_sub(name,-1,100)),Skupina= (ifelse(group=="control", "Kontrolní", "Experimentální")),faze=ifelse(phase=="before","Před učením","Po učení"),hitnum = ifelse(hit,1,0)) %>%
+filter(trial>5,phase!="training") 
+
+plot <- fdata %>% 
+filter(hit,phase=="before") %>% 
+ggplot(aes(ucastnik,fixations,group=name,col=Skupina)) +
+ 	stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = 0.2) + 
+	stat_summary() +
+	labs(x="Účastníci",y="Průměrný počet fixací",color="Skupina")
+
+ggsave("before_hit.eps",plot,device="eps",width = 6,height = 4,units=c("in"))
+
+plot <- fdata %>% 
+filter(phase=="before") %>% 
+ggplot(aes(ucastnik,fixations,group=name,col=Skupina)) +
+ 	stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = 0.2) + 
+	stat_summary() +
+	labs(x="Účastníci",y="Průměrný počet fixací",color="Skupina")
+
+ggsave("before_all.eps",plot,device="eps",width = 6,height = 4,units=c("in"))
+
+
+plot <- fdata %>% 
+filter(hit,phase=="after") %>% 
+ggplot(aes(ucastnik,fixations,group=name,col=Skupina)) +
+ 	stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = 0.2) + 
+	stat_summary() +
+	labs(x="Účastníci",y="Průměrný počet fixací",color="Skupina")
+
+ggsave("after_hit.eps",plot,device="eps",width = 6,height = 4,units=c("in"))
+
+
+plot <- fdata %>% 
+filter(phase=="after") %>% 
+ggplot(aes(ucastnik,fixations,group=name,col=Skupina)) +
+ 	stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = 0.2) + 
+	stat_summary() +
+	labs(x="Účastníci",y="Průměrný počet fixací",color="Skupina")
+
+ggsave("after_all.eps",plot,device="eps",width = 6,height = 4,units=c("in"))
+
+
+
+
+plot <- fdata %>% 
+filter(hit) %>%
+group_by(Skupina,ucastnik,phase) %>%
+summarise(mn = mean(fixations)) %>%
+mutate(signmean=ifelse(phase=="before",0-mn,mn)) %>%
+group_by(Skupina, ucastnik) %>%
+summarise(mn = sum(signmean)) %>% 
+ggplot(aes(ucastnik,mn,col=Skupina)) + 
+	geom_point()
+
+ggsave("diff_hit.eps",plot,device="eps",width = 6,height = 4,units=c("in"))
+
+
+
+plot <- fdata %>% 
+group_by(Skupina,ucastnik,phase) %>%
+summarise(mn = mean(fixations)) %>%
+mutate(signmean=ifelse(phase=="before",0-mn,mn)) %>%
+group_by(Skupina, ucastnik) %>%
+summarise(mn = sum(signmean)) %>% 
+ggplot(aes(ucastnik,mn,col=Skupina)) + 
+	geom_point()
+
+ggsave("diff_all.eps",plot,device="eps",width = 6,height = 4,units=c("in"))
+
+
+
+
+pd <- position_dodge(width = 0.1)
+
+plot <- fdata %>%
+filter(hit) %>%
+mutate(Skupina= (ifelse(group=="control", "Kontrolní", "Experimentální")),faze=ifelse(phase=="before","Před učením","Po učení")) %>%
+ggplot(aes(faze,fixations,group=Skupina,col=Skupina)) +
+	stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = 0.2, position = pd) + 
+	stat_summary(position = pd)+stat_summary(geom="line",position = pd) +
+	labs(x="Fáze",y="Průměrný počet fixací",color="Skupina") + 
+	scale_x_discrete(limits=c("Před učením","Po učení"))
+
+
+ggsave("total_hit.eps",plot,device="eps",width = 6,height = 4,units=c("in"))
+
+
+
+plot <- fdata %>%
+mutate(Skupina= (ifelse(group=="control", "Kontrolní", "Experimentální")),faze=ifelse(phase=="before","Před učením","Po učení")) %>%
+ggplot(aes(faze,fixations,group=Skupina,col=Skupina)) +
+	stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = 0.2, position = pd) + 
+	stat_summary(position = pd)+stat_summary(geom="line",position = pd) +
+	labs(x="Fáze",y="Průměrný počet fixací",color="Skupina") + 
+	scale_x_discrete(limits=c("Před učením","Po učení"))
+
+
+ggsave("total_all.eps",plot,device="eps",width = 6,height = 4,units=c("in"))
+
+
+
+
+
+plot <- fdata %>% 
+    filter(phase=="before") %>% 
+    ggplot(aes(ucastnik,hitnum,group=name,col=Skupina)) +
+    stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = 0.2) +
+    stat_summary() +
+    labs(x="Účastníci",y="Hit rate",color="Skupina")
+
+ggsave("Hitrate_before.eps",plot,device="eps",width = 6,height = 4,units=c("in"))
+
+plot <- fdata %>% 
+    filter(phase=="after") %>% 
+    ggplot(aes(ucastnik,hitnum,group=name,col=Skupina)) +
+    stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = 0.2) +
+    stat_summary() +
+    labs(x="Účastníci",y="Hit rate",color="Skupina")
+
+ggsave("Hitrate_after.eps",plot,device="eps",width = 6,height = 4,units=c("in"))
+
+
+
+
+
+plot = fdata %>%
+ggplot(aes(faze,hitnum,group=Skupina,col=Skupina)) +
+	stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = 0.2, position = pd)+
+	stat_summary(position = pd)+
+	stat_summary(geom="line",position = pd) +
+	labs(x="Fáze",y="Hit rate",color="Skupina") +	
+	scale_x_discrete(limits=c("Před učením","Po učení"))
+
+ggsave("Hitrate_total.eps",plot,device="eps",width = 6,height = 4,units=c("in"))
+
+fdatatrain <- data %>% 
+  mutate( ucastnik=paste(str_sub(name,1,1),str_sub(name,-1,100)),Skupina= (ifelse(group=="control", "Kontrolní", "Experimentální")),faze=ifelse(phase=="before","Před učením","Po učení"),hitnum = ifelse(hit,1,0)) %>%
+  filter(trial>5)  
+
+plot <- fdatatrain %>%   ggplot(aes(x = trial, y = fixations, col = phase)) +
+  geom_smooth(method = "lm") +
+  facet_grid(str_sub(name,start =-1)~Skupina) +
+  scale_color_discrete("Fáze" , labels = c("Před učením", "Po učení", "Učení")) + ylab("Fixace") + xlab("Úkol")
+
+ggsave("Fixations_grid.eps",plot,device="eps",width = 7,height = 8,units=c("in"))
+
+fdata %>%
+  ezANOVA(.,
+              wid = name,
+              within = phase,
+              between = group,
+              dv = fixations, detailed = T) %>%
+  anova_apa()

@@ -85,7 +85,7 @@
 
 \end{filecontents*}
 \usepackage{longtable}
-
+\usepackage{multirow}
 %%% Údaje o práci
 
 \def\problemy{{\noindent\bf Problémy}\par\bigskip}
@@ -183,7 +183,7 @@ Abstract.
 %%% Seznam použité literatury
 \include{literatura}
 
-\problemy
+%\problemy
 %%% Obrázky v bakalářské práci
 %%% (pokud jich je malé množství, obvykle není třeba seznam uvádět)
 \listoffigures
@@ -209,8 +209,7 @@ Abstract.
 \chapter*{Přílohy}
 \addcontentsline{toc}{chapter}{Přílohy}
 
-\sekcicka{První příloha -- Detailnější výsledky měření}
-
+\input{grafy}
 \input{dokumentace}
 
 \openright
