@@ -1,29 +1,29 @@
 \newpage
 \sekcicka{Druhá příloha -- Dokumentace aplikace}
 
-V této příloze stručně popovídáme o aplikaci, která je součástí této práce. 
+V~této příloze stručně popovídáme o~aplikaci, která je součástí této práce. 
 
 \subsection*{Uživatelská dokumentace}
 
 Při spuštění aplikace se uživatel dostane na úvodní stránku, kde lze nastavit
-jméno účastníka, a lze z ní příslušnými tlačítky pokračovat k vlastnímu
-testování, do nastavení nebo na stránku s popisem úkolu, který účastníka
+jméno účastníka, a lze z~ní příslušnými tlačítky pokračovat k~vlastnímu
+testování, do nastavení nebo na stránku s~popisem úkolu, který účastníka
 experimentu čeká.
 
-Na stránce s popisem úkolu si uživatel může přečíst, co ho čeká. V horní části
+Na stránce s~popisem úkolu si uživatel může přečíst, co ho čeká. V~horní části
 obrazovky je vždy stručný popis části úkolu, a pod ní je šum, který tuto část
-úkolu ilustruje. K další části přejde kliknutím kamkoli na obrazovku. Délka
-ukázky se liší podle toho, zda má aktuální uživatel zapnutou zpětnou vazbu -- v
-takovém případě jsou na konec přidány ještě čtyři části popisující zvuk. Po
-poslední instrukci je uživatel vrácen na obrazovku, ze které se na stránku s
-popisem úkolu dostal (tj. buď na úvodní stránku, nebo do nastavení).
+úkolu ilustruje. K~další části přejde kliknutím kamkoli na obrazovku. Délka
+ukázky se liší podle toho, zda má aktuální uživatel zapnutou zpětnou vazbu --
+v~takovém případě jsou na konec přidány ještě čtyři části popisující zvuk. Po
+poslední instrukci je uživatel vrácen na obrazovku, ze které se na stránku
+s~popisem úkolu dostal (tj. buď na úvodní stránku, nebo do nastavení).
 
-Na stránce s nastavením je možné měnit mnoho různých parametrů vyhledávání. Pro
-replikaci experimentu tak, jak byl prováděn v této práci, stačí pouze nastavit
-jméno, zpětnou vazbu a v ostatních parametrech nechat defaultní hodnoty.
+Na stránce s~nastavením je možné měnit mnoho různých parametrů vyhledávání. Pro
+replikaci experimentu tak, jak byl prováděn v~této práci, stačí pouze nastavit
+jméno, zpětnou vazbu a v~ostatních parametrech nechat defaultní hodnoty.
 Následující tabulka však nabízí popis toho, co přesně které nastavítko ovládá.
-U všech nastavítek, u nichž se ovládá velikost něčeho,
-se hodnota nastavuje v pixelech šumu.
+U~všech nastavítek, u~nichž se ovládá velikost něčeho,
+se hodnota nastavuje v~pixelech šumu.
 \bigskip
 
 {
@@ -50,53 +50,53 @@ Popisek & Význam \\
 
 Difficulty & Průhlednost Gabor patche vynásobená tisícem a zaokrouhlená na
 jednotky. Editací tohoto pole se změní jak současná obtížnost, tak obtížnost,
-na kterou se hledání vrátí na začátku druhého a třetího testu. Hodnota v poli
+na kterou se hledání vrátí na začátku druhého a třetího testu. Hodnota v~poli
 při vstupu do nastavení odpovídá první zmíněné obtížnosti.\\
 
 Gabor patch diameter & Průměr obálky Gabor patche. Perioda se automaticky
 nastaví na třetinu této hodnoty. \index{Gabor patch}\\
 
-Radius of uncovered area & V případě, že je vypnuté použití $d'$ mapy\index{d'
+Radius of uncovered area & V~případě, že je vypnuté použití $d'$ mapy\index{d'
 mapa@$d'$ mapa}, odkrývá se šum pomocí masky Raised cosine. Zde je možné
-nastavit poloměr masky v tomto případě.\\ 
+nastavit poloměr masky v~tomto případě.\\ 
 
-Area uncovered for (ms) & Čas v milisekundách, na který se odkryje šum při
+Area uncovered for (ms) & Čas v~milisekundách, na který se odkryje šum při
 doteku.\\
 
 Area uncovered for brief period only & Určuje, zda se šum odkrývá na trvalo (a
-jednotlivé doteky se zobrazují současně), nebo pouze na dobu nastavenou v
-předchozím bodě. Při odkrývání natrvalo se však bez ohledu na nastavení vždy
-použije k odkrývání maska Raised cosine.\\
+jednotlivé doteky se zobrazují současně), nebo pouze na dobu nastavenou
+v~předchozím bodě. Při odkrývání natrvalo se však bez ohledu na nastavení vždy
+použije k~odkrývání maska Raised cosine.\\
 
 Sound fully relative & Mění způsob, kterým se počítá výška zvuku. Při vypnutém
-nastavítku se používá vzorec uvedený v kapitole Metody. Při zapnutém se
-spočítá, kolik možných lokací cíle má z pohledu ELM vyšší hodnotu, než vybrané
+nastavítku se používá vzorec uvedený v~kapitole Metody. Při zapnutém se
+spočítá, kolik možných lokací cíle má z~pohledu ELM vyšší hodnotu, než vybrané
 místo. Tón se pak vybere tak, aby jeho frekvence byla mezi $440$ a $1760$
 Hertzy a byla exponenciálně závislá na tomto počtu. \\
 
 Possible location distance & Vzdálenost možných lokací cíle \\
 
-Regenerate noise & Návrat k měření se zapnutou touto možností způsobí kompletní
+Regenerate noise & Návrat k~měření se zapnutou touto možností způsobí kompletní
 restart současného úkolu, včetně přegenerování šumu a lokace Gabor patche.
 Vhodné zapnout, pokud jsme měnili některá jiná nastavení. \\
 
-Preview & Přesune uživatele na stránku s popisem úkolu. \\ 
+Preview & Přesune uživatele na stránku s~popisem úkolu. \\ 
 
-Start game & Zobrazí obrazovku s experimentem. \\
+Start game & Zobrazí obrazovku s~experimentem. \\
 
 Back to main menu & Návrat na úvodní obrazovku. \\
 
-Trials in first and third test & Počet úkolů  v prvním a třetím testu. \\
+Trials in first and third test & Počet úkolů  v~prvním a třetím testu. \\
 
 Trials in second test & Počet úkolů během tréninku. \\
 
 Correct/wrong responses in row before difficulty changes & Počet správných či
-špatných odpovědí v řadě, po kterých se změní obtížnost. \\
+špatných odpovědí v~řadě, po kterých se změní obtížnost. \\
 
-Difficulty changed by & O kolik se změní obtížnost (tisícem vynásobená
+Difficulty changed by & O~kolik se změní obtížnost (tisícem vynásobená
 průhlednost Gabor patche), když se má měnit (viz předchozí řádek). \\
 
-Accuracy threshold & Maximální chyba v pixelech displeje, o kterou se uživatel
+Accuracy threshold & Maximální chyba v~pixelech displeje, o~kterou se uživatel
 může splést, aby byl úkol ještě uznán jako úspěšně splněný. \\
 
 Maximal amount of fixations for succesfull trial & Maximální počet fixací, po
@@ -107,8 +107,8 @@ Calculate score? & Vynuluje a zapne počítání a zobrazování skóre. Skóre 
 jedním úkolem je 0, pokud cíl nebyl nalezen, jinak je určeno podle vzorce
 $\lfloor(1000 - \text{(Obtížnost)})/\text{(Počet fixací)}\rfloor$. \\
 
-$d'$ map constants settings & Prvních šest nastavení v této kategorii určuje
-přímočarým způsobem konstanty $d'$ mapy tak, jak jsou popsány v kapitole, která
+$d'$ map constants settings & Prvních šest nastavení v~této kategorii určuje
+přímočarým způsobem konstanty $d'$ mapy tak, jak jsou popsány v~kapitole, která
 se jí věnuje. Hodnoty $d'_0$ a $\beta$ je nutné zadávat vynásobené stem. \\
 
 Recalculate $d'$ map & Po změně parametrů $d'$ mapy přepočítá pomocné datové
@@ -117,19 +117,19 @@ opustit nastavení. Přepočítávání se neděje automaticky po změně libovo
 hodnoty, protože může trvat až několik vteřin a často je potřeba změnit více
 konstant současně. \\
 
-Use $d'$ map & Rozhoduje o tom, zda bude pro odkrývání šumu použita maska
-spočítaná z $d'$ mapy, nebo Raised cosine.\\
+Use $d'$ map & Rozhoduje o~tom, zda bude pro odkrývání šumu použita maska
+spočítaná z~$d'$ mapy, nebo Raised cosine.\\
 
 Name & Identifikátor účastníka.\\
 
-Feedback & Zapíná a vypíná zpětnou vazbu pro účastníka v druhém testu. V
-případě, že je jméno účastníka \uv{unknown}, což je defaultní hodnota, je při
-zapnutí této funkce z ladících a předváděcích důvodů zpětná vazba poskytována
-bez ohledu to, v kterém testu se nachází.\\
+Feedback & Zapíná a vypíná zpětnou vazbu pro účastníka v~druhém testu.
+V~případě, že je jméno účastníka \uv{unknown}, což je defaultní hodnota, je při
+zapnutí této funkce z~ladících a předváděcích důvodů zpětná vazba poskytována
+bez ohledu to, v~kterém testu se nachází.\\
 
 Measure detectability & Spustí obrazovku, kde je uživateli prezentována řada
-pokusů, kdy se vždy Gabor patch se současnými parametry objeví ve středu s
-pravděpodobností $1/2$. Uživatel pak může otestovat, jakou má při daných
+pokusů, kdy se vždy Gabor patch se současnými parametry objeví ve středu
+s~pravděpodobností $1/2$. Uživatel pak může otestovat, jakou má při daných
 vlastnostech cíle hit rate a false alarm rate.\\
 
 See log & Zobrazí log všech testů od posledního vymazání všech dat. Log zůstává
@@ -137,20 +137,20 @@ napříč spuštěními aplikace a ukládá se automaticky po každém dokončen
 úkolu.\\
 
 Data deletion enabled & Je-li tato možnost aktivována, stlačení tlačítka
-\uv{Delete all data} opravdu smaže všechna data. V opačném případě je uživatel
+\uv{Delete all data} opravdu smaže všechna data. V~opačném případě je uživatel
 upozorněn na to, že musí mazání dat nejprve povolit.\\
 
 Delete all data & Viz předchozí řádek.\\
 
-Generate noise & V případě, že je tato funkce vypnutá, bude místo růžového šumu
+Generate noise & V~případě, že je tato funkce vypnutá, bude místo růžového šumu
 vygenerována pouze šedá plocha.\\
 
-Display locations & Je-li tato možnost zapnuta, bude v místě každé lokace
+Display locations & Je-li tato možnost zapnuta, bude v~místě každé lokace
 zobrazen světlý kruh. Přesný odstín jeho pravé horní poloviny je závislý na
 aposteriorní pravděpodobnosti, kterou ELM pozorovatel přiřazuje právě této
 lokaci (čím světlejší půlkruh, tím vyšší pravděpodobnost). Odstín levé dolní
 poloviny je závislý na očekávaném snížení entropie, které podle ELM
-pozorovatele nastane, zafixujeme-li v dalším kroku tuto lokaci (opět světlejší
+pozorovatele nastane, zafixujeme-li v~dalším kroku tuto lokaci (opět světlejší
 kruh znamená větší očekávané snížení entropie). Ve středu kruhu, kde je
 očekávané snížení entropie největší (ve všech takových, není-li to jednoznačné)
 se nachází černá tečka. \\
@@ -159,58 +159,58 @@ se nachází černá tečka. \\
  }
 
 \bigskip
-V obrazovce, kde se provádí experiment, se vše koná tak, aby jediný nutný zásah
+V~obrazovce, kde se provádí experiment, se vše koná tak, aby jediný nutný zásah
 do experimentu od administrátora byl, že bude sledovat počet uskutečněných
-úkolů (napsaný spolu s dalšími důležitými hodnotami v horní části obrazovky) a
+úkolů (napsaný spolu s~dalšími důležitými hodnotami v~horní části obrazovky) a
 upozorní účastníka, když má experiment končit. Aplikace sama postupně mění
-obtížnost, dává zvukovou zpětnou vazbu v situacích, kdy má, a restartuje
+obtížnost, dává zvukovou zpětnou vazbu v~situacích, kdy má, a restartuje
 obtížnost na defaultní hodnotu na začátku druhého a třetího úkolu.
 
 \subsection*{Programátorská dokumentace}
 
-Aplikace je napsána v jazyce Swift, který je určený pro psaní nativně běžících
+Aplikace je napsána v~jazyce Swift, který je určený pro psaní nativně běžících
 aplikací pro operační systém iOS. Je určená na zařízení iPad Air.
 
-V této sekci stručně přiblížíme dva netriviální algoritmy, které se v aplikaci
-vyskytují Bude se jednat o výpočet očekávaného snížení entropie v rámci
+V~této sekci stručně přiblížíme dva netriviální algoritmy, které se v~aplikaci
+vyskytují Bude se jednat o~výpočet očekávaného snížení entropie v~rámci
 simulace ELM pozorovatele, a generování růžového šumu.
 
-V obou těchto algoritmech je potřeba generovat náhodná čísla s normálním
+V~obou těchto algoritmech je potřeba generovat náhodná čísla s~normálním
 rozdělením. Na to použijeme funkci {\tt GKGaussianDistribution.nextUniform()},
 která je součástí knihovny {\tt GameplayKit}, jedné ze standardních knihoven
-jazyka Swift. Tato funkce se od normálního rozdělení odklání v tom, že
-nepřipouští hodnoty, které se od střední hodnoty rozdělení liší o více než tři
-standardní odchylky. Protože je však pravděpodobnost takových hodnot v
-normálním rozdělení rovna přibližně $0.003$, rozhodli jsme se, že ovlivnění
+jazyka Swift. Tato funkce se od normálního rozdělení odklání v~tom, že
+nepřipouští hodnoty, které se od střední hodnoty rozdělení liší o~více než tři
+standardní odchylky. Protože je však pravděpodobnost takových hodnot
+v~normálním rozdělení rovna přibližně $0.003$, rozhodli jsme se, že ovlivnění
 experimentu touto odlišností zanedbáme.
 
 \subsubsection*{Model ELM pozorovatele}
 
-ELM \index{ELM pozorovatel} byl v práci vytvořen přesně tak, jak byla jeho simulace popsána v článku \citep{Najemnik09}. 
+ELM \index{ELM pozorovatel} byl v~práci vytvořen přesně tak, jak byla jeho simulace popsána v~článku \citep{Najemnik09}. 
 
-To znamená, že při fixaci bodu $x$  dostane z každé lokace $y$ jako pozorování reálné
-číslo, které je náhodně vybrané z normálního rozdělení, jehož střední hodnota
-je $-0.5$, pokud se cíl v daném bodě nenachází, a $0.5$ pokud ano. Směrodatná
+To znamená, že při fixaci bodu $x$  dostane z~každé lokace $y$ jako pozorování reálné
+číslo, které je náhodně vybrané z~normálního rozdělení, jehož střední hodnota
+je $-0.5$, pokud se cíl v~daném bodě nenachází, a $0.5$ pokud ano. Směrodatná
 odchylka tohoto rozdělení je rovna hodnotě $d'(y-x)$\index{d'@$d'$}. Poté
-spočítá veškerou informaci, kterou již o jednotlivých lokacích dostal, jako
+spočítá veškerou informaci, kterou již o~jednotlivých lokacích dostal, jako
 součet odpovědí, které dostal při předchozích fixacích, vynásobený druhými
-mocninami příslušných hodnot $d'$ (ve skutečnosti stačí přičíst odpovědi z
-aktuální fixace k již spočítanému součtu po předchozí fixaci).
+mocninami příslušných hodnot $d'$ (ve skutečnosti stačí přičíst odpovědi
+z~aktuální fixace k~již spočítanému součtu po předchozí fixaci).
 
-V dalším kroku spočítá aposteriorní pravděpodobnosti prostě tak že pro získaný
+V~dalším kroku spočítá aposteriorní pravděpodobnosti prostě tak že pro získaný
 součet $s$ nastaví aposteriorní pravděpodobnost na $e^s$, a pak ještě všechny
 aposteriorní pravděpodobnosti vydělí jejich součtem, aby byl po vydělení součet
-roven jedné. Až po sem je algoritmus lineární v počtu možných lokací. Nyní je
+roven jedné. Až po sem je algoritmus lineární v~počtu možných lokací. Nyní je
 však potřeba spočítat očekávané snížení entropie. To se spočítá podle již dříve
 uvedeného vzorce jako $$\displaystyle\sum_{i\in L} p_T(i)d'^2(i-k(T+1)),$$ kde
 $L$ je množina možných lokací, $p_T(i)$ je aposteriorní pravděpodobnost, že se
-cíl nachází v lokaci $i$ a $k(T+1)$ je lokace, jejíž očekávané snížení entropie
+cíl nachází v~lokaci $i$ a $k(T+1)$ je lokace, jejíž očekávané snížení entropie
 počítáme.   
 
 Před první fixací se očekávaná snížení entropie počítají obdobně, až na to, že
-jako pole s předchozími odpovědi použijeme pole vyplněné samými nulami.
+jako pole s~předchozími odpovědi použijeme pole vyplněné samými nulami.
 
-Důkaz korektnosti algoritmu zde nebudeme uvádět, neboť je již uvedený v článcích \citep{Najemnik05, Najemnik08, Najemnik09}.
+Důkaz korektnosti algoritmu zde nebudeme uvádět, neboť je již uvedený v~článcích \citep{Najemnik05, Najemnik08, Najemnik09}.
 
 \subsubsection*{Generování růžového šumu}
 
@@ -218,13 +218,13 @@ Důkaz korektnosti algoritmu zde nebudeme uvádět, neboť je již uvedený v č
 
 Šum generujeme tak, že nejprve vygenerujeme dvojrozměrné pole náhodných
 komplexních čísel stejně velké, jak velký chceme výsledný šum. Tato komplexní
-čísla mají v goniometrické podobě rovnoměrně náhodné argumenty. Absolutní
-hodnotu čísla na pozici $(x,y)$ v poli $n\times n$ vybereme z normálního
+čísla mají v~goniometrické podobě rovnoměrně náhodné argumenty. Absolutní
+hodnotu čísla na pozici $(x,y)$ v~poli $n\times n$ vybereme z~normálního
 rozdělení se střední hodnotou \begin{equation}\label{Pink}\left(\min\left(x,n-x\right)^2
 +\min\left(x,n-x\right)^2\right)^{-2}\end{equation} a směrodatnou odchylkou rovnou třetině
-této hodnoty. V případě, kdy by tato hodnota vyšla jako nekonečno, můžeme
-hodnotu prostě zahodit (zdůvodnění tohoto tvrzení dále vyplyne z algoritmu) a
-použít libovolnou. Výběr střední hodnoty vychází z definice růžového šumu,
+této hodnoty. V~případě, kdy by tato hodnota vyšla jako nekonečno, můžeme
+hodnotu prostě zahodit (zdůvodnění tohoto tvrzení dále vyplyne z~algoritmu) a
+použít libovolnou. Výběr střední hodnoty vychází z~definice růžového šumu,
 odchylka byla zvolena při testování kvůli výše uvedeným vlastnostem náhodného
 generátoru (nemůže se nám stát, že by vyšla záporná absolutní hodnota), a byla
 na této hodnotě ponechána, protože algoritmus dával vizuálně žádoucí výsledky a
@@ -240,24 +240,24 @@ transformaci takovou, aby jeho střední hodnota byla 128 a směrodatná odchylk
 64. Nakonec záporné hodnoty nastavíme na nulu a hodnoty převyšující 255 na 255.
 Nakonec nastavíme na 128 ty pixely, jejichž (eukleidovská) vzdálenost od středu
 obrazu je větší, než $n/2$, čímž dosáhneme toho, že výsledné pole bude kruhové.
-Výsledné pole interpretujeme jako černobílý obraz s osmi bity na pixel.
+Výsledné pole interpretujeme jako černobílý obraz s~osmi bity na pixel.
 
 
-Fourierovu transformaci nalezneme v knihovně {\tt Accelerate}, která je jednou ze
+Fourierovu transformaci nalezneme v~knihovně {\tt Accelerate}, která je jednou ze
 standardních knihoven jazyka Swift.
 
-Nyní se vrátíme k tomu, proč jsme mohli zahodit hodnotu, pro níž vyšel
+Nyní se vrátíme k~tomu, proč jsme mohli zahodit hodnotu, pro níž vyšel
 nekonečný koeficient. Ten vyjde právě tehdy, když jsou ve vzorci \eqref{Pink}
 obě sčítané závorky nulové. Budeme-li $x$ i $y$ indexovat od nuly, znamená to,
 že musí být $x$ i $y$ rovno nule. To znamená, že se tato situace týká jednoho
 jediného bodu, a to bodu $(0,0)$. Protože ale poté voláme Fourierovu
-transformaci, z nultého bodu se stane hodnota, která se násobí pouze jedničkou,
+transformaci, z~nultého bodu se stane hodnota, která se násobí pouze jedničkou,
 tedy ji beze změny přičteme ke každé hodnotě. Protože ale potom stejně šum
 lineárně transformujeme, aby měl správnou střední hodnotu a směrodatnou
 odchylku, žádná předchozí nekonstantní lineární transformace výstup neovlivní
 (nebo alespoň ne více, než tím, že způsobí nějaké nechtěné
 zaokrouhlování\footnote{V algoritmu je komplexní číslo reprezentováno pomocí
-dvou hodnot typu {\tt Double}.}, to ale nebude mít v praxi významný vliv).
+dvou hodnot typu {\tt Double}.}, to ale nebude mít v~praxi významný vliv).
 
-Pro generování jiného z šumů, o kterých se mluví v sekci o barvách šumu, stačí 
-ve vzorci \eqref{Pink} vynásobit hodnotu $-2$ v exponentu příslušnou hodnotou $\beta$.
+Pro generování jiného z~šumů, o~kterých se mluví v~sekci o~barvách šumu, stačí 
+ve vzorci \eqref{Pink} vynásobit hodnotu $-2$ v~exponentu příslušnou hodnotou $\beta$.

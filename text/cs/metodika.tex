@@ -34,7 +34,7 @@ modelů IBO a ELM.
 \caption{Šum se špatně viditelným Gabor patchem u pravého okraje (kontrast $0.61$).}
 \end{subfigure}
 \end{tabular}
-\caption{Příklady šumů s cíli.}
+\caption{Příklady růžových šumů. Pozice cílů jsou na obou obrázcích zvýrazněny červenou šipkou.}
 \label{Sumy}
 \end{figure}
 
@@ -43,28 +43,28 @@ Jako zobrazovací zařízení byl použit iPad air s displejem o rozlišení
 $2048\times1536$ a o úhlopříčce $9.7$ palců, což odpovídá rozměrům displeje asi
 $19.7 \times 14.8$ centimetrů. Hustota pixelů je 264 pixelů na palec. 
 
-V experimentu použitý růžový šum byl kruhový a jeho průměr byl 1024 pixelů
+V experimentu použitý růžový šum byl kruhový o průměru 1024 pixelů.
 \footnote{Odsud již všude, kde není zřejmý opak, se pixelem myslí
-pixel obrázku, nikoliv pixel displeje.}. Tento průměr byl zvolen proto, že je
+pixel obrázku, nikoliv pixel displeje.} Tento průměr byl zvolen proto, že je
 to nejbližší mocnina dvojky ke kratšímu rozměr displeje iPadu v pixelech.
-Mocnina dvojky byla zvolena kvůli použití rychlé Fourierova transformace při
+Mocnina dvojky byla žádoucí kvůli použití rychlé Fourierovy transformace při
 generování růžového šumu. RMS kontrast\footnote{{\it RMS kontrast} je pro
 černobílý obraz vlastně jiný název pro standardní odchylku jasu pixelu, kdy jas
 měříme tak, aby černý pixel dostal hodnotu nula a bílý hodnotu jedna
 \citep{RMS}.} šumu byl po vygenerování roven $0.25$, ale při zobrazování byly
 hodnoty lišící se od střední hodnoty o více než dvě standardní odchylky
 přiblíženy ke střední hodnotě právě na tuto vzdálenost, čímž byl RMS kontrast
-mírně snížen (pro příklad šumu takového, jaký byl použit viz obrázek \ref{Sumy}). \index{RMS kontrast}
+mírně snížen (pro příklad šumu takového, jaký byl použit, viz obrázek \ref{Sumy}). \index{RMS kontrast}
 
 Jako stimulus byl použit Gabor patch. Jedním z problémů aditivního Gabor patche
 ale je fakt, že jas pixelu je v praxi omezený. Kdybychom tedy přičítali Gabor
 patch k šumu v místě, které má samo o sobě vysoký jas, museli bychom jeho nejvyšší
 bod snížit tak, aby součet se šumem nepřesáhl maximální hodnotu jasu pixelu.
 Obdobný problém bychom měli s oblastí s nízkým jasem. Tento problém byl vyřešen
-tak, že Gabor k šumu nebyl ale přičten k šumu, ale vložen do něj, jako
+tak, že Gabor k šumu nebyl přičten k šumu, ale vložen do něj, jako
 kdybychom kreslili Gabor patch přes šum a obálka zastupovala alfa kanál. To
-znamená, že jas pixelu v bodě $x$ byl spočítán jako $S[x] * (1-o[x]) +
-G[x]*o[x]$, kde $S[x]$ je hodnota šumu v bodě $x$, a $G[x]$ a $o[x]$ jsou
+znamená, že jas pixelu v bodě $x$ byl spočítán jako $S[x] \cdot (1-o[x]) +
+G[x]\cdot o[x]$, kde $S[x]$ je hodnota šumu v bodě $x$, a $G[x]$ a $o[x]$ jsou
 hodnoty Gaboru a jeho obálky.  Zvolené parametry Gabor patche byly:
 
 \begin{itemize}
@@ -90,6 +90,10 @@ Kontrast cíle byl daný maximem obálky, tedy při snižování kontrastu byl c
 dál tím průhlednější. Hodnoty kontrastu se mohly pohybovat mezi nulou a
 jedničkou.
 
+Použitá aplikace umožňuje při hledání cíle i počítání skóre, čímž se ze
+zrakového vyhledávání stává hra. Tato funkce však byla pro potřeby experimentu
+z důvodu úspory času vypnuta. 
+
 \section{Procedura}
 
 Každý účastník prošel sadou 3 testů. V prvním testu mu bylo postupně
@@ -97,11 +101,11 @@ prezentováno 40 úkolů, kde v každém z nich měl najít Gabor patch v růžo
 šumu.  V druhém testu bylo prezentováno 120 obdobných úkolů a ve třetím opět
 40. 
 
-Ve druhém testu dostávaly účastníci, kteří byly ve skupině se zpětnou
+Ve druhém testu dostávali účastníci, kteří byli ve skupině se zpětnou
 vazbou, po každé fixaci zvukovou odpověď, která značila, kolik informace mohli
 od této fixace očekávat (tedy jestli bylo z pohledu ELM moudré udělat právě
 tuto fixaci). Tato odpověď byla ve formě tónu, jehož frekvence $f$ byla dána
-vzorcem $$f = 440\operatorname{Hz}*2^{2-2*\frac{c - \delta}{\Delta -
+vzorcem $$f = 440\operatorname{Hz}\cdot2^{2-2\cdot\frac{c - \delta}{\Delta -
 \delta}},$$ kde $c$ je očekávané snížení entropie při fixaci, kterou si subjekt
 vybral, $\Delta$ je maximální dosažitelné očekávané snížení entropie a $\delta$
 minimální v případě, že by byla zafixována některá z možných lokací
@@ -109,7 +113,7 @@ cíle.\footnote{To znamená, že je potenciálně možné dosáhnout výsledku l
 než $\Delta$, resp. horšího, než $\delta$. Rozdíl by však neměl být důležitý.} 
 
 Tento vzorec byl sestaven tak, aby účastník dostal tón a1 v případě, že zvolil
-lokaci, která vedla ke stejnému očekávanému snížení entropie, jako lokace,
+lokaci, která vedla ke stejnému očekávanému snížení entropie, jako lokace
 kterou vybral model ELM jako nejlepší, tón a3 v případě, že naopak zvolil
 nějakou z nejhorších možných lokací.
 
@@ -122,18 +126,18 @@ $d'_0$ nastaveným na 1 a ostatními parametry naměřenými na pozorovateli FD
 veličiny, u nichž má smysl uvádět jednotku, jsou v pixelech).
 
 Tuto $d'$ mapu\index{d' mapa@$d'$ mapa} by bylo lepší měřit každému účastníkovi
-zvlášť. Takové měření ale zahrnuje podle metodiky z článku \citep{Ellipse}
-přinejmenším 2000 trialů a s metodikou předepsanými přestávkami trvá celý den.
-Aby bylo možné při něm kontrolovat chování účastníka, je navíc potřeba
+zvlášť. Stanovení $d'$ mapy ale zahrnuje podle metodiky z článku \citep{Ellipse}
+přinejmenším 2000 měření a s metodikou předepsanými přestávkami trvá celý den.
+Aby při něm bylo možné kontrolovat chování účastníka, je navíc potřeba
 eyetracker. Proto jsme se rozhodli i vzhledem k nemožnosti kontrolovat přesně
 podmínky k tomuto měření nepřistoupit. K tomuto problému se ale znovu vrátíme
-závěrem této kapitoly v sekci Limitace.  
+v diskusi.  
 
 Ve chvíli, kdy si účastník myslel, že objevil cíl, zmáčkl tlačítko. Poté mu byl
 ukázán celý odkrytý šum, ovšem bez cíle. Potom se měl účastník dotknout šumu na
 místě, kde si myslel, že se cíl nacházel. Cíl byl považován za nalezený, pokud
 byla vzdálenost vybraného místa a středu skutečné lokace cíle menší než 60
-pixelů displeje. Úkol byl považován za úspěšně splněný, pokud byl cíl nalezen a
+pixelů displeje, což odpovídá asi $11.5 \operatorname{mm}$. Úkol byl považován za úspěšně splněný, pokud byl cíl nalezen a
 současně v rámci něj účastník provedl nejvýše šest fixací. 
 
 V každém testu byl počáteční kontrast cíle $0.7$. Pokaždé, když byl účastník
@@ -143,7 +147,7 @@ $0.01$, pokud byl třikrát po sobě neúspěšný, byla obtížnost opět sní�
 Byl tedy využit obecný postup, kterému se říká Up/Down metoda. Tento postup se
 používá, pokud je závislost pravděpodobnosti daného jevu na nějakém parametru
 rostoucí (či obecně monotónní) funkce. Spočívá v tom, že se daný parametr
-snižuje, když jev nastává, a zvyšuje když nenastává (v obou případech o předem
+snižuje, když jev nastává, a zvyšuje, když nenastává (v obou případech o předem
 danou konstantu, která se během experimentu nemění, nemusí však být v obou
 směrech stejná). Blíže je popsána v knize Psychophysics: A practical
 introduction \citep{psychophysics}.  Na rozdíl od implementace této metody,

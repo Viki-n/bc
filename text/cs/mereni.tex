@@ -1,12 +1,14 @@
-\chapter{Měření}
+\chapter{Výsledky}
 
-V této kapitole stručně představíme výsledky měření. Všechny výsledky
-prezentované v této kapitole jsou založeny pouze na měření z prvního a třetího
-testu. Data z prvních pěti úkolů prvního testu navíc nepoužijeme, protože se
-během nich účastníci ještě seznamovali s rozhraním aplikace, s jejíž pomocí byl
+V~této kapitole stručně představíme výsledky měření. Všechny výsledky
+prezentované v~této kapitole jsou založeny pouze na měření z~prvního a třetího
+testu. Data z~prvních pěti úkolů prvního testu navíc nepoužijeme, protože se
+během nich účastníci ještě seznamovali s~rozhraním aplikace, s~jejíž pomocí byl
 experiment prováděn. Ve všech případech byly použity výsledky všech testů, ne
-jen těch, v nichž byl cíl nakonec úspěšně nalezen. Grafy, které jsou vytvořeny
-pouze z úkolů, kdy byl cíl nalezen, však vypadají velmi podobně. 
+jen těch, v~nichž byl cíl nakonec úspěšně nalezen. Grafy, které jsou vytvořeny
+pouze z~dat z~úkolů, ve kterých byl cíl nalezen, však vypadají velmi podobně.
+
+Svislé čáry v~grafech značí intervaly spolehlivosti na konfidenční hladině $95\,\%$.
 
 \def\graphfigure#1#2#3{
 \begin{figure}[h!]
@@ -17,11 +19,14 @@ pouze z úkolů, kdy byl cíl nalezen, však vypadají velmi podobně.
 \end{figure}
 }
 
-\graphfigure{before_all}{Graf znázorňující průměrný počet fixací pro jednotlivé účastníky v jednom úkolu v prvním testu}{beforeall}
+\graphfigure{predpo_grid}{Graf znázorňující průměrný počet fixací pro jednotlivé účastníky v~jednom úkolu před a po učení.}{beforeall}
 
-\graphfigure{after_all}{Graf znázorňující průměrný počet fixací pro jednotlivé účastníky v jednom úkolu ve třetím testu}{afterall}
+\long\def\komentar#1{}
 
-Protože grafy průměrného počtu fixací před a po učení (viz obrázky \ref{beforeall} a \ref{afterall}) samy o sobě nevypadají příliš porovnatelně, v tabulce jsou uvedené jednotlivé průměry a jejich rozdíly.
+První graf (viz obrázek \ref{beforeall}) zobazuje výsledky účastníků v~prvním a ve třetím testu. Na grafu je vidět, že téměř všichni účastníci se tréninkem zlepšili, ale není z~něj dobře vidět průměrné zlepšení a vůbec není vidět porovnání mezi skupinami.
+
+\komentar{
+Protože grafy průměrného počtu fixací před a po učení (viz obrázky \ref{beforeall} a \ref{afterall}) samy o~sobě nevypadají příliš porovnatelně, v~tabulce jsou uvedené jednotlivé průměry a jejich rozdíly.
 
 \begin{center}
 \begin{tabular}{cccc}
@@ -45,17 +50,20 @@ Experimentální 5      &  7.31 & 4.28  &3.04 \\
 \hline
 \end{tabular}
 \end{center}
+}
 
-\graphfigure{total_all}{Graf znázorňující průměrný počet fixací v rámci skupin v prvním a třetím testu}{total}
+\graphfigure{total_all}{Graf znázorňující průměrný počet fixací na úkol v~rámci skupin v~prvním a třetím testu}{total}
 
-Jak je vidět z tabulky a ještě o něco lépe z posledního grafu (viz obrázek \ref{total}), zlepšení u experimentální skupiny je viditelně větší, než u kontrolní skupiny, ale není jasné, jak moc je tento rozdíl způsobený tím, že experimentální skupina byla na začátku horší než skupina kontrolní. 
+Tyto hodnoty vizualizuje druhý graf (viz obrázek \ref{total}). Zlepšení
+u~experimentální skupiny je větší než u~kontrolní skupiny, ale není jasné, do
+jaké míry je tento rozdíl způsobený tím, že experimentální skupina byla na začátku
+horší než skupina kontrolní. 
 
 \begin{center}
 \begin{tabular}{cccc}
 \hline\hline
-       Efekt & &$p$-hodnota & partial $\eta^2$ \\
+       Efekt & &$p$-hodnota & $\eta^2_p$ \\
 \hline                                            
- (Intercept)& F(1, 8) = 838.95& < 0.001 & > 0.99 \\
        Skupina&F(1, 8) =   1.14& 0.318 & 0.12 \\ 
        Test &F(1, 8) =   4.23& 0.074 & 0.35 \\ 
  Skupina:Test&F(1, 8) =   1.69& 0.230 & 0.17 \\ 
@@ -64,14 +72,13 @@ Jak je vidět z tabulky a ještě o něco lépe z posledního grafu (viz obráze
 \end{tabular}
 \end{center}
 
-Z $p$-hodnot a hodnot $\eta^2$ uvedených v tabulce vyplývá, že učení jako takové má větší vliv na výkon, než příslušnost k jednotlivým skupinám, žádné z těchto výsledků ale nejsou statisticky významné. Když se však podíváme na obtížnost, na které se účastníci při experimentu pohybovali, dostaneme zajímavější výsledky. V tomto porovnání již vliv učení dosahuje statistické významnosti, jak je vidět z grafu (viz obrázek \ref{diff}) i následující tabulky.
+Z~hodnot $\eta^2_p$ uvedených v~tabulce vyplývá, že učení jako takové má větší vliv na výkon, než příslušnost k~jednotlivým skupinám, žádné z~těchto výsledků ale nejsou statisticky významné. Když se však podíváme na kontrast, na kterém se účastníci při experimentu pohybovali, dostaneme zajímavější výsledky. V~tomto porovnání již vliv učení dosahuje statistické významnosti, což ilustruje graf (viz obrázek \ref{diff}). V~následující tabulce pak jsou přesné hodnoty.
 
 \begin{center}
 \begin{tabular}{cccc}
 \hline\hline
-       Efekt & &$p$-hodnota & partial $\eta^2$ \\
+       Efekt & &$p$-hodnota & $\eta^2_p$ \\
 \hline                                         
-(Intercept)& F(1, 8) = 24247.2&  < 0.001& > 0.99\\
        Skupina& F(1, 8) =     1.03& 0.341&   0.11    \\
       Test& F(1, 8) =    19.19& 0.002&  0.71  \\
  Skupina:Test& F(1, 8) =     1.75& 0.223&  0.18       \\
@@ -82,10 +89,10 @@ Z $p$-hodnot a hodnot $\eta^2$ uvedených v tabulce vyplývá, že učení jako 
 \end{center}
 
 
-\graphfigure{difficulty_average}{Graf znázorňující obtížnost, na které se účastníci v jednotlivých skupinách a fázích v průměru pohybovali}{diff}
+\graphfigure{difficulty_average}{Graf znázorňující obtížnost, na které se účastníci v~jednotlivých skupinách a fázích v~průměru pohybovali}{diff}
 
 
-Detailní grafy ke každému pozorovateli zvlášť jsou uvedeny v první příloze této práce,
-data a program jazyka R použitý k tvorbě těchto grafů je součástí
-elektronických příloh této práce.
+Detailní grafy ke každému pozorovateli zvlášť jsou uvedeny v~první příloze této práce.
+Data a program jazyka R použitý k~tvorbě těchto (a mnoha dalších v~práci nakonec neuvedených) grafů je součástí
+elektronických příloh této práce. Též je dostupný na Open Science Frameworku na stránce {\tt https://osf.io/h7ctf/}.
 

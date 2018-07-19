@@ -1,52 +1,55 @@
 \chapter*{Úvod}
 \addcontentsline{toc}{chapter}{Úvod}
 
-Prostředí, v němž se lidé každý den pohybují, je komplexní. Abychom se v něm
-zorientovali, potřebujeme často v našem okolí zrakem najít nějaký objekt. Tato
-činnost se jmenuje zrakové vyhledávání. O zrakovém vyhledávání existují mnohé
-výzkumy. Jeden z aspektů vizuálního a obecně smyslového vnímání, který se
+Prostředí, v~němž se lidé každý den pohybují, je komplexní. Abychom se v~něm
+zorientovali, potřebujeme často v~našem okolí zrakem najít nějaký objekt. Tato
+činnost se jmenuje zrakové vyhledávání. O~zrakovém vyhledávání existují mnohé
+výzkumy. Jeden z~aspektů vizuálního a obecně smyslového vnímání, který se
 zkoumá, je vztah mezi konkrétními stimuly a jim odpovídajícími vjemy. Tuto
 závislost zkoumá psychologická disciplína jménem psychofyzika.
 
-Reálný svět je ale obtížně popsatelný. Proto se k experimentům často
-používají zjednodušené modely, které se v některých aspektech blíží reálným
-situacím, ale jsou snadno formalizovatelné. Jedna z výhod formálního modelu je
+Reálný svět je ale obtížně popsatelný. Proto se k~experimentům často
+používají zjednodušené modely, které se v~některých aspektech blíží reálným
+situacím, ale jsou snadno formalizovatelné. Jednou z~výhod formálního modelu je
 možnost zkonstruovat model ideálního pozorovatele. Ten je důležitý pro srovnání
 úspěšnosti, které dosahuje lidský pozorovatel.
 
-Jedním z úkolů, který se řeší, je vyhledávání konkrétního cíle v poli s vizuálním šumem.
-Najemnik a Geisler \citeyearpar{Najemnik05} v nedávné době představili model
+Jedním z~úkolů, který se řeší, je vyhledávání konkrétního cíle v~poli s~vizuálním šumem.
+Najemnik a Geisler \citeyearpar{Najemnik05} v~nedávné době představili model
 Ideálního Bayesovského pozorovatele\index{Ideální Bayesovský pozorovatel}, který modeluje chování lidského
-pozorovatele s překvapivou přesností. Algoritmus, pomocí kterého Ideální
-Bayesovský pozorovatel vybíral lokace, které zkoumat, byl ale kubický v počtu
+pozorovatele s~překvapivou přesností. Algoritmus, pomocí kterého Ideální
+Bayesovský pozorovatel vybíral lokace, které zkoumat, byl ale kubický v~počtu
 možných lokací cíle. Ve svém pozdějším článku \citep{Najemnik09} 
-představili pozorovatele ELM\index{ELM pozorovatel}, který Ideálního Bayesovského pozorovatele dobře
-aproximuje, a navíc pracuje v kvadratickém čase.
+představili algoritmus pozorovatele ELM\index{ELM pozorovatel}, který Ideálního Bayesovského pozorovatele dobře
+aproximuje, a navíc pracuje v~kvadratickém čase.
 
 Existence kvadratického algoritmu pro hodnocení kvality otevírá novou možnost:
-Vzhledem k typickému počtu možných lokací cíle v dané úloze probíhá výpočet jednoho kroku
-tak rychle, že je z pohledu uživatele okamžitý. Můžeme tedy v reálném
-čase hodnotit, jak dobře či špatně vůči ELM modelu vybírá lidský pozorovatel
+Vzhledem k~typickému počtu možných lokací cíle v~dané úloze probíhá výpočet jednoho kroku
+tak rychle, že je z~pohledu uživatele okamžitý. Můžeme tedy v~reálném
+čase hodnotit, jak dobře či špatně vůči modelu ELM vybírá lidský pozorovatel
 lokace, kam se podívá.
 
 Zajímavá otázka je, jakým způsobem se lidský pozorovatel dokáže nejlépe naučit
 řešit zmíněnou úlohu zrakového vyhledávání (to znamená dosáhnout co nejnižší
-střední hodnoty počtu pohledů potřebných k nalezení cíle).
+střední hodnoty počtu pohledů potřebných k~nalezení cíle).
 
 Pokud se člověk například bude chtít naučit běhat, nabízí se dva možné přístupy.
-Buď může pouze sám zkoušet běhat, nebo si může nechat radit od trenéra. V prvním
+Buď může pouze sám zkoušet běhat, nebo si může nechat radit od trenéra. V~prvním
 případě má po běhu pouze jedinou zpětnou vazbu: ví, jak se cítí, za jaký čas
 danou vzdálenost uběhl a podobně. Neví však, jakou měrou za to může jeho běh a 
 jakou náhoda. Trenér naproti tomu může podat například zpětnou vazbu typu \uv{Styl běhu byl nevhodný,
-a přesto, že se tentokrát nic nestalo, opakováním tohoto postupu může dojít ke zranění}.
+a přesto, že se tentokrát nic nestalo, opakováním tohoto postupu může dojít ke zranění.}
 
-Analogicky k tomuto příkladu máme i v naší úloze dva možné přístupy.
-Učení může probíhat pouze opakovaným řešením této úlohy. V takovém případě bude
-jedinou zpětnou vazbou pozorovatele informace o tom, jak rychle úlohu vyřešil. Druhou možností je,
+Analogicky k~tomuto příkladu máme i v~naší úloze dva možné přístupy.
+Učení může probíhat pouze opakovaným řešením této úlohy. V~takovém případě bude
+jedinou zpětnou vazbou pozorovatele informace o~tom, jak rychle úlohu vyřešil. Druhou možností je,
 že dostane při každém pohledu informaci, jak dobře či špatně si vybral lokaci podle
-hodnotící funkce ELM pozorovatele.
+hodnotící funkce pozorovatele ELM.
 
-V této práci vytvoříme aplikaci, která úlohu zrakového vyhledávání gamifikuje. S její pomocí provedeme experiment, jehož cílem bude zjistit, zda má dodatečná informace z modelu ELM pozorovatele pozitivní vliv na to, jak rychle se účastník po daném počtu pokusů naučí cíl hledat.
+V~této práci vytvoříme aplikaci, která úlohu zrakového vyhledávání gamifikuje.
+S~její pomocí provedeme experiment, jehož cílem bude zjistit, zda má dodatečná
+informace z~modelu pozorovatele ELM pozitivní vliv na to, jak rychle se
+účastník po daném počtu pokusů naučí cíl hledat.
 
 
 
@@ -54,13 +57,13 @@ V této práci vytvoříme aplikaci, která úlohu zrakového vyhledávání gam
 \section*{Struktura práce}
 \addcontentsline{toc}{section}{Struktura práce}
 
-V první kapitole jsou představeny pojmy a teorie, které tato
-práce využívá, a starší výsledky, z kterých vychází. V druhé kapitole jsou představeny cíle práce. V následující
+V~první kapitole jsou představeny pojmy a teorie, které tato
+práce využívá, a starší výsledky, z~kterých vychází. V~druhé kapitole jsou představeny cíle práce. V~následující
 kapitole je popsána metodika experimentu. Poté jsou prezentovány vizualizace
 naměřených dat, nad nimiž je následně provedena diskuse. 
 
-K práci jsou též
-přiloženy dvě přílohy. V první z nich jsou další grafy z naměřených dat, v
-druhé se nachází dokumentace aplikace, prostřednictvím které byl prováděn
+K~práci jsou též
+přiloženy dvě přílohy. V~první z~nich jsou další grafy z~naměřených dat,
+v~druhé se nachází dokumentace aplikace, prostřednictvím které byl prováděn
 experiment a jejíž vznik byl součástí této práce.
 

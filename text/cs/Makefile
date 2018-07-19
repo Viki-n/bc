@@ -11,8 +11,12 @@ prace.pdf: prace.tex $(wildcard *.tex) literatura.bib prace.xmpdata $(wildcard *
 	texindy -L czech -M lang/czech/utf8 -M /media/sf_shared/bp/text/cs/instyle.xdy -o ~/prace.ind prace.idx
 	mv ~/prace.ind ./prace.ind
 	: xindy -M texindy -M indexstyle -C utf8 -L czech -o prace.ind prace.idx
-	pdflatex --sehll-escape $<
 	pdflatex --shell-escape $<
+	pdflatex --shell-escape $<
+
+quick: prace.tex $(wildcard *.tex) literatura.bib prace.xmpdata $(wildcard */*.pdf) $(wildcard */*.png)
+	pdflatex --shell-escape $<
+
 
 clean: tidy
 	rm -f prace.pdf

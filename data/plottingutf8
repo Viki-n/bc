@@ -1,6 +1,8 @@
+
+
 library(readr)
 
-data <- read_table2("C:/Users/l/Desktop/Shared/bp/data/csv/data.csv", 
+data <- read_table2("csv/data.csv", 
      col_types = cols(hit = col_logical()))
 
 library(tidyverse)
@@ -25,7 +27,7 @@ ggplot(aes(ucastnik,fixations,group=name,col=Skupina)) +
 	stat_summary() +
 	labs(x="Účastníci",y="Průměrný počet fixací",color="Skupina")
 
-ggsave("before_hit.eps",plot,device="eps",width = 6,height = 4,units=c("in"))
+ggsave("before_hit.pdf",plot,device=cairo_pdf,width = 6,height = 4,units=c("in"))
 
 plot <- fdata %>% 
 filter(phase=="before") %>% 
@@ -34,7 +36,7 @@ ggplot(aes(ucastnik,fixations,group=name,col=Skupina)) +
 	stat_summary() +
 	labs(x="Účastníci",y="Průměrný počet fixací",color="Skupina")
 
-ggsave("before_all.eps",plot,device="eps",width = 6,height = 4,units=c("in"))
+ggsave("before_all.pdf",plot,device=cairo_pdf,width = 6,height = 4,units=c("in"))
 
 
 plot <- fdata %>% 
@@ -44,7 +46,7 @@ ggplot(aes(ucastnik,fixations,group=name,col=Skupina)) +
 	stat_summary() +
 	labs(x="Účastníci",y="Průměrný počet fixací",color="Skupina")
 
-ggsave("after_hit.eps",plot,device="eps",width = 6,height = 4,units=c("in"))
+ggsave("after_hit.pdf",plot,device=cairo_pdf,width = 6,height = 4,units=c("in"))
 
 
 plot <- fdata %>% 
@@ -54,7 +56,7 @@ ggplot(aes(ucastnik,fixations,group=name,col=Skupina)) +
 	stat_summary() +
 	labs(x="Účastníci",y="Průměrný počet fixací",color="Skupina")
 
-ggsave("after_all.eps",plot,device="eps",width = 6,height = 4,units=c("in"))
+ggsave("after_all.pdf",plot,device=cairo_pdf,width = 6,height = 4,units=c("in"))
 
 
 
@@ -69,7 +71,7 @@ summarise(mn = sum(signmean)) %>%
 ggplot(aes(ucastnik,mn,col=Skupina)) + 
 	geom_point()
 
-ggsave("diff_hit.eps",plot,device="eps",width = 6,height = 4,units=c("in"))
+ggsave("diff_hit.pdf",plot,device=cairo_pdf,width = 6,height = 4,units=c("in"))
 
 
 
@@ -82,7 +84,7 @@ summarise(mn = sum(signmean)) %>%
 ggplot(aes(ucastnik,mn,col=Skupina)) + 
 	geom_point()
 
-ggsave("diff_all.eps",plot,device="eps",width = 6,height = 4,units=c("in"))
+ggsave("diff_all.pdf",plot,device=cairo_pdf,width = 6,height = 4,units=c("in"))
 
 
 
@@ -99,7 +101,7 @@ ggplot(aes(faze,fixations,group=Skupina,col=Skupina)) +
 	scale_x_discrete(limits=c("Před učením","Po učení"))
 
 
-ggsave("total_hit.eps",plot,device="eps",width = 6,height = 4,units=c("in"))
+ggsave("total_hit.pdf",plot,device=cairo_pdf,width = 6,height = 4,units=c("in"))
 
 
 
@@ -112,7 +114,7 @@ ggplot(aes(faze,fixations,group=Skupina,col=Skupina)) +
 	scale_x_discrete(limits=c("Před učením","Po učení"))
 
 
-ggsave("total_all.eps",plot,device="eps",width = 6,height = 4,units=c("in"))
+ggsave("total_all.pdf",plot,device=cairo_pdf,width = 6,height = 4,units=c("in"))
 
 
 
@@ -125,7 +127,7 @@ plot <- fdata %>%
     stat_summary() +
     labs(x="Účastníci",y="Hit rate",color="Skupina")
 
-ggsave("Hitrate_before.eps",plot,device="eps",width = 6,height = 4,units=c("in"))
+ggsave("Hitrate_before.pdf",plot,device=cairo_pdf,width = 6,height = 4,units=c("in"))
 
 plot <- fdata %>% 
     filter(phase=="after") %>% 
@@ -134,7 +136,7 @@ plot <- fdata %>%
     stat_summary() +
     labs(x="Účastníci",y="Hit rate",color="Skupina")
 
-ggsave("Hitrate_after.eps",plot,device="eps",width = 6,height = 4,units=c("in"))
+ggsave("Hitrate_after.pdf",plot,device=cairo_pdf,width = 6,height = 4,units=c("in"))
 
 
 
@@ -148,7 +150,7 @@ ggplot(aes(faze,hitnum,group=Skupina,col=Skupina)) +
 	labs(x="Fáze",y="Hit rate",color="Skupina") +	
 	scale_x_discrete(limits=c("Před učením","Po učení"))
 
-ggsave("Hitrate_total.eps",plot,device="eps",width = 6,height = 4,units=c("in"))
+ggsave("Hitrate_total.pdf",plot,device=cairo_pdf,width = 6,height = 4,units=c("in"))
 
 fdatatrain <- data %>% 
   mutate( ucastnik=paste(str_sub(name,1,1),str_sub(name,-1,100)),Skupina= (ifelse(group=="control", "Kontrolní", "Experimentální")),faze=ifelse(phase=="before","Před učením","Po učení"),hitnum = ifelse(hit,1,0)) %>%
@@ -159,7 +161,7 @@ plot <- fdatatrain %>%   ggplot(aes(x = trial, y = fixations, col = phase)) +
   facet_grid(str_sub(name,start =-1)~Skupina) +
   scale_color_discrete("Fáze" , labels = c("Před učením", "Po učení", "Učení")) + ylab("Fixace") + xlab("Úkol")
 
-ggsave("Fixations_grid.eps",plot,device="eps",width = 7,height = 8,units=c("in"))
+ggsave("Fixations_grid.pdf",plot,device=cairo_pdf,width = 7,height = 8,units=c("in"))
 
 fdata %>%
   ezANOVA(.,
@@ -168,3 +170,47 @@ fdata %>%
               between = group,
               dv = fixations, detailed = T) %>%
   anova_apa()
+
+
+plot <- fdata %>%
+  mutate(Skupina= (ifelse(group=="control", "Kontrolní", "Experimentální")),faze=ifelse(phase=="before","Pred ucenim","Po uceni")) %>%
+  ggplot(aes(faze,difficulty/1000,group=Skupina,col=Skupina)) +
+  stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = 0.2, position = pd) + 
+  stat_summary(position = pd)+stat_summary(geom="line",position = pd) +
+  labs(x="Fáze",y="Průměrný kontrast",color="Skupina") + 
+  scale_x_discrete(limits=c("Před učením","Po učení"))
+
+
+ggsave("difficulty_average.pdf",plot,device=cairo_pdf,width = 6,height = 4,units=c("in"))
+
+plot <- fdatatrain %>%   ggplot(aes(x = trial, y = difficulty/1000, col = phase)) +
+       geom_line(size=1) +
+       facet_grid(str_sub(name,start =-1)~Skupina)+ 
+  scale_color_discrete("Faze" , labels = c("Před učením", "Po učení", "Učení")) + ylab("Kontrast") + xlab("Úkol")
+
+ggsave("difficulty_grid_all.pdf",plot,device=cairo_pdf,width = 6,height = 8,units=c("in"))
+
+plot <- fdata %>% mutate(g=ifelse(phase=="after",1,0)) %>% 
+       ggplot(aes(ucastnik,fixations,group=g,col=faze)) +
+       stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = 0.2,position = position_dodge(0.5)) + 
+       stat_summary(position=position_dodge(0.5)) +
+       labs(x="Účastníci",y="Průměrný počet fixací",color="Fáze")
+
+ggsave("predpo_all.pdf",plot,device=cairo_pdf,width = 6,height = 4,units=c("in"))
+
+
+plot <- fdata %>% mutate(g=ifelse(phase=="after",1,0)) %>% 
+       ggplot(aes(str_sub(ucastnik,-1),fixations,group=g,col=faze)) +  facet_grid (vars(Skupina))+
+       stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = 0.2,position = position_dodge(0.5)) + 
+       stat_summary(position=position_dodge(0.5)) +
+       labs(x="Účastníci",y="Průměrný počet fixací",color="Fáze")
+
+ggsave("predpo_grid.pdf",plot,device=cairo_pdf,width = 6,height = 4,units=c("in"))
+
+plot <- fdatatrain %>% 
+      ggplot(aes(difficulty/1000,fixations)) + 
+      stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = 0.003) +
+      stat_summary() + ylab("Průměrný počet fixací") + xlab("Kontrast")
+
+ggsave("Kontrast_fix.pdf",plot,device=cairo_pdf,width = 6,height = 4,units=c("in"))
+
