@@ -309,10 +309,8 @@ class SettingsViewController: UITableViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
      if(State.dMapBeingUsed && !State.dMapActual){
-     let ac = UIAlertController(title: "Warning!", message: "d’ map was not recalculated after editing its parameters. Do not leave settings before having it recalculated.", preferredStyle: .alert)
-     ac.addAction(UIAlertAction(title: "OK", style: .default))
-     self.present(ac, animated: true)}
+     MakeDMap()
      }
-    
+    }
 
 }

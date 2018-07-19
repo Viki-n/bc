@@ -87,6 +87,7 @@ class ViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+        SetScreen(screen: "Game")
         if(State.ShowScore){
             State.RedrawOnClick = true
             State.ShowScore = false
@@ -109,7 +110,7 @@ class ViewController: UIViewController {
         } else {
             Redraw(ForcedBlank: true)
         }
-        SetScreen(screen: "Game")
+    
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
