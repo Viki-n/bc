@@ -1,17 +1,17 @@
 \newpage
 \sekcicka{Druhá příloha -- Dokumentace aplikace}
 
-V~této příloze stručně popovídáme o~aplikaci, která je součástí této práce. 
+V~této příloze stručně pojednáme o~aplikaci, která je součástí této práce. 
 
 \subsection*{Uživatelská dokumentace}
 
 Při spuštění aplikace se uživatel dostane na úvodní stránku, kde lze nastavit
-jméno účastníka, a lze z~ní příslušnými tlačítky pokračovat k~vlastnímu
+jméno účastníka. Z~ní lze příslušnými tlačítky pokračovat k~vlastnímu
 testování, do nastavení nebo na stránku s~popisem úkolu, který účastníka
 experimentu čeká.
 
-Na stránce s~popisem úkolu si uživatel může přečíst, co ho čeká. V~horní části
-obrazovky je vždy stručný popis části úkolu, a pod ní je šum, který tuto část
+Na stránce s~popisem úkolu si uživatel může přečíst, jak bude probíhat experiment. V~horní části
+obrazovky je vždy stručný popis části úkolu a pod ní je šum, který tuto část
 úkolu ilustruje. K~další části přejde kliknutím kamkoli na obrazovku. Délka
 ukázky se liší podle toho, zda má aktuální uživatel zapnutou zpětnou vazbu --
 v~takovém případě jsou na konec přidány ještě čtyři části popisující zvuk. Po
@@ -20,16 +20,17 @@ s~popisem úkolu dostal (tj. buď na úvodní stránku, nebo do nastavení).
 
 Na stránce s~nastavením je možné měnit mnoho různých parametrů vyhledávání. Pro
 replikaci experimentu tak, jak byl prováděn v~této práci, stačí pouze nastavit
-jméno, zpětnou vazbu a v~ostatních parametrech nechat defaultní hodnoty.
+jméno, zpětnou vazbu a v~ostatních parametrech nechat výchozí hodnoty.
 Následující tabulka však nabízí popis toho, co přesně které nastavítko ovládá.
 U~všech nastavítek, u~nichž se ovládá velikost něčeho,
-se hodnota nastavuje v~pixelech šumu.
+se hodnota nastavuje v~pixelech obrázku.
 \bigskip
 
 {
+\newcolumntype{R}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 \renewcommand{\arraystretch}{2}
 \rowcolors{2}{gray!25}{white}
-\begin{longtable}{p{0.25\textwidth}p{0.7\textwidth}}
+\begin{longtable}{R{0.25\textwidth}p{0.7\textwidth}}
 \hline
 \hline
 \rowcolor{white}
@@ -80,11 +81,11 @@ Regenerate noise & Návrat k~měření se zapnutou touto možností způsobí ko
 restart současného úkolu, včetně přegenerování šumu a lokace Gabor patche.
 Vhodné zapnout, pokud jsme měnili některá jiná nastavení. \\
 
-Preview & Přesune uživatele na stránku s~popisem úkolu. \\ 
+Preview & Tlačítko, které přesune uživatele na stránku s~popisem úkolu. \\ 
 
-Start game & Zobrazí obrazovku s~experimentem. \\
+Start game & Tlačítko, které zobrazí obrazovku s~experimentem. \\
 
-Back to main menu & Návrat na úvodní obrazovku. \\
+Back to main menu & Tlačítko sloužící k návratu na úvodní obrazovku. \\
 
 Trials in first and third test & Počet úkolů  v~prvním a třetím testu. \\
 
@@ -112,10 +113,10 @@ přímočarým způsobem konstanty $d'$ mapy tak, jak jsou popsány v~kapitole, 
 se jí věnuje. Hodnoty $d'_0$ a $\beta$ je nutné zadávat vynásobené stem. \\
 
 Recalculate $d'$ map & Po změně parametrů $d'$ mapy přepočítá pomocné datové
-struktury. Bez stlačení tohoto tlačítka by nemělo být možné po editaci konstant
-opustit nastavení. Přepočítávání se neděje automaticky po změně libovolné
+struktury. Přepočítávání se neděje automaticky po změně libovolné
 hodnoty, protože může trvat až několik vteřin a často je potřeba změnit více
-konstant současně. \\
+konstant současně. Struktury se v případě, že byly konstanty změněny ale toto
+tlačítko nebylo stlačeno, přepočítají automaticky při opuštění nastavení.  \\
 
 Use $d'$ map & Rozhoduje o~tom, zda bude pro odkrývání šumu použita maska
 spočítaná z~$d'$ mapy, nebo Raised cosine.\\
@@ -164,16 +165,16 @@ do experimentu od administrátora byl, že bude sledovat počet uskutečněných
 úkolů (napsaný spolu s~dalšími důležitými hodnotami v~horní části obrazovky) a
 upozorní účastníka, když má experiment končit. Aplikace sama postupně mění
 obtížnost, dává zvukovou zpětnou vazbu v~situacích, kdy má, a restartuje
-obtížnost na defaultní hodnotu na začátku druhého a třetího úkolu.
+obtížnost na počáteční hodnotu na začátku druhého a třetího úkolu.
 
 \subsection*{Programátorská dokumentace}
 
 Aplikace je napsána v~jazyce Swift, který je určený pro psaní nativně běžících
-aplikací pro operační systém iOS. Je určená na zařízení iPad Air.
+aplikací pro operační systém iOS. Je určená na zařízení iPad air.
 
 V~této sekci stručně přiblížíme dva netriviální algoritmy, které se v~aplikaci
 vyskytují Bude se jednat o~výpočet očekávaného snížení entropie v~rámci
-simulace ELM pozorovatele, a generování růžového šumu.
+simulace ELM pozorovatele a generování růžového šumu.
 
 V~obou těchto algoritmech je potřeba generovat náhodná čísla s~normálním
 rozdělením. Na to použijeme funkci {\tt GKGaussianDistribution.nextUniform()},
@@ -190,7 +191,7 @@ ELM \index{ELM pozorovatel} byl v~práci vytvořen přesně tak, jak byla jeho s
 
 To znamená, že při fixaci bodu $x$  dostane z~každé lokace $y$ jako pozorování reálné
 číslo, které je náhodně vybrané z~normálního rozdělení, jehož střední hodnota
-je $-0.5$, pokud se cíl v~daném bodě nenachází, a $0.5$ pokud ano. Směrodatná
+je $-0.5$, pokud se cíl v~daném bodě nenachází, a $0.5$, pokud ano. Směrodatná
 odchylka tohoto rozdělení je rovna hodnotě $d'(y-x)$\index{d'@$d'$}. Poté
 spočítá veškerou informaci, kterou již o~jednotlivých lokacích dostal, jako
 součet odpovědí, které dostal při předchozích fixacích, vynásobený druhými
@@ -226,20 +227,20 @@ této hodnoty. V~případě, kdy by tato hodnota vyšla jako nekonečno, můžem
 hodnotu prostě zahodit (zdůvodnění tohoto tvrzení dále vyplyne z~algoritmu) a
 použít libovolnou. Výběr střední hodnoty vychází z~definice růžového šumu,
 odchylka byla zvolena při testování kvůli výše uvedeným vlastnostem náhodného
-generátoru (nemůže se nám stát, že by vyšla záporná absolutní hodnota), a byla
+generátoru (nemůže se nám stát, že by vyšla záporná absolutní hodnota) a byla
 na této hodnotě ponechána, protože algoritmus dával vizuálně žádoucí výsledky a
 definice růžového šumu ji nespecifikuje.
 
 Na takto vytvořené pole zavoláme (zpětnou, ale ve skutečnosti na tom nezáleží)
-dvojrozměrnou rychlou Fourierovu transformaci\footnote{Dvojrozměrná diskrétní
+dvojrozměrnou rychlou Fourierovu transformaci.\footnote{Dvojrozměrná diskrétní
 Fourierova transformace je Fourierova transformace nejprve provedená po řádcích
-a potom po sloupcích.}.  Výsledkem je růžový šum. My ho ale potřebujeme být
+a potom po sloupcích.}  Výsledkem je růžový šum. My ho ale potřebujeme být
 schopni zobrazit. Nejprve tedy zahodíme imaginární složku komplexních čísel.
 Poté spočítáme jeho průměr a směrodatnou odchylku a uplatníme na něj lineární
 transformaci takovou, aby jeho střední hodnota byla 128 a směrodatná odchylka
 64. Nakonec záporné hodnoty nastavíme na nulu a hodnoty převyšující 255 na 255.
 Nakonec nastavíme na 128 ty pixely, jejichž (eukleidovská) vzdálenost od středu
-obrazu je větší, než $n/2$, čímž dosáhneme toho, že výsledné pole bude kruhové.
+obrazu je větší než $n/2$, čímž dosáhneme toho, že výsledné pole bude kruhové.
 Výsledné pole interpretujeme jako černobílý obraz s~osmi bity na pixel.
 
 
@@ -255,9 +256,9 @@ transformaci, z~nultého bodu se stane hodnota, která se násobí pouze jednič
 tedy ji beze změny přičteme ke každé hodnotě. Protože ale potom stejně šum
 lineárně transformujeme, aby měl správnou střední hodnotu a směrodatnou
 odchylku, žádná předchozí nekonstantní lineární transformace výstup neovlivní
-(nebo alespoň ne více, než tím, že způsobí nějaké nechtěné
-zaokrouhlování\footnote{V algoritmu je komplexní číslo reprezentováno pomocí
-dvou hodnot typu {\tt Double}.}, to ale nebude mít v~praxi významný vliv).
+(nebo alespoň ne více než tím, že způsobí nějaké nechtěné
+zaokrouhlování. V algoritmu je komplexní číslo totiž reprezentováno pomocí
+dvou hodnot typu {\tt Double}. To ale nebude mít v~praxi významný vliv).
 
 Pro generování jiného z~šumů, o~kterých se mluví v~sekci o~barvách šumu, stačí 
 ve vzorci \eqref{Pink} vynásobit hodnotu $-2$ v~exponentu příslušnou hodnotou $\beta$.

@@ -86,6 +86,7 @@
 \end{filecontents*}
 \usepackage{longtable}
 \usepackage{multirow}
+\usepackage{array}
 %%% Údaje o práci
 
 \def\problemy{{\noindent\bf Problémy}\par\bigskip}
@@ -140,18 +141,39 @@ Poděkování.
 % Abstrakt (doporučený rozsah cca 80-200 slov; nejedná se o zadání práce)
 \def\Abstrakt{%
 
-Zrakové vyhledávání je činnost, kterou vykonáváme mnohokrát denně. Najemnik a
-Geisler ve svých pracech \citeyearpar{Najemnik05,Najemnik08, Najemnik09} ukázali,
-že lidé neumí zrakem vyhledávat optimálně, a představili několik modelů
-ideálních pozorovatelů pro jednu konkrétní úlohu zrakového vyhledávání. V této práci se pokusíme ukázat, že pokud budou lidé
-dostávat zpětnou vazbu od jednoho z modelů ideálních pozorovatelů, naučí se  
-tuto úlohu řešit během daného počtu pokusů lépe než bez této zpětné vazby. Výstupem práce je,
-že efekt zpětné vazby je nejspíše velký a pokračování tohoto výzkumu určitě
-má smysl, žádný netriviální výsledek se nám ale kvůli malému vzorku nepodaří prokázat statisticky
-významně.  
+Vyhledávání objektů v komplexním prostředí je činnost, kterou vykonáváme
+mnohokrát denně. Najemnik a Geisler ve svých pracech
+\citeyearpar{Najemnik05,Najemnik08, Najemnik09} ukázali, že lidé neumí zrakem
+vyhledávat optimálně, a představili několik modelů ideálních pozorovatelů pro
+jednu konkrétní úlohu zrakového vyhledávání. V této práci jsme se pokusili
+ukázat, že pokud budou lidé dostávat zpětnou vazbu od jednoho z modelů
+ideálních pozorovatelů, naučí se tuto úlohu řešit během daného počtu pokusů
+lépe než bez této zpětné vazby.  Žádný netriviální výsledek se nám kvůli malému
+vzorku sice nepodařilo prokázat statisticky významně, ale data naznačují, že
+zpětná vazba skutečně má pozitivní vliv na učení a ve výzkumu má smysl
+pokračovat.
+
+K experimentu vznikla také aplikace, s jejíž pomocí byl experiment prováděn.
+V ní je možné krom experimentu též zkoušet své schopnosti zrakového vyhledávání
+formou hry.
+
 }
 \def\AbstraktEN{%
-Abstract.
+Searching for objects in a complex environment is an activity we do many times
+each day. Najemnik and Geisler \citeyearpar{Najemnik05,Najemnik08, Najemnik09}
+showed in their work that people do not perform optimally, and devised multiple
+ideal observer models for one particular visual search task.  In this thesis we
+tried to show that if people get feedback from one of the ideal observer
+models, they learn to solve the task better during a given amount of trials
+than they would without the feedback. We were unable to prove any nontrivial
+result with statistical significance due to a small sample size, but the data
+suggests that the feedback indeed has a positive effect on the learning, and
+that the continuation of the research is justified.
+
+An iOS application necessary for the experiment was created as a part of the
+thesis. Aside from the experiment itself, one can also use it to play a visual
+search testing game.
+
 }
 
 % 3 až 5 klíčových slov (doporučeno), každé uzavřeno ve složených závorkách
@@ -159,7 +181,7 @@ Abstract.
 {Ideální Bayesovský pozorovatel} {Zrakové vyhledávání} {Percepční učení}
 }
 \def\KlicovaSlovaEN{%
-{key} {words}
+{Perceptual learning} {Ideal Bayesian observer} {Visual search}
 }
 
 %% Balíček hyperref, kterým jdou vyrábět klikací odkazy v PDF,

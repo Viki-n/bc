@@ -80,27 +80,48 @@ pečlivě kontroluje prostředí (například se zatemňuje místnost, v níž s
 
 \end{itemize}
 
-Za zásadní chybu naopak
-nepovažujeme malý počet účastníků -- kdybychom chtěli na této práci postavit
-přesný experiment, nebylo by potřeba zvyšovat počet účastníků. Jinou, v oblasti
-psychofyziky často preferovanou cestou, je pokusit se co nejvíce minimalizovat vliv vnějšího šumu a provádět více měření
-měření na jednotlivých účastnících. To bychom mohli uskutečnit například tak, že bychom vícekrát opakovali
-první a třetí test. Přístupu, kdy zkoumáme malý počet účastníků, ale provádíme mnoho co nejpřesnějších měření, se říká small-$N$ design. O jeho výhodách pojednává ve svém článku \citet{SmallN}. Kdybychom se však rozhodli raději pro Large-$N$ design, mohli
-bychom většinu ostatních parametrů experimentu ponechat, ale bylo by potřeba
-přinejmenším o řád více účastníků.
+Za zásadní chybu naopak nepovažujeme malý počet účastníků -- kdybychom chtěli
+na této práci postavit přesný experiment, nebylo by potřeba zvyšovat počet
+účastníků. Jinou, v oblasti psychofyziky často preferovanou cestou, je pokusit
+se co nejvíce minimalizovat vliv vnějšího šumu a provádět více měření měření na
+jednotlivých účastnících. To bychom mohli uskutečnit například tak, že bychom
+vícekrát opakovali první a třetí test. Přístupu, kdy zkoumáme malý počet
+účastníků, ale provádíme mnoho co nejpřesnějších měření, se říká small-$N$
+design. O jeho výhodách pojednává ve svém článku \citet{SmallN}. Kdybychom se
+však rozhodli raději pro Large-$N$ design, mohli bychom většinu ostatních
+parametrů experimentu ponechat, ale bylo by potřeba přinejmenším o řád více
+účastníků.
 
 V průběhu měření se ukázala jedna chyba v návrhu experimentu, kterou by
 bylo při pokračování ve výzkumu vhodné odstranit bez ohledu na to, zda bychom
 zvolili small-$N$ či large-$N$ design. 
 
 V aplikaci, pomocí níž byl experiment prováděn, byl naimplementován model obecný
-model pozorovatele tak, jak je popsán v článku \citep{Najemnik05}. Tento model funguje tak, že pozorovatel dostane po fixaci z každé lokace odpověď, která je číslem náhodně vygenerovaným z normálního rozdělení. Střední hodnota tohoto rozdělení závisí na tom, zda je v dané lokaci cíl přítomen nebo ne, směrodatná odchylka závisí na hodnotě $d'$, kterou tato lokace zhledem k zafixované lokaci má. Takto získané odpovědi potom model použil k update mapy posteriorních pravděpodobností.
+model pozorovatele tak, jak je popsán v článku \citep{Najemnik05}. Tento model
+funguje tak, že pozorovatel dostane po fixaci z každé lokace odpověď, která je
+číslem náhodně vygenerovaným z normálního rozdělení. Střední hodnota tohoto
+rozdělení závisí na tom, zda je v dané lokaci cíl přítomen nebo ne, směrodatná
+odchylka závisí na hodnotě $d'$, kterou tato lokace zhledem k zafixované lokaci
+má. Takto získané odpovědi potom model použil k update mapy posteriorních
+pravděpodobností.
 
 Tento přístup dává smysl v případě, kdy je naším cílem skutečně simulovat
 reálného pozorovatele. Reálnému pozorovateli se stejně jako takto simulovanému
 občas stane, že vjem z nějaké lokace (typicky dále od místa, které zafixoval,
 kde hodnota $d'$ není příliš vysoká) nesprávně vyhodnotí jako pravděpodobnou lokaci
-cíle. V takovém případě je samozřejmě racionální následující fixací zkontrolovat, zda se tam cíl skutečně nachází. Problém nastává ve chvíli, kdy se takovéhle zavádějící pozorování stane simulovanému pozorovateli, ne však pozorovateli reálnému. Simulovaný pozorovatel potom svou zpětnou vazbou trvá na tom, že místo, kde si myslí, že zaznamenal cíl, je nejvhodnější k další fixaci, často s velkým rozdílem oproti ostatním lokacím. V takové situaci je zpětná vazba modelu ELM vyloženě matoucí. 
+cíle. V takovém případě je samozřejmě racionální následující fixací
+zkontrolovat, zda se tam cíl skutečně nachází. Problém nastává ve chvíli, kdy
+se takovéhle zavádějící pozorování stane simulovanému pozorovateli, ne však
+pozorovateli reálnému. Simulovaný pozorovatel potom svou zpětnou vazbou trvá na
+tom, že místo, kde si myslí, že zaznamenal cíl, je nejvhodnější k další fixaci,
+často s velkým rozdílem oproti ostatním lokacím. V takové situaci je zpětná
+vazba modelu ELM vyloženě matoucí. 
 
-Při opakování experimentu by tedy bylo vhodnější implementovat ELM pozorovatele tak, aby si myslel, že dostává od modelu odpovědi vybrané z příslušných distribucí, ve skutečnosti by ale dostával pouze dvě možné konstanty, jednu z lokací, kde cíl není, a druhou z lokace, kde je. Takto naimplementovaný pozorovatel by se stále choval dostatečně podobně reálným pozorovatelům, aby dávalo smysl snažit se naučit lidského pozorovatele jeho strategii, ale zmenšil by se rozptyl mezi vnitřním šumem pozorovatele a vnitřním šumem modelu.
+Při opakování experimentu by tedy bylo vhodnější implementovat ELM pozorovatele
+tak, aby si myslel, že dostává od modelu odpovědi vybrané z příslušných
+distribucí, ve skutečnosti by ale dostával pouze dvě možné konstanty, jednu z
+lokací, kde cíl není, a druhou z lokace, kde je. Takto naimplementovaný
+pozorovatel by se stále choval dostatečně podobně reálným pozorovatelům, aby
+dávalo smysl snažit se naučit lidského pozorovatele jeho strategii, ale zmenšil
+by se rozptyl mezi vnitřním šumem pozorovatele a vnitřním šumem modelu.
 
