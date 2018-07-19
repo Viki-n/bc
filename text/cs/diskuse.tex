@@ -54,11 +54,11 @@ Naměřené hodnoty mají také poměrně vysoký rozptyl. Proto teď popíšeme
 experimentu, které mohly k~vysokému rozptylu přispět.
 
 Vjemy lidského pozorovatele neodpovídají příliš dobře vjemům simulovaného
-ideálního pozorovatele. Aby se tyto vjemy alespoň přibližně odpovídaly, museli
+ideálního pozorovatele. Aby si tyto vjemy alespoň přibližně odpovídaly, museli
 bychom každému pozorovateli změřit jeho vlastní $d'$ mapu. Měření $d'$ mapy ale
 i  v~té nejminimalističtější variantě, která se používá, trvá nejméně jeden
 pracovní den. Druhým důvodem, proč mohou být vjemy rozdílné i v~případě, že by
-konstanty $d'$ mapy vyšly pozorovateli stejně, jako ty, které byly použity, je, že tato
+konstanty $d'$ mapy vyšly pozorovateli stejně jako ty, které byly použity, je, že tato
 naměřená $d'$ mapa odpovídá situaci, kdy je scéna se šumem umístěna tak daleko
 od pozorovatele, aby ji viděl pod zorným úhlem $15^\circ$. To při velikosti
 scény v~našem případě odpovídá vzdálenosti pozorovatele a zařízení přibližně
@@ -94,13 +94,13 @@ fixuje bez použití eyetrackeru nebo jiných podobných technologií.
 Zpomalení celého procesu výběru fixace přináší ale i jednu komplikaci. V~případě, kdy
 účastník provádí jednu fixaci za $300\operatorname{ms}$, nestíhá nad svou
 strategií volení fixací přemýšlet. To znamená, že zlepšení strategie je
-skutečně způsobeno převážně percepčním učením. V~našem experimentu si však
+skutečně způsobeno převážně percepčním učením. V~našem experimentu však
 účastníci mohli nad každou další fixací přemýšlet, je tedy pravděpodobné, že
 docházelo vedle možného percepčního učení  i ke kognitivnímu učení. Percepční
 učení se však v~experimentu odehrálo určitě též.  Během experimentu se u~účastníků zjevně podstatně zlepšila jejich senzitivita, ke konci experimentu
 byli schopní odhalit cíl s~výrazně nižším kontrastem, než na jeho počátku.
 
-Kdybychom tedy chtěli měřit výhradně efekt percepčního učení, museli bychom
+Kdybychom tedy chtěli měřit výhradně efekt percepčního učení, museli by\-chom
 experiment dělat bez zakrývání šumu, tedy nejspíše s~eyetrackerem. Bylo by
 také nutné vymyslet nový systém podávání zpětné vazby. Ve verzi s~eyetrackerem je totiž
 potřeba zprostředkovat uživateli zpětnou vazbu na výběr lokace k~fixaci přibližně třikrát až čtyřikrát 
@@ -122,7 +122,7 @@ jednotlivých účastnících. To bychom mohli uskutečnit například tak, že 
 vícekrát opakovali první a třetí test. Přístupu, kdy zkoumáme malý počet
 účastníků, ale provádíme mnoho co nejpřesnějších měření, se říká small-$N$
 design. O~jeho výhodách pojednává ve svém článku \citet{SmallN}. Kdybychom se
-však rozhodli raději pro Large-$N$ design, mohli bychom většinu ostatních
+však rozhodli raději pro large-$N$ design, mohli bychom většinu ostatních
 parametrů experimentu ponechat, ale bylo by potřeba přinejmenším o~řád více
 účastníků.
 
@@ -130,7 +130,7 @@ V~průběhu měření se ukázala jedna chyba v~návrhu experimentu, kterou by
 bylo při pokračování ve výzkumu vhodné odstranit bez ohledu na to, zda bychom
 zvolili small-$N$ či large-$N$ design. 
 
-V~aplikaci, pomocí níž byl experiment prováděn, byl naimplementován model obecný
+V~aplikaci, pomocí níž byl experiment prováděn, byl naimplementován 
 model pozorovatele tak, jak je popsán v~článku \citep{Najemnik05}. Tento model
 funguje tak, že pozorovatel dostane po fixaci z~každé lokace odpověď, která je
 číslem náhodně vygenerovaným z~normálního rozdělení. Střední hodnota tohoto
@@ -160,6 +160,15 @@ dávalo smysl snažit se naučit lidského pozorovatele jeho strategii, ale zmen
 by se rozptyl mezi vnitřním šumem pozorovatele a vnitřním šumem modelu.
 
 Nakonec si povšimneme dvou vlastností dat, které nejsou nijak překvapivé, ale
-přesto by nebylo vhodné je opomenout. Z~druhého grafu v~příloze (viz obrázek \ref{fixgrid}) je vidět, že ve třetím testu se většina účastníků postupně zhoršovala. To je způsobeno tím, že byli zvyklí na nižší kontrast, a proto jim při návratu na výchozí kontrast přišly úlohy jednoduché. Proto se jim však kontrast zase rychle snížil, ke konci třetího testu se opět přiblížili ke svému rovnovážnému kontrastu a tedy ke stavu, kdy splní právě polovinu úkolů do šesti fixací.
+přesto by nebylo vhodné je opomenout. Z~druhého grafu v~příloze (viz obrázek~\ref{fixgrid}) je vidět, že ve třetím testu se většina účastníků postupně
+zhoršovala. To je způsobeno tím, že byli zvyklí na nižší kontrast, a proto jim
+při návratu na výchozí kontrast přišly úlohy jednoduché. Proto se jim však
+kontrast zase rychle snížil, ke konci třetího testu se opět přiblížili ke svému
+rovnovážnému kontrastu, a tedy ke stavu, kdy splní právě polovinu úkolů do šesti
+fixací.
 
-Ze třetího grafu (viz obrázek \ref{diffgrid}) je pak vidět, že kontrast fungoval přesně tak, jak jsme zamýšleli -- účastníkům se nejprve snižoval, poté dosáhli na svůj rovnovážný kontrast (což dobře ilustruje například pátý pozorovatel v~experimentální skupině, nebo o~něco extrémněji druhý v~kontrolní) a dále se nezlepšovali, či nezlepšovali příliš rychle. 
+Ze třetího grafu (viz obrázek \ref{diffgrid}) je pak vidět, že kontrast
+fungoval přesně tak, jak jsme zamýšleli -- účastníkům se nejprve snižoval, poté
+dosáhli na svůj rovnovážný kontrast (což dobře ilustruje například pátý
+pozorovatel v~experimentální skupině, nebo o~něco extrémněji druhý v~kontrolní)
+a dále se kontrast neměnil, či neměnil příliš rychle. 
